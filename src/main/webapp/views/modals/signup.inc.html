@@ -1,0 +1,115 @@
+<div class="container">
+	<!-- Modal -->
+	<div class="modal fade" tabindex="-1" id="signupModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="signupModalLabel">
+						<i class="fa fa-fw fa-user-circle"></i> Sign Up
+					</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form role="form" onsubmit="return signup(this)" method="post"
+					id="signupForm">
+					<div class="modal-body">
+						<!-- <form role="form" onsubmit="return signup(this)" method="post"> -->
+						<label class="control-label" for="usrname"><i
+							class="fa fa-fw fa-user"></i> Username</label>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="fname"
+									placeholder="Enter First Name" required minlength="3" autofocus>
+							</div>
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="lname"
+									placeholder="Enter Last Name" required minlength="3">
+							</div>
+						</div>
+						<div class="form-group has-feedback" id="email-holder">
+							<label class="control-label" for="email"> <i
+								class="fa fa-fw fa-envelope"></i> Email <span
+								class="feedback-label"></span>
+							</label> <input type="email" class="form-control" name="email"
+								placeholder="Enter Email" required id="email"> <i
+								class="form-control-feedback fa"></i>
+						</div>
+						<div class="form-group has-feedback" id="pwd-holder">
+							<label class="control-label" for="psw"> <i
+								class="fa fa-fw fa-eye-slash"></i> Password <span
+								class="feedback-label"></span>
+							</label> <input type="password" class="form-control" name="psw"
+								placeholder="Enter password" required id="pwd" minlength="4"
+								maxlength="30"> <i class="form-control-feedback fa"></i>
+						</div>
+						<div class="form-group has-feedback" id="repwd-holder">
+							<label class="control-label" for="repsw"> <i
+								class="fa fa-fw fa-eye-slash"></i> Retype Password <span
+								class="feedback-label"></span>
+							</label> <input type="password" class="form-control" name="repsw"
+								placeholder="Retype password" required id="repwd" minlength="4"
+								maxlength="30"> <i class="form-control-feedback fa"></i>
+						</div>
+						<div id="passordErrorHolder"></div>
+						<div class="form-group row">
+							<div class="col-md-3">
+								<label class="control-label"> <i
+									class="fa fa-fw fa-mars" id="g_l"></i> Gender
+								</label>
+							</div>
+							<div class="col-md-9">
+								<label class="radio-inline"> <input type="radio"
+									name="gender" value="male" required checked
+									onclick="$('#g_l').removeClass('fa-venus');$('#g_l').addClass('fa-mars');">
+									Male
+								</label> <label class="radio-inline"> <input type="radio"
+									name="gender" value="female" required
+									onclick="$('#g_l').removeClass('fa-mars');$('#g_l').addClass('fa-venus');">
+									Female
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="cont"><i
+								class="fa fa-fw fa-phone"></i> Contact Number</label> <input type="text"
+								class="form-control" name="cont" placeholder="Enter Contact"
+								required>
+						</div>
+						<label class="control-label" for="cont"><i
+							class="fa fa-fw fa-map-signs"></i> Address</label>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="street"
+									placeholder="Enter Street Number" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="town"
+									placeholder="Enter Town Name" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="city"
+									placeholder="Enter City" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="state"
+									placeholder="Enter State" required>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit"
+							class="btn btn-default btn-success btn-block" name="submit_btn">
+							<span class="fa fa-fw fa-check"></span> Submit
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
