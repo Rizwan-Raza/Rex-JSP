@@ -14,11 +14,13 @@
 <br>
 <div class="container admin-section">
 	<div class="alert alert-success text-center fade in">
-		<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		<label>Welcome to Client Panel Dummy User <%=session.getAttribute("fname") %>! </label>
+		<a class="close" data-dismiss="alert" aria-label="close">&times;</a> <label>Welcome
+			to Client Panel Dummy User <%=session.getAttribute("fname") %>!
+		</label>
 	</div>
 	<ul class="nav nav-tabs nav-justified">
-		<li class="active"><a data-toggle="tab" href="#buy-property">Buy Property</a></li>
+		<li class="active"><a data-toggle="tab" href="#buy-property">Buy
+				Property</a></li>
 		<li><a data-toggle="tab" href="#sell-property">Sell Property</a></li>
 		<li><a data-toggle="tab" href="#my-property">My Properties</a></li>
 		<li><a data-toggle="tab" href="#wishlist">WishList</a></li>

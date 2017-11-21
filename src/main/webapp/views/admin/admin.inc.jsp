@@ -23,16 +23,17 @@
 <br>
 <div class="container">
 	<div class="alert alert-success text-center fade in">
-		<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		<label>Welcome to Admin Panel Dummy User ! </label>
+		<a class="close" data-dismiss="alert" aria-label="close">&times;</a> <label>Welcome
+			to Admin Panel Dummy User ! </label>
 	</div>
 	<ul class="nav nav-tabs nav-justified">
 		<li class="active"><a data-toggle="tab" href="#clients">Clients</a></li>
 		<li><a data-toggle="tab" href="#posts">Posted Properties</a></li>
-		<li><a data-toggle="tab" href="#requires">Requested Properties</a></li>
+		<li><a data-toggle="tab" href="#requires">Requested
+				Properties</a></li>
 		<li>
-			<!-- <a data-toggle="tab" href="#map">Google Map</a> -->
-			<a>Google Map</a>
+			<!-- <a data-toggle="tab" href="#map">Google Map</a> --> <a>Google
+				Map</a>
 		</li>
 	</ul>
 
@@ -44,7 +45,8 @@
 		?> -->
 		<div id="map" class="tab-pane fade">
 			<h3>Google API Map containing Properties marks</h3>
-			<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+			<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+				accusantium doloremque laudantium, totam rem aperiam.</p>
 			<br>
 			<!-- <?php print_r($_SESSION); ?> -->
 		</div>

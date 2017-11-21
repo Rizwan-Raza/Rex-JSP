@@ -27,18 +27,22 @@
 			if (session.getAttribute("log") == null) {
 		%>
 		<ul class="navbar-nav ml-auto mt-2 my-lg-0">
-			<li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#signupModal"><i class="fa fa-fw fa-user"></i>
-					Sign Up</a></li>
-			<div class="dropdown">
+			<li class="nav-item"><a class="nav-link" data-toggle="modal"
+				data-target="#signupModal"><i class="fa fa-fw fa-user"></i> Sign
+					Up</a></li>
+			<li class="dropdown">
 				<button class="btn btn-success dropdown-toggle" type="button"
 					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">Login</button>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" data-toggle="modal" data-target="#clientLoginModal"><i class="fa fa-fw fa-user"></i>
-						Client Login</a> <a class="dropdown-item" data-toggle="modal" data-target="#adminLoginModal"><i
+				<div class="dropdown-menu dropdown-menu-right"
+					aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" data-toggle="modal"
+						data-target="#clientLoginModal"><i class="fa fa-fw fa-user"></i>
+						Client Login</a> <a class="dropdown-item" data-toggle="modal"
+						data-target="#adminLoginModal"><i
 						class="fa fa-fw fa-user-secret"></i> Admin Login</a>
 				</div>
-			</div>
+			</li>
 		</ul>
 		<%
 			} else {
