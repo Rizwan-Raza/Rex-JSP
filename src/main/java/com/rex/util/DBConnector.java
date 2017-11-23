@@ -16,7 +16,13 @@ public class DBConnector {
 			db.load(getClass().getClassLoader().getResourceAsStream("db.properties"));
 			Class.forName(db.getProperty("driver"));
 			conn = DriverManager.getConnection(db.getProperty("url"), db);
-		} catch (IOException | SQLException | ClassNotFoundException e) {
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
