@@ -15,7 +15,7 @@ public class SignUpModal {
 		conn = (new DBConnector()).getConnection();
 		try {
 			stmt = conn.prepareStatement(
-					"INSERT INTO clients ('firtsname', 'lastname', 'email', 'passowrd', 'gender', 'contact' 'strret_no', 'town', 'city', 'state') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					"INSERT INTO clients ('firstname', 'lastname', 'email', 'password', 'gender', 'contact', 'street_no', 'town', 'city', 'state') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

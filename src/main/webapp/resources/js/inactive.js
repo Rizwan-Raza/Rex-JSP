@@ -117,7 +117,7 @@ function emailChecker() {
 	if (email.length > 8 && email.search("@") != -1) {
 		$.ajax({
 			type: 'POST',
-			url: "actions/email-checker.php",
+			url: "emailChecker",
 			dataType: 'html',
 			async: true,
 			data: {

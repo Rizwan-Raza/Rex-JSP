@@ -14,9 +14,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-<!-- 				<form role="form" onsubmit="return signup(this)" method="post" -->
-<!-- 					id="signupForm" class="was-validated"> -->
-				<form role="form" method="post"
+				<form role="form" onsubmit="return signup(this)" method="post"
 					id="signupForm">
 					<div class="modal-body">
 						<!-- <form role="form" onsubmit="return signup(this)" method="post"> -->
@@ -60,7 +58,10 @@
 							</label> <input type="password" class="form-control" name="repsw"
 								placeholder="Retype password" required id="repwd" minlength="4"
 								maxlength="20" pattern="^[a-zA-Z0-9_]*$">
-							<div class="invalid-feedback"><strong>Password Mismatch!</strong> Please enter same password.</div>
+							<div class="invalid-feedback">
+								<strong>Password Mismatch!</strong> Please enter same password.
+							</div>
+							<div class="valid-feedback">Password Matched!</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-md-3">
