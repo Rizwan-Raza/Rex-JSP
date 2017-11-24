@@ -12,12 +12,12 @@ $(document).ready(function() {
 	$("#repwd").focusout(function () {
 		clearTimeout(pass);
 	});
-	$("#signupForm #email").focusin(function () {
-		pass = setInterval(emailChecker, 200);
-	});
-	$("#signupForm #email").focusout(function () {
-		clearTimeout(pass);
-	});
+//	$("#signupForm #email").focusin(function () {
+//		pass = setInterval(emailChecker, 200);
+//	});
+//	$("#signupForm #email").focusout(function () {
+//		clearTimeout(pass);
+//	});
 
 	$("#range-all").click(function(){
 		$("#amount").toggle("slow");
@@ -117,7 +117,7 @@ function emailChecker() {
 	if (email.length > 8 && email.search("@") != -1) {
 		$.ajax({
 			type: 'POST',
-			url: "emailChecker",
+			url: "EmailChecker",
 			dataType: 'html',
 			async: true,
 			data: {

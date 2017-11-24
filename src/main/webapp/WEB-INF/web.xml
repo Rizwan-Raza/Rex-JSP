@@ -1,20 +1,33 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+    version="3.1">
 	<display-name>Archetype Created Web Application</display-name>
 	<servlet>
 		<servlet-name>Example</servlet-name>
-		<display-name>Example</display-name>
-		<description></description>
 		<servlet-class>Example</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>SignUpController</servlet-name>
-		<display-name>SignUpController</display-name>
-		<description></description>
 		<servlet-class>com.rex.controller.SignUpController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ClientLoginController</servlet-name>
+		<servlet-class>com.rex.controller.ClientLoginController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AdminLoginController</servlet-name>
+		<servlet-class>com.rex.controller.AdminLoginController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EmailChecker</servlet-name>
+		<servlet-class>com.rex.controller.EmailChecker</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LogoutController</servlet-name>
+		<servlet-class>com.rex.controller.LogoutController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Example</servlet-name>
@@ -23,5 +36,21 @@
 	<servlet-mapping>
 		<servlet-name>SignUpController</servlet-name>
 		<url-pattern>/SignUp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientLoginController</servlet-name>
+		<url-pattern>/ClientLogin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminLoginController</servlet-name>
+		<url-pattern>/AdminLogin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EmailChecker</servlet-name>
+		<url-pattern>/EmailChecker</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LogoutController</servlet-name>
+		<url-pattern>/Logout</url-pattern>
 	</servlet-mapping>
 </web-app>

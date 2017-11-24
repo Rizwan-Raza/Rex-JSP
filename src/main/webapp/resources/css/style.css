@@ -4,7 +4,8 @@
 }
 
 .btn, .dropdown-menu, .form-control, .modal-header, .alert, .ui-slider,
-	.ui-slider-handle, .custom-checkbox .custom-control-indicator {
+	.ui-slider-handle, .custom-checkbox .custom-control-indicator,
+	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link {
 	border-radius: 0px;
 }
 
@@ -53,7 +54,7 @@ div.overlays>div {
 
 .brand-title {
 	/*bottom: 10%;*/
-	top: 13%;
+	top: 3%;
 	/*color: #fff;*/
 	/*width: 25%;*/
 	/*margin-left: -20px;*/
@@ -117,6 +118,18 @@ div.overlays>div {
 	background-size: cover;
 }
 
+.col-12:nth-child(1) .img-gallery {
+	background-image: url('../img/banner (2).jpg');
+}
+
+.col-12:nth-child(2) .img-gallery {
+	background-image: url('../img/banner (3).jpg');
+}
+
+.col-12:nth-child(3) .img-gallery {
+	background-image: url('../img/banner (4).jpg');
+}
+
 .ui-in-text {
 	position: absolute;
 	bottom: -200px;
@@ -142,7 +155,7 @@ div.overlays>div {
 }
 
 .seperator {
-	height: 50px;
+	height: 56px;
 	padding: 0px;
 	margin: 0px;
 }
@@ -162,7 +175,12 @@ div.overlays>div {
 }
 
 div.dropdown-menu.user-info {
-	width: 320px;
+	width: 360px;
+	padding: 0px;
+}
+
+div.dropdown-menu.user-info div[class^="col"] {
+	padding: 0px;
 }
 
 div.dropdown-menu.user-info h4 {
@@ -182,15 +200,17 @@ div.dropdown-menu.user-info h4 {
 
 .user-dp {
 	border: none;
-	border-radius: 50%;
+	border-radius: 0px;
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
 }
 
 .user-nav {
-	margin: -13px 10px -13px 0px;
+	margin: -15px 0px;
 	display: inline-block;
+	position: relative;
+	top: -4px;
 }
 
 .user-dp-xs {
@@ -238,9 +258,9 @@ div.dropdown-menu.user-info h4 {
 	cursor: pointer;
 }
 
-.user-dp-lg>div>h4 {
+.user-dp-lg>div>h5 {
 	color: white !important;
-	margin-top: 40%;
+	margin-top: 10px;
 }
 
 .user-dp-lg:hover>div {
@@ -269,34 +289,74 @@ div.dropdown-menu.user-info h4 {
 25%
 {
 transform
+
+
 :
+
  
+
 rotate
-(-10deg);
+
+
+(-10
+deg
+);
+
+
 }
 50%
 {
 transform
+
+
 :
+
  
+
 rotate
-(0deg);
+
+
+(0
+deg
+);
+
+
 }
 75%
 {
 transform
+
+
 :
+
  
+
 rotate
-(10deg);
+
+
+(10
+deg
+);
+
+
 }
 100%
 {
 transform
+
+
 :
+
  
+
 rotate
-(0deg);
+
+
+(0
+deg
+);
+
+
 }
 }
 @
@@ -307,34 +367,74 @@ keyframes diggle { 0% {
 25%
 {
 transform
+
+
 :
+
  
+
 rotate
-(-10deg);
+
+
+(-10
+deg
+);
+
+
 }
 50%
 {
 transform
+
+
 :
+
  
+
 rotate
-(0deg);
+
+
+(0
+deg
+);
+
+
 }
 75%
 {
 transform
+
+
 :
+
  
+
 rotate
-(10deg);
+
+
+(10
+deg
+);
+
+
 }
 100%
 {
 transform
+
+
 :
+
  
+
 rotate
-(0deg);
+
+
+(0
+deg
+);
+
+
 }
 }
 table td a>.fa, table td>.fa {

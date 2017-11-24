@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.rex.bean.SignUpBean;
+import com.rex.bean.UserBean;
 import com.rex.util.DBConnector;
 
 public class SignUpModal {
@@ -15,14 +15,14 @@ public class SignUpModal {
 		conn = (new DBConnector()).getConnection();
 		try {
 			stmt = conn.prepareStatement(
-					"INSERT INTO clients ('firstname', 'lastname', 'email', 'password', 'gender', 'contact', 'street_no', 'town', 'city', 'state') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					"INSERT INTO clients (firstname, lastname, email, password, gender, contact, street_no, town, city, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public boolean add(SignUpBean user) {
+	public boolean add(UserBean user) {
 		boolean query = false;
 		try {
 			stmt.setString(1, user.getFname());

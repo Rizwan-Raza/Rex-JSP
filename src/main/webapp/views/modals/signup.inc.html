@@ -1,130 +1,130 @@
-<div class="container">
-	<!-- Modal -->
-	<div class="modal fade" tabindex="-1" id="signupModal" role="dialog">
-		<div class="modal-dialog modal-lg">
 
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="signupModalLabel">
-						<i class="fa fa-fw fa-user-circle"></i> Sign Up
-					</h4>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form role="form" onsubmit="return signup(this)" method="post"
-					id="signupForm">
-					<div class="modal-body">
-						<!-- <form role="form" onsubmit="return signup(this)" method="post"> -->
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="signupModal" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="signupModalLabel">
+					<i class="fa fa-fw fa-user-circle"></i> Sign Up
+				</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form role="form" onsubmit="return signup(this)" method="post"
+				id="signupForm">
+				<div class="modal-body">
+					<!-- <form role="form" onsubmit="return signup(this)" method="post"> -->
+					<div class="form-group">
 						<label class="control-label" for="usrname"><i
 							class="fa fa-fw fa-user"></i> Username</label>
-						<div class="row">
-							<div class="col-md-6 form-group">
+						<div class="form-row">
+							<div class="col">
 								<input type="text" class="form-control" name="fname"
 									placeholder="Enter First Name" required minlength="3" autofocus
 									maxlength="20">
 							</div>
-							<div class="col-md-6 form-group">
+							<div class="col">
 								<input type="text" class="form-control" name="lname"
 									placeholder="Enter Last Name" required minlength="3"
 									maxlength="20">
 							</div>
 						</div>
-						<div class="form-group" id="email-holder">
-							<label class="control-label" for="email"> <i
-								class="fa fa-fw fa-envelope"></i> Email
-							</label> <input type="email" class="form-control" name="email"
-								placeholder="Enter Email" required id="email"> <small
-								id="emailHelpBlock" class="form-text text-muted"></small>
+					</div>
+					<div class="form-group" id="email-holder">
+						<label class="control-label" for="email"> <i
+							class="fa fa-fw fa-envelope"></i> Email
+						</label> <input type="email" class="form-control" name="email"
+							placeholder="Enter Email" required id="email"> <small
+							id="emailHelpBlock" class="form-text text-muted"></small>
+					</div>
+					<div class="form-group" id="pwd-holder">
+						<label class="control-label" for="psw"> <i
+							class="fa fa-fw fa-eye-slash"></i> Password
+						</label> <input type="password" class="form-control" name="psw"
+							placeholder="Enter password" required id="pwd" minlength="4"
+							maxlength="20" pattern="^[a-zA-Z0-9_]*$"> <small
+							id="passwordHelpBlock" class="form-text text-muted"> Your
+							password must be 8-20 characters long, contain letters and
+							numbers, and must not contain spaces, special characters, or
+							emoji. </small>
+						<div class="invalid-feedback">Weak Password.</div>
+						<div class="valid-feedback">Nice Password.</div>
+					</div>
+					<div class="form-group" id="repwd-holder">
+						<label class="control-label" for="repsw"> <i
+							class="fa fa-fw fa-eye-slash"></i> Retype Password
+						</label> <input type="password" class="form-control" name="repsw"
+							placeholder="Retype password" required id="repwd" minlength="4"
+							maxlength="20" pattern="^[a-zA-Z0-9_]*$">
+						<div class="invalid-feedback">
+							<strong>Password Mismatch!</strong> Please enter same password.
 						</div>
-						<div class="form-group" id="pwd-holder">
-							<label class="control-label" for="psw"> <i
-								class="fa fa-fw fa-eye-slash"></i> Password
-							</label> <input type="password" class="form-control" name="psw"
-								placeholder="Enter password" required id="pwd" minlength="4"
-								maxlength="20" pattern="^[a-zA-Z0-9_]*$"> <small
-								id="passwordHelpBlock" class="form-text text-muted">
-								Your password must be 8-20 characters long, contain letters and
-								numbers, and must not contain spaces, special characters, or
-								emoji. </small>
-							<div class="invalid-feedback">Weak Password.</div>
-							<div class="valid-feedback">Nice Password.</div>
+						<div class="valid-feedback">Password Matched!</div>
+					</div>
+					<div class="form-row">
+						<div class="col-md-3">
+							<label class="control-label"> <i class="fa fa-fw fa-mars"
+								id="g_l"></i> Gender
+							</label>
 						</div>
-						<div class="form-group" id="repwd-holder">
-							<label class="control-label" for="repsw"> <i
-								class="fa fa-fw fa-eye-slash"></i> Retype Password
-							</label> <input type="password" class="form-control" name="repsw"
-								placeholder="Retype password" required id="repwd" minlength="4"
-								maxlength="20" pattern="^[a-zA-Z0-9_]*$">
-							<div class="invalid-feedback">
-								<strong>Password Mismatch!</strong> Please enter same password.
-							</div>
-							<div class="valid-feedback">Password Matched!</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-3">
-								<label class="control-label"> <i
-									class="fa fa-fw fa-mars" id="g_l"></i> Gender
+						<div class="col-md-9">
+							<div class="form-check form-check-inline">
+								<label class="custom-control custom-radio"> <input
+									class="custom-control-input" type="radio" id="signUpGenderMale"
+									value="Male" name="gender" required checked
+									onclick="$('#g_l').removeClass('fa-venus');$('#g_l').addClass('fa-mars');">
+									<span class="custom-control-indicator"></span> <span
+									class="custom-control-description">Male</span>
+								</label> <label class="custom-control custom-radio"> <input
+									class="custom-control-input" type="radio"
+									id="signUpGenderFemale" value="Female" name="gender" required
+									onclick="$('#g_l').removeClass('fa-mars');$('#g_l').addClass('fa-venus');">
+									<span class="custom-control-indicator"></span> <span
+									class="custom-control-description">Female</span>
 								</label>
 							</div>
-							<div class="col-md-9">
-								<div class="form-check form-check-inline">
-									<label class="custom-control custom-radio"> <input
-										class="custom-control-input" type="radio"
-										id="signUpGenderMale" value="male" name="gender" required
-										checked
-										onclick="$('#g_l').removeClass('fa-venus');$('#g_l').addClass('fa-mars');">
-										<span class="custom-control-indicator"></span> <span
-										class="custom-control-description">Male</span>
-									</label> <label class="custom-control custom-radio"> <input
-										class="custom-control-input" type="radio"
-										id="signUpGenderFemale" value="female" name="gender" required
-										onclick="$('#g_l').removeClass('fa-mars');$('#g_l').addClass('fa-venus');">
-										<span class="custom-control-indicator"></span> <span
-										class="custom-control-description">Female</span>
-									</label>
-								</div>
-							</div>
 						</div>
-						<div class="form-group">
-							<label class="control-label" for="cont"><i
-								class="fa fa-fw fa-phone"></i> Contact Number</label> <input type="text"
-								class="form-control" name="cont" placeholder="Enter Contact"
-								required>
-						</div>
+					</div>
+					<div class="form-group">
 						<label class="control-label" for="cont"><i
-							class="fa fa-fw fa-map-signs"></i> Address</label>
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<input type="text" class="form-control" name="street"
-									placeholder="Enter Street Number" required>
-							</div>
-							<div class="col-md-6 form-group">
-								<input type="text" class="form-control" name="town"
-									placeholder="Enter Town Name" required>
-							</div>
+							class="fa fa-fw fa-phone"></i> Contact Number</label> <input type="text"
+							class="form-control" name="cont" placeholder="Enter Contact"
+							required>
+					</div>
+					<label class="control-label" for="cont"><i
+						class="fa fa-fw fa-map-signs"></i> Address</label>
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" name="street"
+								placeholder="Enter Street Number" required>
 						</div>
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<input type="text" class="form-control" name="city"
-									placeholder="Enter City" required>
-							</div>
-							<div class="col-md-6 form-group">
-								<input type="text" class="form-control" name="state"
-									placeholder="Enter State" required>
-							</div>
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" name="town"
+								placeholder="Enter Town Name" required>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="submit"
-							class="btn btn-default btn-success btn-block" name="submit_btn">
-							<span class="fa fa-fw fa-check"></span> Submit
-						</button>
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" name="city"
+								placeholder="Enter City" required>
+						</div>
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" name="state"
+								placeholder="Enter State" required>
+						</div>
 					</div>
-				</form>
-			</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default btn-success btn-block"
+						name="submit_btn">
+						<span class="fa fa-fw fa-check"></span> Submit
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

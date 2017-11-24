@@ -1,23 +1,37 @@
+<jsp:directive.page language="java"
+	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Real Estate eXplorer - REX</title>
-	<%@include file="views/head.inc.html" %>
+<title>Real Estate eXplorer - REX</title>
+<jsp:directive.include file="views/head.inc.html" />
 </head>
 <body>
-	<jsp:include  page="views/nav.inc.jsp"/>
-	<% if (session.getAttribute("log")!=null) { %>
-	<div class="seperator"></div>
-	<% if (session.getAttribute("log").equals("client")) { %>
-	<jsp:include  page="views/client/client.inc.jsp"/>
-	<% } else { %>
-	<jsp:include  page="views/admin/admin.inc.jsp"/>
-	<% } %>
-	<script type="text/javascript" src="resources/js/active.js"></script>
-	<% } else { %>
-	<jsp:include page="views/home/home.inc.jsp"/>	
-	<script type="text/javascript" src="resources/js/inactive.js"></script>
-	<% } %>
+
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<jsp:directive.include file="views/nav.jspf" />
+	<c:choose>
+		<c:when test="${log ne null}">
+			<jsp:directive.include file="views/modals/profile-picture.jspf" />
+			<jsp:directive.include file="views/modals/change-password.inc.html" />
+			<jsp:directive.include file="views/modals/logout.inc.html" />
+			<c:choose>
+				<c:when test="${log eq 'client'}">
+					<jsp:directive.include file="views/client/client.inc.jsp" />
+					<script type="text/javascript" src="js/client.js"></script>
+				</c:when>
+				<c:otherwise>
+					<jsp:directive.include file="views/admin/admin.inc.jsp" />
+					<script type="text/javascript" src="js/admin.js"></script>
+				</c:otherwise>
+			</c:choose>
+			<script type="text/javascript" src="resources/js/active.js"></script>
+		</c:when>
+		<c:otherwise>
+			<jsp:directive.include file="views/home/home.inc.jsp" />
+			<script type="text/javascript" src="resources/js/inactive.js"></script>
+		</c:otherwise>
+	</c:choose>
 	<!--  <?php
 		include "actions/detecter.php";
 		include "components/nav.php";
@@ -61,7 +75,7 @@
 		}
 		include 'components/footer.html';
 	?> -->
-	<%@include file="views/footer.inc.html" %>	
+	<jsp:directive.include file="views/footer.inc.html" />
 	<script type="text/javascript" src="resources/js/common.js"></script>
 </body>
 </html>

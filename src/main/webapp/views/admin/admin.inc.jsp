@@ -20,23 +20,35 @@
 	include 'modals/editProfile.php'; 
 	include 'components/errorSnacks.html';
 ?> -->
+<jsp:directive.include file="modals/edit-profile.jspf"/>
 <br>
-<div class="container">
-	<div class="alert alert-success text-center fade in">
-		<a class="close" data-dismiss="alert" aria-label="close">&times;</a> <label>Welcome
-			to Admin Panel Dummy User ! </label>
+<div class="container admin-section">
+	<div
+		class="alert alert-success text-center alert-dismissible fade show"
+		role="alert">
+		<label>Welcome to Admin Panel <strong>${user.getFname()}</strong>!
+		</label>
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
 	</div>
-	<ul class="nav nav-tabs nav-justified">
-		<li class="active"><a data-toggle="tab" href="#clients">Clients</a></li>
-		<li><a data-toggle="tab" href="#posts">Posted Properties</a></li>
-		<li><a data-toggle="tab" href="#requires">Requested
-				Properties</a></li>
-		<li>
-			<!-- <a data-toggle="tab" href="#map">Google Map</a> --> <a>Google
+	
+	<nav class="nav nav-tabs nav-fill">
+		<a class="nav-item nav-link active" href="#clients"
+			data-toggle="tab" role="tab" aria-controls="clients"
+			aria-selected="true">Clients</a> <a class="nav-item nav-link"
+			href="#posts" data-toggle="tab" role="tab"
+			aria-controls="posts" aria-selected="false">Posted Properties</a>
+		<a class="nav-item nav-link disabled" href="#requires"
+			data-toggle="tab" role="tab" aria-controls="requires"
+			aria-selected="false">Requested
+				Properties</a> <a
+			class="nav-item nav-link disabled" href="#map" data-toggle="tab"
+			role="tab" aria-controls="map" aria-selected="false">Google
 				Map</a>
-		</li>
-	</ul>
-
+	</nav>
+	
 	<div class="tab-content">
 		<!-- <?php 
 			include 'clients.php'; 

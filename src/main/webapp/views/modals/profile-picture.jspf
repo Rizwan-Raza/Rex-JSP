@@ -1,0 +1,45 @@
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="profilePictureModal"
+	role="dialog">
+	<div class="modal-dialog modal-sm">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="profilePictureModalLabel">
+					<i class="fa fa-fw fa-camera"></i> Profile Pic
+				</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form role="form"
+				action="actions/profile.php?old_dp=${user.getSrc() }" method="post"
+				enctype="multipart/form-data">
+				<div class="modal-body">
+					<div class="user-dp user-dp-xl mx-auto image-triggerer"
+						style="background-image: url('resources/${user.getSrc() }');"
+						onclick="showImageModal('${user.getFullname() }', '${user.getSrc() }')">
+					</div>
+					<br>
+					<div class="form-group">
+						<label class="custom-file"> <input type="file" id="dp"
+							name="dp" accept="image/*"
+							onchange="readURL(this, '#profilePictureModal .user-dp-xl');"
+							class="custom-file-input"> <span
+							class="custom-file-control"></span>
+						</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default btn-success btn-block"
+						name="submit_btn" value="pictureEdit">
+						<span class="fa fa-check"></span> Submit
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>

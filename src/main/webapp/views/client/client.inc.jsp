@@ -11,20 +11,31 @@
 	include 'components/client/showProps.php';
 	$GLOBALS['script'] = ""; 
 ?> -->
+<jsp:directive.include file="modals/edit-profile.jspf"/>
 <br>
-<div class="container admin-section">
-	<div class="alert alert-success text-center fade in">
-		<a class="close" data-dismiss="alert" aria-label="close">&times;</a> <label>Welcome
-			to Client Panel Dummy User <%=session.getAttribute("fname") %>!
+<div class="container client-section">
+	<div
+		class="alert alert-success text-center alert-dismissible fade show"
+		role="alert">
+		<label>Welcome to Client Panel <strong>${user.getFname()}</strong>!
 		</label>
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
 	</div>
-	<ul class="nav nav-tabs nav-justified">
-		<li class="active"><a data-toggle="tab" href="#buy-property">Buy
-				Property</a></li>
-		<li><a data-toggle="tab" href="#sell-property">Sell Property</a></li>
-		<li><a data-toggle="tab" href="#my-property">My Properties</a></li>
-		<li><a data-toggle="tab" href="#wishlist">WishList</a></li>
-	</ul>
+	<nav class="nav nav-tabs nav-fill">
+		<a class="nav-item nav-link active" href="#buy-property"
+			data-toggle="tab" role="tab" aria-controls="buy-property"
+			aria-selected="true">Buy Property</a> <a class="nav-item nav-link"
+			href="#sell-property" data-toggle="tab" role="tab"
+			aria-controls="sell-property" aria-selected="false">Sell Property</a>
+		<a class="nav-item nav-link disabled" href="#my-property"
+			data-toggle="tab" role="tab" aria-controls="my-property"
+			aria-selected="false">My Properties</a> <a
+			class="nav-item nav-link disabled" href="#wishlist" data-toggle="tab"
+			role="tab" aria-controls="wishlist" aria-selected="false">WishList</a>
+	</nav>
 
 	<div class="tab-content">
 		<!-- <?php 

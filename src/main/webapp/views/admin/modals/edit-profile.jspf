@@ -1,0 +1,109 @@
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="adminEditProfileModal"
+	role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="adminEditProfileModalLabel">
+					<i class="fa fa-fw fa-pencil"></i> Edit Profile
+				</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form role="form" action="actions/admin/update.php" method="post">
+					<label for="usrname"><i class="fa fa-fw fa-user-circle"></i>
+						Username</label>
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" name="fname" required
+								value="${user.getFname() }">
+						</div>
+						<div class="col-md-6 form-group">
+							<input type="text" class="form-control" name="lname"
+								value="${user.getLname() }" required>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-md-3">
+							<label class="control-label"> <i
+								class="fa fa-fw ${user.getGender() eq 'male' ? 'fa-mars' : 'fa-venus'}"
+								id="g_l_e"> </i> Gender
+							</label>
+						</div>
+						<div class="col-md-9">
+							<div class="form-check form-check-inline">
+								<label class="custom-control custom-radio"> <jsp:text>
+										<![CDATA[<input ]]>
+									</jsp:text> <c:if test="${user.getGender() eq \"Male\" }"> checked</c:if>
+									class="custom-control-input" type="radio" id="signUpGenderMale"
+									value="Male" name="gender" required
+									onclick="$('#g_l_e').removeClass('fa-venus');$('#g_l_e').addClass('fa-mars');">
+									<span class="custom-control-indicator"></span> <span
+									class="custom-control-description">Male</span>
+								</label> <label class="custom-control custom-radio"> <jsp:text>
+										<![CDATA[<input ]]>
+									</jsp:text> <c:if test="${user.getGender() eq \"Female\" }"> checked</c:if>
+									class="custom-control-input" type="radio"
+									id="signUpGenderFemale" value="Female" name="gender" required
+									onclick="$('#g_l_e').removeClass('fa-mars');$('#g_l_e').addClass('fa-venus');">
+									<span class="custom-control-indicator"></span> <span
+									class="custom-control-description">Female</span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="cont"><i class="fa fa-fw fa-phone"></i>
+							Contact Number</label> <input type="text" class="form-control"
+							name="cont" value="${user.getContact() }" required>
+					</div>
+					<div class="form-group">
+						<label for="cont"><i class="fa fa-fw fa-map-marker"></i>
+							Address</label>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="street"
+									value="${user.getStreet() }" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="town"
+									value="${user.getTown() }" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="city"
+									value="${user.getCity() }" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<input type="text" class="form-control" name="state"
+									value="${user.getState() }" required>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-default btn-success btn-block"
+						name="submit_btn" value="adminEdit">
+						<span class="fa fa-fw fa-check"></span> Submit
+					</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default mr-auto"
+					data-dismiss="modal">
+					<i class="fa fa-fw fa-remove"></i> Cancel
+				</button>
+				<!-- <p>Not a member? <a id="signupButton2">Sign Up</a></p> -->
+				<p>
+					Change <a data-dismiss="modal" data-toggle="modal"
+						data-target="#changePasswordModal">Password?</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
