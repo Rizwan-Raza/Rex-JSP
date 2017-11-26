@@ -45,11 +45,10 @@ public class SignUpController extends HttpServlet {
 				request.getParameter("city"), request.getParameter("state"));
 
 		if ((new SignUpModal()).add(userData)) {
-			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + request.getParameter("fname") + " "
-					+ request.getParameter("lname") + "\"}");
+			response.getWriter().println("{\"response\": \"OK\",\"name\": \"" + request.getParameter("fname") + " "
+					+ request.getParameter("lname") + "\", \"email\": \"" + request.getParameter("email") + "\"}");
 		} else {
-			response.getWriter().println("{\"response\": \"KO\",\"message\": \"" + request.getParameter("fname") + " "
-					+ request.getParameter("lname") + "\"}");
+			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Can't Sign Up User\"}");
 		}
 	}
 

@@ -8,21 +8,20 @@ function snackbar (text) {
 	div.id = "div"+num+"Snackbar";
 	document.body.appendChild(div);
 	setTimeout(function(){
-		div.className = "show";
+		div.className = "showTheSnack";
 	}, 200);
     setTimeout(function(){
-    	div.className = div.className.replace("show", "");
+    	div.className = div.className.replace("showTheSnack", "");
     	$("#div"+num+"Snackbar").remove();
     	num++;
     }, 3200);
 }
 function showSnackbar(id) {
     var x = document.getElementById(id)
-    setTimeout(function(){ x.className = "show"; }, 500);
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3500);
+    setTimeout(function(){ x.className = "showTheSnack"; }, 500);
+    setTimeout(function(){ x.className = x.className.replace("showTheSnack", ""); }, 3500);
 }
 $(document).ready(function(){
-	var pass;
 	$("input[autofocus]").first().focus();
 	$(".modal").on('shown.bs.modal', function () {
 		$("#"+this.id+" input[autofocus]").first().focus();

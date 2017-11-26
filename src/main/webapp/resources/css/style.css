@@ -3,7 +3,7 @@
 	src: url('../fonts/LeckerliOne-Regular.otf');
 }
 
-.btn, .dropdown-menu, .form-control, .modal-header, .alert, .ui-slider,
+.btn, .dropdown-menu, .form-control, .modal-header, .modal-content, .alert, .ui-slider,
 	.ui-slider-handle, .custom-checkbox .custom-control-indicator,
 	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link {
 	border-radius: 0px;
@@ -281,161 +281,41 @@ div.dropdown-menu.user-info h4 {
 	animation: diggle 0.4s infinite;
 }
 
-@
--webkit-keyframes diggle { 0% {
-	transform: rotate(0deg);
+@-webkit-keyframes diggle { 
+	0% {
+		transform: rotate(0deg);
+	}
+
+	25% {
+		transform:rotate(-10deg);
+	}
+	50% {
+		transform:rotate(0deg);
+	}
+	75% {
+		transform:rotate(10deg);
+	}
+	100% {
+		transform:rotate(0deg);
+	}
 }
-
-25%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(-10
-deg
-);
-
-
-}
-50%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(0
-deg
-);
-
-
-}
-75%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(10
-deg
-);
-
-
-}
-100%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(0
-deg
-);
-
-
-}
-}
-@
-keyframes diggle { 0% {
-	transform: rotate(0deg);
-}
-
-25%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(-10
-deg
-);
-
-
-}
-50%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(0
-deg
-);
-
-
-}
-75%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(10
-deg
-);
-
-
-}
-100%
-{
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(0
-deg
-);
-
-
-}
+@keyframes diggle {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	25% {
+		transform:rotate(-10deg);
+	}
+	50% {
+		transform:rotate(0deg);
+	}
+	75% {
+		transform:rotate(10deg);
+	}
+	100% {
+		transform:rotate(0deg);
+	}
 }
 table td a>.fa, table td>.fa {
 	font-size: 24px;
@@ -730,7 +610,6 @@ div[id*='Snackbar'] {
 	background-color: #333; /* Black background color */
 	color: #fff; /* White text color */
 	text-align: center; /* Centered text */
-	border-radius: 2px; /* Rounded borders */
 	padding: 16px; /* Padding */
 	position: fixed; /* Sit on top of the screen */
 	z-index: 1; /* Add a z-index if needed */
@@ -739,7 +618,7 @@ div[id*='Snackbar'] {
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
-div[id*='Snackbar'].show {
+.showTheSnack {
 	visibility: visible !important; /* Show the snackbar */
 	/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
 However, delay the fade out process for 2.5 seconds */
@@ -748,67 +627,62 @@ However, delay the fade out process for 2.5 seconds */
 }
 
 /* Animations to fade the snackbar in and out */
-@
--webkit-keyframes fadein {
-	from {bottom: 0;
-	opacity: 0;
-}
+@-webkit-keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
 
-to {
-	bottom: 30px;
-	opacity: 1;
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
 }
+@keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
 
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
 }
-@
-keyframes fadein {
-	from {bottom: 0;
-	opacity: 0;
-}
+@-webkit-keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
 
-to {
-	bottom: 30px;
-	opacity: 1;
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
 }
+@keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
 
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
 }
-@
--webkit-keyframes fadeout {
-	from {bottom: 30px;
-	opacity: 1;
-}
+@-webkit-keyframes zoomin {
+	from {
+		margin: -5px auto;
+		width: 35px;
+		height: 35px;
+	}
 
-to {
-	bottom: 0;
-	opacity: 0;
-}
-
-}
-@
-keyframes fadeout {
-	from {bottom: 30px;
-	opacity: 1;
-}
-
-to {
-	bottom: 0;
-	opacity: 0;
-}
-
-}
-@
--webkit-keyframes zoomin {
-	from {margin: -5px auto;
-	width: 35px;
-	height: 35px;
-}
-
-to {
-	margin: -63px -57px;
-	width: 150px;
-	height: 150px;
-}
-
+	to {
+		margin: -63px -57px;
+		width: 150px;
+		height: 150px;
+	}
 }
 @
 keyframes zoomin {

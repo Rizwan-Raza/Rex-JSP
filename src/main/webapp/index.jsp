@@ -18,11 +18,11 @@
 			<c:choose>
 				<c:when test="${log eq 'client'}">
 					<jsp:directive.include file="views/client/client.inc.jsp" />
-					<script type="text/javascript" src="js/client.js"></script>
+					<script type="text/javascript" src="resources/js/client.js"></script>
 				</c:when>
 				<c:otherwise>
 					<jsp:directive.include file="views/admin/admin.inc.jsp" />
-					<script type="text/javascript" src="js/admin.js"></script>
+					<script type="text/javascript" src="resources/js/admin.js"></script>
 				</c:otherwise>
 			</c:choose>
 			<script type="text/javascript" src="resources/js/active.js"></script>

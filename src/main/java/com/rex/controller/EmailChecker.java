@@ -27,7 +27,7 @@ public class EmailChecker extends HttpServlet {
 	public EmailChecker() {
 		conn = new DBConnector().getConnection();
 		try {
-			stmt = conn.prepareStatement("SELECT count(email) FROM clients WHERE email=?");
+			stmt = conn.prepareStatement("SELECT email FROM clients WHERE email=?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,9 +46,11 @@ public class EmailChecker extends HttpServlet {
 
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				response.getWriter().println("\"response\": \"OK\"");
+				response.getWriter()
+						.println("{\"response\": \"OK\", \"email\": \"" + request.getParameter("email") + "\"}");
 			} else {
-				response.getWriter().println("\"response\": \"KO\"");
+				response.getWriter()
+						.println("{\"response\": \"KO\", \"email\": \"" + request.getParameter("email") + "\"}");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

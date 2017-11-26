@@ -23,7 +23,6 @@ public class SignUpModal {
 	}
 
 	public boolean add(UserBean user) {
-		boolean query = false;
 		try {
 			stmt.setString(1, user.getFname());
 			stmt.setString(2, user.getLname());
@@ -36,12 +35,13 @@ public class SignUpModal {
 			stmt.setString(9, user.getCity());
 			stmt.setString(10, user.getState());
 
-			query = stmt.execute();
+			stmt.execute();
+			return true;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return query;
+		return false;
 	}
 }
