@@ -50,7 +50,7 @@
 	</nav>
 	
 	<div class="tab-content">
-	<jsp:directive.include file="clients.jspf"/>		
+		<jsp:directive.include file="clients.jspf"/>		
 		<!-- <?php 
 			include 'clients.php'; 
 			include 'properties.php'; 

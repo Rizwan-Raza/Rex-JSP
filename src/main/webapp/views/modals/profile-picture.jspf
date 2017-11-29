@@ -15,7 +15,7 @@
 				</button>
 			</div>
 			<form role="form"
-				action="actions/profile.php?old_dp=${user.getSrc() }" method="post"
+				action="ProfilePicUpdate?old_dp=${user.getSrc() }" method="post"
 				enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="user-dp user-dp-xl mx-auto image-triggerer"

@@ -35,8 +35,8 @@ public class AdminLoginController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		LoginBean userData = new LoginBean(request.getParameter("usrname"), request.getParameter("psw"));
-		AdminLoginModal client = new AdminLoginModal();
-		Object data = client.auth(userData);
+		AdminLoginModal admin = new AdminLoginModal();
+		Object data = admin.auth(userData);
 		if (data != null && data instanceof ErrorBean) {
 			ErrorBean error = (ErrorBean) data;
 			response.sendRedirect("./?error=" + error.getCode());
@@ -47,6 +47,7 @@ public class AdminLoginController extends HttpServlet {
 			HttpSession sess = request.getSession(true);
 			sess.setAttribute("log", "admin");
 			sess.setAttribute("user", user);
+			sess.setAttribute("clients", admin.getClients());
 			response.sendRedirect("./");
 			return;
 		}

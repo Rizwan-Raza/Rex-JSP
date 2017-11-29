@@ -317,7 +317,7 @@ div.dropdown-menu.user-info h4 {
 		transform:rotate(0deg);
 	}
 }
-table td a>.fa, table td>.fa {
+table td > a > .fa, table td > .fa {
 	font-size: 24px;
 }
 

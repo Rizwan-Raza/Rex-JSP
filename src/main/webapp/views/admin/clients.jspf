@@ -1,10 +1,6 @@
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="com.rex.util.DBConnector"%>
-<div id="clients" class="tab-pane in active">
-	<h3>Clients of our System</h3>
+<div id="clients" class="tab-pane fade show active">
+	<br>
+	<h4>Clients of our System</h4>
 	<!-- 	<div class="ratio row">
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<h4>Client&apos;s Gender Ratio</h4>
@@ -15,27 +11,12 @@
 			<div id="pie"></div>
 		</div>
 	</div> -->
-	<%
-		DBConnector db = new DBConnector();
-		Connection conn = db.getConnection();
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			ResultSet set = stmt.executeQuery("SELECT * FROM clients");
-			while (set.next()) {
-				out.println(set.getString("cid") + " " + set.getString("firstname") + " "
-						+ set.getString("lastname") + " " + set.getString("email") + " " + set.getString("password")
-						+ " " + set.getString("gender") + " " + set.getString("contact") + " "
-						+ set.getString("street_no") + " " + set.getString("city") + " " + set.getString("town")
-						+ " " + set.getString("state") + "<br>");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	%>
+	<br>
+	<h5>
+		Total number of clients is: <b id='clients-num'>${clients.size() }</b>
+	</h5>
 	<table
-		class="table table-responsive table-hover table-bordered table-striped">
+		class="table table-fluid table-hover table-bordered table-striped">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -50,23 +31,60 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
-				try {
-					stmt = conn.createStatement();
-					ResultSet set = stmt.executeQuery("SELECT * FROM clients");
-					while (set.next()) {
-			%>
-			<tr>
-				<td><%=set.getString("cid")%></td>
-				<td><%=set.getString("firstname")%></td>
-				<td><%=set.getString("lastname")%></td>
-				<td><%=set.getString("email")%></td>
-				<td><%=set.getString("gender")%></td>
-				<td><%=set.getString("contact")%></td>
-				<td><%=set.getString("street_no")%></td>
-				<td><%=set.getString("active")%></td>
-				<td><%=set.getString("password")%></td>
-			</tr>
+			<c:forEach var="client" varStatus="status" items="${clients}">
+				<tr id="for-${client.getCid() }">
+					<td class="f-o-f-dp"><div class="user-dp user-dp-xs"
+							style="background-image: url('resources/${client.getSrc() }');"
+							onclick="changePicture('${client.getSrc() }', '${client.getFullname() }', ${Integer.parseInt(client.getCid())})"></div></td>
+					<td class="c-fname">${client.getFname() }</td>
+					<td class="c-lname">${client.getLname() }</td>
+					<td class="c-email"><a
+						onclick="clientMail('${client.getEmail() }')">${client.getEmail() }</a></td>
+					<td class="c-gender">${client.getGender() }</td>
+					<td class="c-cont">${client.getPassword() }</td>
+					<td><a
+						onclick="address('${client.getStreet()}', '${client.getTown()}', '${client.getCity()}', '${client.getState()}', null)">${client.getStreet() }</a></td>
+					<td class="text-center act"><c:choose>
+							<c:when test="${client.getActive() eq '0'}">
+								<i class="fa fa-fw fa-remove text-danger"></i>
+							</c:when>
+							<c:otherwise>
+								<i class="fa fa-fw fa-check text-success"></i>
+							</c:otherwise>
+						</c:choose></td>
+					<td>
+						<div class="dropdown">
+							<button class="btn btn-primary btn-sm dropdown-toggle"
+								data-toggle="dropdown">User</button>
+							<div class="dropdown-menu dropdown-menu-right">
+								<a class="dropdown-item"
+									onclick="edit('${client.getFname() }', '${client.getLname() }', '${client.getEmail() }', '${client.getGender() }', '${client.getContact() }', '${client.getSrc() }', '${client.getStreet() }', '${client.getTown() }', '${client.getCity() }', '${client.getState() }', ${client.getCid() }, null)"><i
+									class="fa fa-fw fa-pencil"></i> Edit </a> <a class="dropdown-item"
+									onclick="kickout('$fname', $cid)"> <i
+									class="fa fa-fw fa-user-times"></i> Kickout
+								</a>
+								<c:choose>
+									<c:when test="$cid eq '0'">
+										<a class="dropdown-item" onclick="activate('$fname', $cid);">
+											<i class="fa fa-fw fa-check"></i> Activate
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a class="dropdown-item" onclick="deactivate('$fname', $cid);">
+											<i class="fa fa-fw fa-remove"></i> Deactivate
+										</a>
+									</c:otherwise>
+								</c:choose>
+								<a id="adminMBtn-$cid" class="dropdown-item"
+									class="btn btn-block btn-sm btn-info"
+									onclick="makeAdmin('$fname', $cid);"> <i
+									class="fa fa-fw fa-user-secret"></i> Make Admin
+								</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</c:forEach>
 			<!--  <?php 
 				include 'components/database.php';
 				$conn = connectDB();
@@ -122,13 +140,6 @@
 				}
 				mysqli_close($conn);
 			?> -->
-			<%
-				}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			%>
 		</tbody>
 	</table>
 </div>

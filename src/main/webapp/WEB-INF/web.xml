@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app 
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-    version="3.1">
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
 	<display-name>Archetype Created Web Application</display-name>
+	<context-param>
+		<description>Location to store uploaded profile file</description>
+		<param-name>user-upload</param-name>
+		<param-value>
+         resources/uploads/users/
+      </param-value>
+	</context-param>
+	<context-param>
+		<description>Location to store uploaded temp file</description>
+		<param-name>temp-upload</param-name>
+		<param-value>
+         resources/uploads/temp/
+      </param-value>
+	</context-param>
+	<context-param>
+		<description>Location to store uploaded properties file</description>
+		<param-name>prop-upload</param-name>
+		<param-value>
+         resources/uploads/props/
+      </param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>Example</servlet-name>
 		<servlet-class>Example</servlet-class>
@@ -29,6 +48,13 @@
 		<servlet-name>LogoutController</servlet-name>
 		<servlet-class>com.rex.controller.LogoutController</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ProfilePicUpdateController</display-name>
+		<servlet-name>ProfilePicUpdateController</servlet-name>
+		<servlet-class>com.rex.controller.ProfilePicUpdateController</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Example</servlet-name>
 		<url-pattern>/Example</url-pattern>
@@ -52,5 +78,9 @@
 	<servlet-mapping>
 		<servlet-name>LogoutController</servlet-name>
 		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProfilePicUpdateController</servlet-name>
+		<url-pattern>/ProfilePicUpdate</url-pattern>
 	</servlet-mapping>
 </web-app>
