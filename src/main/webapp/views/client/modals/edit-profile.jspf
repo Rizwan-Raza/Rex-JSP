@@ -15,7 +15,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form role="form" action="actions/client/update.php" method="post">
+				<form role="form" action="ClientUpdate" method="post">
 					<label for="usrname"><i class="fa fa-fw fa-user-circle"></i>
 						Username</label>
 					<div class="row">
@@ -30,13 +30,13 @@
 					</div>
 
 					<div class="form-row">
-						<div class="col-md-3">
+						<div class="col-4">
 							<label class="control-label"> <i
-								class="fa fa-fw ${user.getGender() eq 'male' ? 'fa-mars' : 'fa-venus'}"
+								class="fa fa-fw ${user.getGender() eq 'Male' ? 'fa-mars' : 'fa-venus'}"
 								id="g_l_e"> </i> Gender
 							</label>
 						</div>
-						<div class="col-md-9">
+						<div class="col-8">
 							<div class="form-check form-check-inline">
 								<label class="custom-control custom-radio"> <jsp:text>
 										<![CDATA[<input ]]>

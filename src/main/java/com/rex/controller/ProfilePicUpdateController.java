@@ -2,7 +2,6 @@ package com.rex.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,10 +9,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import com.rex.bean.ErrorBean;
+import com.rex.bean.SuccessBean;
+import com.rex.bean.UserBean;
+import com.rex.modal.ProfilePicUpdateModal;
 
 /**
  * Servlet implementation class ProfilePicUpdateController
@@ -45,12 +50,9 @@ public class ProfilePicUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-
-		out.println("In<br>");
+		HttpSession sess = request.getSession(true);
 
 		if (ServletFileUpload.isMultipartContent(request)) {
-			out.println("Multipart<br>");
 			filePath += request.getSession(true).getAttribute("log").toString() + "s/";
 
 			DiskFileItemFactory factory = new DiskFileItemFactory(maxMemSize,
@@ -63,7 +65,6 @@ public class ProfilePicUpdateController extends HttpServlet {
 			upload.setSizeMax(maxFileSize);
 
 			try {
-				out.println("Try Block<br>");
 				// Parse the request to get file items.
 				List<FileItem> fileItems = upload.parseRequest(request);
 
@@ -71,10 +72,8 @@ public class ProfilePicUpdateController extends HttpServlet {
 				Iterator<FileItem> i = fileItems.iterator();
 
 				while (i.hasNext()) {
-					out.println("File Selected<br>");
 					FileItem fi = (FileItem) i.next();
 					if (!fi.isFormField()) {
-						out.println("With Form Field<br>");
 						// Get the uploaded file parameters
 						// String fieldName = fi.getFieldName();
 						String fileName = fi.getName();
@@ -83,31 +82,56 @@ public class ProfilePicUpdateController extends HttpServlet {
 						// long sizeInBytes = fi.getSize();
 
 						// Write the file
+						String oFilePath = filePath;
 						filePath = getServletContext().getRealPath(filePath);
-						if (fileName.lastIndexOf("\\") >= 0) {
-							file = new File(filePath + fileName.substring(fileName.lastIndexOf("\\")));
+						int filePart = fileName.lastIndexOf("\\");
+						String uploadedFile;
+						if (filePart >= 0) {
+							uploadedFile = fileName.substring(filePart);
 						} else {
-							file = new File(filePath + fileName.substring(fileName.lastIndexOf("\\") + 1));
+							uploadedFile = fileName.substring(filePart + 1);
 						}
+						file = new File(filePath + uploadedFile);
 						fi.write(file);
 						// Uploaded
-						out.println("Uploaded " + file.getAbsolutePath());
+						SuccessBean process = new SuccessBean("P-U-1", "Profile Pic Updated Succcessfully", "upload", null);
+						if (!request.getParameter("old_dp").equals("resources/uploads/users/temp.png")) {
+							file = new File(getServletContext().getRealPath(request.getParameter("old_dp")));
+							file.delete();
+							process.setCleanUp("success");
+						} else {
+							process.setCleanUp("failed");
+						}
+						UserBean curr_user = (UserBean) sess.getAttribute("user");
+						ProfilePicUpdateModal ppum = new ProfilePicUpdateModal();
+						Object bean = ppum.update(oFilePath + uploadedFile, curr_user.getUid(), process);
+						if (bean instanceof SuccessBean) {
+							sess.setAttribute("user",
+									new UserBean(curr_user.getUid(), curr_user.getFname(), curr_user.getLname(),
+											curr_user.getEmail(), curr_user.getPassword(), curr_user.getGender(),
+											curr_user.getContact(), curr_user.getStreet(), curr_user.getTown(),
+											curr_user.getCity(), curr_user.getState(), null, oFilePath + uploadedFile,
+											curr_user.getTime()));
+							((SuccessBean) bean).setSession("success");
+							sess.setAttribute("process", "success");
+							((SuccessBean) bean).setCompletion("success");
+							sess.setAttribute("bean", bean);
+
+						} else {
+							sess.setAttribute("process", "failed");
+							sess.setAttribute("bean", bean);
+						}
 					}
 				}
 			} catch (Exception ex) {
-				out.println("Catch<br>");
-				out.println(ex);
+				sess.setAttribute("process", "failed");
+				sess.setAttribute("bean", new ErrorBean("P-U-3", ex.getMessage(), "ProfilePicUpdateController"));
 			}
-			// TODO Auto-generated method stub
-			// String oldFile = request.getParameter("old_dp");
-			// HttpSession sess = request.getSession(true);
-			// String targetDir = "uploads/users/" + sess.getAttribute("login").toString() +
-			// "s/";
 		} else {
-			// Hehehehe
-			out.println("File Selection problem");
+			sess.setAttribute("process", "failed");
+			sess.setAttribute("bean", new ErrorBean("P-U-2", "File Selection Problem", "ProfilePicUpdateController"));
 		}
-		out.println("End<br>");
+		response.sendRedirect("./");
 	}
 
 	/**

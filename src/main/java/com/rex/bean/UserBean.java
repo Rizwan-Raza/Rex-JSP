@@ -7,7 +7,7 @@ public class UserBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String cid;
+	private String uid;
 	private String fname;
 	private String lname;
 	private String email;
@@ -18,12 +18,12 @@ public class UserBean implements Serializable {
 	private String town;
 	private String city;
 	private String state;
-	private String active;
+	private String auth;
 	private String src;
 	private String time;
 
 	public UserBean() {
-		cid = fname = lname = email = password = gender = contact = street = town = city = state = active = src = time = null;
+		uid = fname = lname = email = password = gender = contact = street = town = city = state = auth = src = time = null;
 	}
 
 	public UserBean(String fname, String lname, String email, String psw, String gender, String cont, String street,
@@ -41,9 +41,9 @@ public class UserBean implements Serializable {
 
 	}
 
-	public UserBean(String cid, String fname, String lname, String email, String psw, String gender, String cont,
-			String street, String town, String city, String state, String active, String src, String time) {
-		setCid(cid);
+	public UserBean(String uid, String fname, String lname, String email, String psw, String gender, String cont,
+			String street, String town, String city, String state, String auth, String src, String time) {
+		setUid(uid);
 		setFname(fname);
 		setLname(lname);
 		setEmail(email);
@@ -54,7 +54,7 @@ public class UserBean implements Serializable {
 		setTown(town);
 		setCity(city);
 		setState(state);
-		setActive(active);
+		setAuth(auth);
 		setSrc(src);
 		setTime(time);
 
@@ -68,20 +68,20 @@ public class UserBean implements Serializable {
 		this.fname = fname;
 	}
 
-	public String getCid() {
-		return cid;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setCid(String cid) {
-		this.cid = cid;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
-	public String getActive() {
-		return active;
+	public String getAuth() {
+		return auth;
 	}
 
-	public void setActive(String active) {
-		this.active = active;
+	public void setAuth(String auth) {
+		this.auth = auth;
 	}
 
 	public String getSrc() {

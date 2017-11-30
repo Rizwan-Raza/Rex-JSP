@@ -29,7 +29,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Main</title>
-<%@include file="head.inc.html" %>
+<%@include file="head.inc.html"%>
 </head>
 <body class="bg-light">
 	<figure class="pt-3 px-2">
@@ -37,8 +37,8 @@
 	</figure>
 	<nav class="nav flex-column">
 		<a class="nav-link active" href="welcome.jsp" target="jspmain"><i
-			class="fa fa-fw fa-home"></i> <b>Home</b></a> <a class="nav-link disabled"
-			href="Introduction.pdf" target="jspmain"><i
+			class="fa fa-fw fa-home"></i> <b>Home</b></a> <a
+			class="nav-link disabled" href="Introduction.pdf" target="jspmain"><i
 			class="fa fa-fw fa-book"></i> <b>Documentation</b></a>
 	</nav>
 	<div class="list-group">
@@ -50,7 +50,9 @@
 		<a class="list-group-item list-group-item-action"
 			href="right.jsp?server=<%=server%>&amp;db=<%=localdb%>"
 			target="jspmain"><i class="fa fa-fw fa-database"></i> <%=localdb%></a>
-		<% } %>
+		<%
+			}
+		%>
 	</div>
 </body>
 </html>

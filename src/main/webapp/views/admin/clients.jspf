@@ -1,3 +1,4 @@
+<%@page import="com.rex.modal.AdminModal"%>
 <div id="clients" class="tab-pane fade show active">
 	<br>
 	<h4>Clients of our System</h4>
@@ -12,32 +13,37 @@
 		</div>
 	</div> -->
 	<br>
+	<%
+		request.setAttribute("clients", (new AdminModal()).getClients());
+	%>
 	<h5>
 		Total number of clients is: <b id='clients-num'>${clients.size() }</b>
 	</h5>
 	<table
 		class="table table-fluid table-hover table-bordered table-striped">
-		<thead>
+		<thead class="thead-dark">
 			<tr>
-				<th>#</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Email</th>
-				<th>Gender</th>
-				<th>Contact Number</th>
-				<th>Address | Street N0.</th>
-				<th>Active</th>
-				<th>Actions</th>
+				<th scope="col">#</th>
+				<th scope="col">Full Name</th>
+				<!-- 				<th scope="col">First Name</th> -->
+				<!-- 				<th scope="col">Last Name</th> -->
+				<th scope="col">Email</th>
+				<th scope="col">Gender</th>
+				<th scope="col">Contact</th>
+				<th scope="col">Address | Street N0.</th>
+				<th scope="col">Active</th>
+				<th scope="col">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="client" varStatus="status" items="${clients}">
-				<tr id="for-${client.getCid() }">
+				<tr id="for-${client.getUid() }" scope="row">
 					<td class="f-o-f-dp"><div class="user-dp user-dp-xs"
-							style="background-image: url('resources/${client.getSrc() }');"
-							onclick="changePicture('${client.getSrc() }', '${client.getFullname() }', ${Integer.parseInt(client.getCid())})"></div></td>
-					<td class="c-fname">${client.getFname() }</td>
-					<td class="c-lname">${client.getLname() }</td>
+							style="background-image: url('${client.getSrc() }');"
+							onclick="changePicture('${client.getSrc() }', '${client.getFullname() }', ${Integer.parseInt(client.getUid())})"></div></td>
+					<td class="c-name">${client.getFullname() }</td>
+					<%-- 					<td class="c-fname">${client.getFname() }</td> --%>
+					<%-- 					<td class="c-lname">${client.getLname() }</td> --%>
 					<td class="c-email"><a
 						onclick="clientMail('${client.getEmail() }')">${client.getEmail() }</a></td>
 					<td class="c-gender">${client.getGender() }</td>
@@ -45,12 +51,16 @@
 					<td><a
 						onclick="address('${client.getStreet()}', '${client.getTown()}', '${client.getCity()}', '${client.getState()}', null)">${client.getStreet() }</a></td>
 					<td class="text-center act"><c:choose>
-							<c:when test="${client.getActive() eq '0'}">
+							<c:when test="${client.getAuth() eq '0'}">
 								<i class="fa fa-fw fa-remove text-danger"></i>
 							</c:when>
-							<c:otherwise>
+							<c:when test="${client.getAuth() eq '1'}">
 								<i class="fa fa-fw fa-check text-success"></i>
-							</c:otherwise>
+							</c:when>
+							<c:when test="${client.getAuth() eq '2'}">
+								<i class="fa fa-fw fa-user-secret text-info"></i>
+							</c:when>
+							<c:otherwise></c:otherwise>
 						</c:choose></td>
 					<td>
 						<div class="dropdown">
@@ -58,88 +68,45 @@
 								data-toggle="dropdown">User</button>
 							<div class="dropdown-menu dropdown-menu-right">
 								<a class="dropdown-item"
-									onclick="edit('${client.getFname() }', '${client.getLname() }', '${client.getEmail() }', '${client.getGender() }', '${client.getContact() }', '${client.getSrc() }', '${client.getStreet() }', '${client.getTown() }', '${client.getCity() }', '${client.getState() }', ${client.getCid() }, null)"><i
+									onclick="edit('${client.getFname() }', '${client.getLname() }', '${client.getEmail() }', '${client.getGender() }', '${client.getContact() }', '${client.getSrc() }', '${client.getStreet() }', '${client.getTown() }', '${client.getCity() }', '${client.getState() }', ${client.getUid() }, null)"><i
 									class="fa fa-fw fa-pencil"></i> Edit </a> <a class="dropdown-item"
-									onclick="kickout('$fname', $cid)"> <i
-									class="fa fa-fw fa-user-times"></i> Kickout
+									onclick="kickout('${client.getFname()}', ${client.getUid() })">
+									<i class="fa fa-fw fa-user-times"></i> Kickout
 								</a>
 								<c:choose>
-									<c:when test="$cid eq '0'">
-										<a class="dropdown-item" onclick="activate('$fname', $cid);">
+									<c:when test="${client.getAuth() eq '0'}">
+										<a class="dropdown-item act-link"
+											onclick="activate('${client.getFname()}', ${client.getUid() });">
 											<i class="fa fa-fw fa-check"></i> Activate
 										</a>
 									</c:when>
-									<c:otherwise>
-										<a class="dropdown-item" onclick="deactivate('$fname', $cid);">
+									<c:when test="${client.getAuth() eq '1'}">
+										<a class="dropdown-item act-link"
+											onclick="deactivate('${client.getFname()}', ${client.getUid() });">
 											<i class="fa fa-fw fa-remove"></i> Deactivate
 										</a>
-									</c:otherwise>
+									</c:when>
+									<c:when test="${client.getAuth() eq '2'}">
+										<a id="adminMBtn-$cid" class="dropdown-item"
+											class="btn btn-block btn-sm btn-info"
+											onclick="makeAdmin('${client.getFname()}', ${client.getUid() });">
+											<i class="fa fa-fw fa-user-secret"></i> Demote
+										</a>
+									</c:when>
+									<c:when test="${client.getAuth() ne '2'}">
+										<a id="adminMBtn-$cid" class="dropdown-item"
+											class="btn btn-block btn-sm btn-info"
+											onclick="makeAdmin('${client.getFname()}', ${client.getUid() });">
+											<i class="fa fa-fw fa-user-secret"></i> Promote
+										</a>
+									</c:when>
+									<c:otherwise></c:otherwise>
 								</c:choose>
-								<a id="adminMBtn-$cid" class="dropdown-item"
-									class="btn btn-block btn-sm btn-info"
-									onclick="makeAdmin('$fname', $cid);"> <i
-									class="fa fa-fw fa-user-secret"></i> Make Admin
-								</a>
 							</div>
 						</div>
 					</td>
 				</tr>
 			</c:forEach>
-			<!--  <?php 
-				include 'components/database.php';
-				$conn = connectDB();
-				if ($conn) {
-					$sql = "SELECT * FROM clients, addresses WHERE clients.add_id=addresses.add_id;";
-					$result = mysqli_query($conn, $sql);
-					if ($result) {
-						$num = mysqli_num_rows($result);
-						echo "<br><h4>Total number of clients is: <b id='clients-num'>".$num."</b></h4>";
-						for ($i=0; $i < $num; $i++) { 
-							$row = mysqli_fetch_assoc($result);
-							$add_id = $row['add_id'];
-							$cid = $row['cid'];
-							$dp = $row['src'];
-							$fname = $row['firstname'];
-							$lname = $row['lastname'];
-							$email = $row['email'];
-							$gender = $row['gender'];
-							$contact = $row['contact'];
-							$street = $row['street_no'];
-							$town = $row['town'];
-							$city = $row['city'];
-							$state = $row['state'];
-							echo "<tr id='for-".$cid."'>";
-							echo "<td class='f-o-f-dp'><div class='user-dp user-dp-xs' style='background-image: url(\"".$dp."\");' onclick=\"changePicture('$dp', '$fname $lname', $cid)\"></div></td>";
-							echo "<td class='c-fname'>".ucfirst($fname)."</td>";
-							echo "<td class='c-lname'>".ucfirst($lname)."</td>";
-							echo "<td class='c-email'><a onclick=\"clientMail('".$email."')\">".$email."</a></td>";
-							echo "<td class='c-gender'>".ucfirst($gender)."</td>";
-							echo "<td class='c-cont'>".$contact."</td>";
-							echo "<td><a onclick=\"address('".$street."', '".$town."', '".$city."', '".$state."', $add_id)\">".$street."</a></td>";
-							echo "<td class='text-center act'>";
-								echo $row['active'] == 0 ? "<i class='fa fa-remove text-danger'></i>" : "<i class='fa fa-check text-success'></i>";
-							echo "</td>";
-							echo "<td>";
-								echo "<div class='dropdown'> <button class='btn btn-primary btn-xs btn-block dropdown-toggle' data-toggle='dropdown'> User <i class='fa fa-chevron-down fa-fw'></i> </button> <ul class='dropdown-menu dropdown-menu-right'> <li><a>";
-									echo "<button class='btn btn-block btn-sm btn-primary' onclick=\"edit('".$fname."', '".$lname."', '".$email."', '".$gender."', '".$contact."', '".$dp."', '".$street."', '".$town."', '".$city."', '".$state."', $cid, $add_id)\"><i class='fa fa-pencil'></i> Edit</button> "; 
-								echo "</a></li><li><a>";
-									echo "<button class='btn btn-block btn-sm btn-danger' onclick=\"kickout('".$fname."', ".$cid.")\"><i class='fa fa-user-times'></i> Kickout</button> "; 
-								echo "</a></li><li><a>";
-									echo $row['active'] == 0
-									? 
-									"<button class='btn btn-block btn-sm btn-success' onclick=\"activate('".$fname."', ".$cid.");\"><i class='fa fa-check'></i> Activate</button>"
-									:
-									"<button class='btn btn-block btn-sm btn-warning' onclick=\"deactivate('".$fname."', ".$cid.");\"><i class='fa fa-remove'></i> Deactivate</button>"; 
-								echo "</a></li><li id='adminMBtn-".$cid."'><a>";
-									echo "<button class='btn btn-block btn-sm btn-info' onclick=\"makeAdmin('".$fname."', ".$cid.");\"><i class='fa fa-user-secret'></i> Make Admin</button>";
-								echo "</a></li></ul> </div>";
-							echo"</td>
-							</tr>";
-						}
-					}
-				}
-				mysqli_close($conn);
-			?> -->
 		</tbody>
 	</table>
 </div>

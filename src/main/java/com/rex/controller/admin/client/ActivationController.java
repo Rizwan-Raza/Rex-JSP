@@ -1,4 +1,4 @@
-package com.rex.controller;
+package com.rex.controller.admin.client;
 
 import java.io.IOException;
 
@@ -6,21 +6,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.rex.bean.ErrorBean;
-import com.rex.bean.SuccessBean;
+import com.rex.modal.ClientModal;
 
 /**
- * Servlet implementation class LogoutController
+ * Servlet implementation class ClientActivationController
  */
-public class LogoutController extends HttpServlet {
+public class ActivationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LogoutController() {
+	public ActivationController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -31,18 +30,17 @@ public class LogoutController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession sess = request.getSession(false);
-		if (request.getParameter("logout").equals("true")) {
-			// session.setAttribute("user", null);
-			sess.removeAttribute("log");
-			sess.removeAttribute("user");
-			sess.setAttribute("process", "success");
-			sess.setAttribute("bean", new SuccessBean("L-O-1", "Logout Successfull!", "logout", "success"));
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		Object obj = (new ClientModal()).activate(request.getParameter("activate").equals("true") ? "1" : "0",
+				request.getParameter("id"));
+		if (obj instanceof String) {
+			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + obj + "\", \"user_id\": \""
+					+ request.getParameter("id") + "\"}");
 		} else {
-			sess.setAttribute("process", "failed");
-			sess.setAttribute("bean", new ErrorBean("L-O-1", "Logout Failed!", "LogoutController"));
+			ErrorBean eb = (ErrorBean) obj;
+			response.getWriter().println("{\"response\": \"KO\",\"message\": \"" + eb.getMessage() + "\"}");
 		}
-		response.sendRedirect("./");
 	}
 
 	/**

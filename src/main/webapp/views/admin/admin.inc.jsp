@@ -20,7 +20,16 @@
 	include 'modals/editProfile.php'; 
 	include 'components/errorSnacks.html';
 ?> -->
-<jsp:directive.include file="modals/edit-profile.jspf"/>
+<jsp:directive.include file="modals/clients/activation.html" />
+<jsp:directive.include file="modals/clients/kickout.html" />
+<jsp:directive.include file="modals/clients/promote.html" />
+<jsp:directive.include file="modals/clients/edit.html" />
+<jsp:directive.include file="modals/clients/address.html" />
+<jsp:directive.include file="modals/clients/change-password.html" />
+<jsp:directive.include file="modals/clients/change-picture.html" />
+<jsp:directive.include file="modals/clients/mail.jspf" />
+
+<jsp:directive.include file="modals/edit-profile.jspf" />
 <br>
 <div class="container admin-section">
 	<div
@@ -33,24 +42,21 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
-	
+
 	<nav class="nav nav-tabs nav-fill">
-		<a class="nav-item nav-link active" href="#clients"
-			data-toggle="tab" role="tab" aria-controls="clients"
-			aria-selected="true">Clients</a> <a class="nav-item nav-link"
-			href="#posts" data-toggle="tab" role="tab"
-			aria-controls="posts" aria-selected="false">Posted Properties</a>
-		<a class="nav-item nav-link disabled" href="#requires"
-			data-toggle="tab" role="tab" aria-controls="requires"
-			aria-selected="false">Requested
-				Properties</a> <a
-			class="nav-item nav-link disabled" href="#map" data-toggle="tab"
-			role="tab" aria-controls="map" aria-selected="false">Google
-				Map</a>
+		<a class="nav-item nav-link active" href="#clients" data-toggle="tab"
+			role="tab" aria-controls="clients" aria-selected="true">Clients</a> <a
+			class="nav-item nav-link" href="#posts" data-toggle="tab" role="tab"
+			aria-controls="posts" aria-selected="false">Posted Properties</a> <a
+			class="nav-item nav-link disabled" href="#requires" data-toggle="tab"
+			role="tab" aria-controls="requires" aria-selected="false">Requested
+			Properties</a> <a class="nav-item nav-link disabled" href="#map"
+			data-toggle="tab" role="tab" aria-controls="map"
+			aria-selected="false">Google Map</a>
 	</nav>
-	
+
 	<div class="tab-content">
-		<jsp:directive.include file="clients.jspf"/>		
+		<jsp:directive.include file="clients.jspf" />
 		<!-- <?php 
 			include 'clients.php'; 
 			include 'properties.php'; 

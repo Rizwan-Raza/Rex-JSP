@@ -34,13 +34,13 @@
 	<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 		id="navbarProfileDropdown" data-toggle="dropdown" aria-haspopup="true"
 		aria-expanded="false">
-			<div style="background-image: url('resources/${user.getSrc()}');"
+			<div style="background-image: url('${user.getSrc()}');"
 				class="user-nav user-dp user-dp-sm"></div>
 	</a>
 		<div class="dropdown-menu dropdown-menu-right user-info"
 			aria-labelledby="navbarProfileDropdown">
 			<div class="col-4 col-sm-4 col-md-4 float-left">
-				<div style="background-image: url('resources/${user.getSrc()}');"
+				<div style="background-image: url('${user.getSrc()}');"
 					class="user-dp user-dp-lg center-block">
 					<div class="info" data-toggle="modal"
 						data-target="#profilePictureModal">

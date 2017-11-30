@@ -27,7 +27,7 @@ public class EmailChecker extends HttpServlet {
 	public EmailChecker() {
 		conn = new DBConnector().getConnection();
 		try {
-			stmt = conn.prepareStatement("SELECT email FROM clients WHERE email=?");
+			stmt = conn.prepareStatement("SELECT email FROM users WHERE email=?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -72,6 +72,8 @@
 								<option selected="selected"><%=rsmd.getColumnTypeName(m).toString()%></option>
 								<option>VARCHAR</option>
 								<option>DATE</option>
+								<option>TIMESTAMP</option>
+								<option>INT</option>
 								<option>TINYINT</option>
 						</select>
 						<td>
@@ -87,8 +89,14 @@
 							%> <select name=<%=temp%> class="form-control custom-control">
 								<option></option>
 								<option>PRIMARY KEY</option>
+								<option>PRIMARY KEY AUTO_INCREMENT</option>
 								<option>NULL</option>
 								<option>NOT NULL</option>
+								<option>NULL DEFAULT NULL</option>
+								<option>NOT NULL DEFAULT '0'</option>
+								<option>NOT NULL DEFAULT CURRENT_TIMESTAMP</option>
+								<option>NOT NULL DEFAULT
+									'resources/uploads/users/temp.png'</option>
 						</select>
 						</td>
 
@@ -158,6 +166,8 @@
 							%> <select name=<%=temp%> class="form-control custom-control">
 								<option>VARCHAR</option>
 								<option>DATE</option>
+								<option>TIMESTAMP</option>
+								<option>INT</option>
 								<option>TINYINT</option>
 						</select>
 						<td>
@@ -171,8 +181,14 @@
 							%> <select name=<%=temp%> class="form-control custom-control">
 								<option></option>
 								<option>PRIMARY KEY</option>
+								<option>PRIMARY KEY AUTO_INCREMENT</option>
 								<option>NULL</option>
 								<option>NOT NULL</option>
+								<option>NULL DEFAULT NULL</option>
+								<option>NOT NULL DEFAULT '0'</option>
+								<option>NOT NULL DEFAULT CURRENT_TIMESTAMP</option>
+								<option>NOT NULL DEFAULT
+									'resources/uploads/users/temp.png'</option>
 						</select>
 						</td>
 

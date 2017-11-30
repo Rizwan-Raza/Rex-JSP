@@ -39,12 +39,10 @@ public class SignUpController extends HttpServlet {
 			return;
 		}
 
-		UserBean userData = new UserBean(request.getParameter("fname"), request.getParameter("lname"),
+		if ((new SignUpModal()).add(new UserBean(request.getParameter("fname"), request.getParameter("lname"),
 				request.getParameter("email"), request.getParameter("psw"), request.getParameter("gender"),
 				request.getParameter("cont"), request.getParameter("street"), request.getParameter("town"),
-				request.getParameter("city"), request.getParameter("state"));
-
-		if ((new SignUpModal()).add(userData)) {
+				request.getParameter("city"), request.getParameter("state")))) {
 			response.getWriter().println("{\"response\": \"OK\",\"name\": \"" + request.getParameter("fname") + " "
 					+ request.getParameter("lname") + "\", \"email\": \"" + request.getParameter("email") + "\"}");
 		} else {

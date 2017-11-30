@@ -17,11 +17,16 @@ $(document).ready(function() {
 	$("#repwd").focusout(function() {
 		clearTimeout(pass);
 	});
-	$("#signupForm #email").focusin(function() {
-		pass = setInterval(emailChecker, 200);
+	$("#signupForm #email").keydown(function() {
+		emailAvailable();
 	});
-	$("#signupForm #email").focusout(function() {
-		clearTimeout(pass);
+
+	$("#adminLoginModal #usrname").keydown(function() {
+		emailChecker("#adminLoginModal #usrname");
+	});
+
+	$("#clientLoginModal #usrname").keydown(function() {
+		emailChecker("#clientLoginModal #usrname");
 	});
 
 	$("#range-all").click(function() {
@@ -115,14 +120,14 @@ $(function() {
 });
 function passwordChecker() {
 	var l = $("#repwd").val();
-	if(l == oldData) {
+	if (l == oldData) {
 		return;
 	} else {
 		oldData = l;
 	}
 
 	if (l.length > 0) {
-		if ($("#pwd").val() ==l) {
+		if ($("#pwd").val() == l) {
 			$("#repwd").removeClass('is-invalid');
 			$("#repwd").addClass('is-valid');
 			$("#repwd-holder .invalid-feedback").hide();
@@ -140,15 +145,10 @@ function passwordChecker() {
 		$("#repwd-holder .invalid-feedback").hide();
 	}
 }
-function emailChecker() {
+function emailAvailable() {
 	var email = $("#signupForm #email").val()
 	// alert(email.substring(email.indexOf("@"), email.length-2).search(".") !=
 	// -1);
-	if(email == oldEmail) {
-		return;
-	} else {
-		oldEmail = email;
-	}
 	if (email.length > 8 && email.search("@") != -1) {
 		$.ajax({
 			type : 'POST',
@@ -185,16 +185,58 @@ function emailChecker() {
 			}
 		});
 	} else {
-		$("#email-holder").removeClass('has-error');
-		$("#email-holder").removeClass('has-success');
-		$("#email-holder .form-control-feedback").removeClass('fa-check');
-		$("#email-holder .form-control-feedback").removeClass('fa-remove');
-		$("#email-holder span.feedback-label").text("");
+		$("#email").removeClass('is-invalid');
+		$("#email").removeClass('is-valid');
+		$("#email .valid-feedback").hide();
+		$("#email .invalid-feedback").hide();
+	}
+}
+function emailChecker(id) {
+	var email = $(id).val()
+	// alert(email.substring(email.indexOf("@"), email.length-2).search(".") !=
+	// -1);
+	if (email.length > 8 && email.search("@") != -1) {
+		$.ajax({
+			type : 'POST',
+			url : "EmailChecker",
+			dataType : 'html',
+			async : true,
+			data : {
+				email : email
+			},
+			success : function(data, status) {
+				obj = JSON.parse(data);
+				if (obj.response == "OK") {
+					$(id).removeClass('is-invalid');
+					$(id).addClass('is-valid');
+					$(id + " .valid-feedback").show();
+					$(id + " .invalid-feedback").hide();
+				} else {
+					$(id).addClass('is-invalid');
+					$(id).removeClass('is-valid');
+					$(id + " .valid-feedback").hide();
+					$(id + " .invalid-feedback").show();
+				}
+			},
+			error : function(data, status) {
+				$(id).addClass('is-invalid');
+				$(id).removeClass('is-valid');
+				$(id + " .valid-feedback").hide();
+				$(id + " .invalid-feedback").show();
+				$(id + " .invalid-feedback").text(
+						"Can't Verify Email right now.");
+			}
+		});
+	} else {
+		$(id).removeClass('is-invalid');
+		$(id).removeClass('is-valid');
+		$(id + " .valid-feedback").hide();
+		$(id + " .invalid-feedback").hide();
 	}
 }
 function passwordHelper() {
 	var l = $("#pwd").val().length;
-	if(l == oldData) {
+	if (l == oldData) {
 		return;
 	} else {
 		oldData = l;
@@ -220,15 +262,13 @@ function passwordHelper() {
 }
 function signup(elem) {
 	elem.classList.add("was-validated");
-	console.log(emailVerified);
-
 	if (!emailVerified) {
 		$("#email").focus();
 		$("#email").addClass("is-invalid");
 		$("#email .invalid-feedback").show();
 		return false;
 	}
-	if (elem.psw.value == elem.repsw.value) {
+	if (elem.psw.value != elem.repsw.value) {
 		$("#repwd").focus();
 		$("#repwd").addClass("is-invalid");
 		$("#repwd-holder invalid-feedback").show();
@@ -257,9 +297,9 @@ function signup(elem) {
 			var obj = JSON.parse(data);
 			if (obj.response == "OK") {
 				$("#signupModal").modal("hide");
-				$("#signupSuccessModal .modal-info b:nth-child(1) span").text(
+				$("#signupSuccessModal .modal-info b:nth-child(1)").text(
 						obj.name);
-				$("#signupSuccessModal .modal-info b:nth-child(2) span").text(
+				$("#signupSuccessModal .modal-info b:nth-child(3)").text(
 						obj.email);
 				$("#signupSuccessModal").modal("show");
 				$("#errorHolder").css("display", "none");
@@ -268,6 +308,7 @@ function signup(elem) {
 				$("#pwdHolder #pwd").nextAll().remove();
 				$("#repwdHolder #repwd").nextAll().remove();
 				elem.reset();
+				elem.removeClass("was-validated");
 				return true;
 			} else {
 				alert(data);

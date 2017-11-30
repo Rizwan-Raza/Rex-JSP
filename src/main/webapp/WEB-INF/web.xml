@@ -25,20 +25,16 @@
       </param-value>
 	</context-param>
 	<servlet>
-		<servlet-name>Example</servlet-name>
-		<servlet-class>Example</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>SignUpController</servlet-name>
 		<servlet-class>com.rex.controller.SignUpController</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ClientLoginController</servlet-name>
-		<servlet-class>com.rex.controller.ClientLoginController</servlet-class>
+		<servlet-class>com.rex.controller.client.LoginController</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AdminLoginController</servlet-name>
-		<servlet-class>com.rex.controller.AdminLoginController</servlet-class>
+		<servlet-class>com.rex.controller.admin.LoginController</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>EmailChecker</servlet-name>
@@ -55,10 +51,34 @@
 		<servlet-name>ProfilePicUpdateController</servlet-name>
 		<servlet-class>com.rex.controller.ProfilePicUpdateController</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>Example</servlet-name>
-		<url-pattern>/Example</url-pattern>
-	</servlet-mapping>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AdminUpdateController</display-name>
+		<servlet-name>AdminUpdateController</servlet-name>
+		<servlet-class>com.rex.controller.admin.UpdateController</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>UpdateController</display-name>
+		<servlet-name>UpdateController</servlet-name>
+		<servlet-class>com.rex.controller.client.UpdateController</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ActivationController</display-name>
+		<servlet-name>ActivationController</servlet-name>
+		<servlet-class>com.rex.controller.admin.client.ActivationController</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>DeleteController</display-name>
+		<servlet-name>DeleteController</servlet-name>
+		<servlet-class>com.rex.controller.admin.client.DeleteController</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SignUpController</servlet-name>
 		<url-pattern>/SignUp</url-pattern>
@@ -82,5 +102,21 @@
 	<servlet-mapping>
 		<servlet-name>ProfilePicUpdateController</servlet-name>
 		<url-pattern>/ProfilePicUpdate</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminUpdateController</servlet-name>
+		<url-pattern>/AdminUpdate</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UpdateController</servlet-name>
+		<url-pattern>/ClientUpdate</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActivationController</servlet-name>
+		<url-pattern>/ClientActivation</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteController</servlet-name>
+		<url-pattern>/ClientDelete</url-pattern>
 	</servlet-mapping>
 </web-app>

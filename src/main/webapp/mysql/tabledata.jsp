@@ -21,14 +21,22 @@
 			if (request.getParameter("row" + i + "col1") != "") {
 				if (query == "") {
 					query = request.getParameter("row" + i + "col1") + " "
-							+ request.getParameter("row" + i + "col2") + "("
-							+ request.getParameter("row" + i + "col3") + ") "
-							+ request.getParameter("row" + i + "col4");
+							+ request.getParameter("row" + i + "col2");
+					if (request.getParameter("row" + i + "col3").length() != 0) {
+						query += "(" + request.getParameter("row" + i + "col3") + ") ";
+					} else {
+						query += " ";
+					}
+					query += request.getParameter("row" + i + "col4");
 				} else {
 					query = query + "," + request.getParameter("row" + i + "col1") + " "
-							+ request.getParameter("row" + i + "col2") + "("
-							+ request.getParameter("row" + i + "col3") + ") "
-							+ request.getParameter("row" + i + "col4");
+							+ request.getParameter("row" + i + "col2");
+					if (request.getParameter("row" + i + "col3").length() != 0) {
+						query += "(" + request.getParameter("row" + i + "col3") + ") ";
+					} else {
+						query += " ";
+					}
+					query += request.getParameter("row" + i + "col4");
 				}
 			} else {
 				break;

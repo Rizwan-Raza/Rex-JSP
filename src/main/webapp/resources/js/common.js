@@ -1,10 +1,11 @@
-/**** Common start */
+/** ** Common start */
 var x = 0, num = 1;
 var valid_url = true;
 function snackbar (text) {
 	var div = document.createElement("div");        // Create a <button> element
 	var t = document.createTextNode(text);       // Create a text node
-	div.appendChild(t);                                // Append the text to <button>
+	div.appendChild(t);                                // Append the text to
+														// <button>
 	div.id = "div"+num+"Snackbar";
 	document.body.appendChild(div);
 	setTimeout(function(){
@@ -16,6 +17,7 @@ function snackbar (text) {
     	num++;
     }, 3200);
 }
+
 function showSnackbar(id) {
     var x = document.getElementById(id)
     setTimeout(function(){ x.className = "showTheSnack"; }, 500);
@@ -80,7 +82,8 @@ function errorHandler(XMLHttpRequest, textStatus, errorThrown) {
 			showSnackbar("noResourceSnackbar");
             break;
         case 500:
-            // alert("Can't Registered Customer's Address, Query Error "+textStatus);
+            // alert("Can't Registered Customer's Address, Query Error
+			// "+textStatus);
             showSnackbar("errorSnackbar500");
             break;
         case 501:
@@ -93,14 +96,14 @@ function errorHandler(XMLHttpRequest, textStatus, errorThrown) {
             snackbar("Something went wrong, Try again");
     }
 }
-function asyncProcess(url, cid, successBlock) {
+function asyncProcess(url, id, successBlock) {
 	$.ajax({
 		type: 'POST',
 		url: url,
 		dataType: 'html',
 		async: true,
 		data: {
-			cid: cid
+			id: id
 		},
 		success: successBlock,
 		error: errorHandler
@@ -130,4 +133,4 @@ function showSeller(fname, lname, email, gender, contact, dp, type) {
 	$("#showSellerModal input#to").val(email);
 	$("#showSellerModal").modal('show');
 }
-/********** Common end ****************/
+/** ******** Common end *************** */
