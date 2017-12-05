@@ -1,4 +1,4 @@
-package com.rex.controller;
+package com.rex.controller.admin.client;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,13 +17,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.rex.bean.ErrorBean;
 import com.rex.bean.SuccessBean;
-import com.rex.bean.UserBean;
 import com.rex.modal.ProfilePicUpdateModal;
 
 /**
- * Servlet implementation class ProfilePicUpdateController
+ * Servlet implementation class PicUpdate
  */
-public class ProfilePicUpdateController extends HttpServlet {
+public class PicUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String filePath;
 	private int maxFileSize = 5000 * 1024;
@@ -38,7 +37,7 @@ public class ProfilePicUpdateController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProfilePicUpdateController() {
+	public PicUpdate() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -53,7 +52,7 @@ public class ProfilePicUpdateController extends HttpServlet {
 		HttpSession sess = request.getSession(true);
 
 		if (ServletFileUpload.isMultipartContent(request)) {
-			String uFilePath = filePath + request.getSession(true).getAttribute("log").toString() + "s/";
+			String uFilePath = filePath + (request.getParameter("auth") == "2" ? "admins/" : "clients/");
 
 			DiskFileItemFactory factory = new DiskFileItemFactory(maxMemSize,
 					new File(getServletContext().getInitParameter("temp-upload")));
@@ -92,7 +91,7 @@ public class ProfilePicUpdateController extends HttpServlet {
 						}
 						fi.write(new File(oFilePath + uploadedFile));
 						// Uploaded
-						SuccessBean process = new SuccessBean("P-U-1", "Profile Pic Updated Succcessfully", "upload",
+						SuccessBean process = new SuccessBean("P-U-1", "Client's Pic Updated Succcessfully", "upload",
 								null);
 						if (!request.getParameter("old_dp").equals("resources/uploads/users/temp.png")) {
 							file = new File(getServletContext().getRealPath(request.getParameter("old_dp")));
@@ -101,19 +100,10 @@ public class ProfilePicUpdateController extends HttpServlet {
 						} else {
 							process.setCleanUp("failed");
 						}
-						UserBean curr_user = (UserBean) sess.getAttribute("user");
 						ProfilePicUpdateModal ppum = new ProfilePicUpdateModal();
-						Object bean = ppum.update(uFilePath + uploadedFile, curr_user.getUid(), process);
+						Object bean = ppum.update(uFilePath + uploadedFile, request.getParameter("uid"), process);
 						if (bean instanceof SuccessBean) {
-							sess.setAttribute("user",
-									new UserBean(curr_user.getUid(), curr_user.getFname(), curr_user.getLname(),
-											curr_user.getEmail(), curr_user.getPassword(), curr_user.getGender(),
-											curr_user.getContact(), curr_user.getStreet(), curr_user.getTown(),
-											curr_user.getCity(), curr_user.getState(), null, oFilePath + uploadedFile,
-											curr_user.getTime()));
-							((SuccessBean) bean).setSession("success");
 							sess.setAttribute("process", "success");
-							((SuccessBean) bean).setCompletion("success");
 
 						} else {
 							sess.setAttribute("process", "failed");

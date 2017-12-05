@@ -15,7 +15,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form role="form" action="ClientUpdate" method="post">
+				<form role="form" action="Client-Update" method="post">
 					<label for="usrname"><i class="fa fa-fw fa-user-circle"></i>
 						Username</label>
 					<div class="row">

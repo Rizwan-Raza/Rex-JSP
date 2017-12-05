@@ -18,9 +18,9 @@ $(document).ready(function() {
 				$("#authErrorModal").modal('show');
 			</c:when>
 			<c:otherwise>
-				$("#errorModalBS p#upper-text").html("Code: ${bean.code }<br>Message: ${ bean.message}");
+				$("#errorModalBS p#upper-text").html("Code: ${bean.code }<br>Message: ${ bean.message.replace('\\', '/')}");
 				$("#errorModalBS p#lower-text").html("Occur at Module: ${ bean.occurAt}");
-				$("#errorModalBS").modal('show');
+				$("#errorModalBS").modal("show");
 			</c:otherwise>
 		</c:choose>
 	</c:when>

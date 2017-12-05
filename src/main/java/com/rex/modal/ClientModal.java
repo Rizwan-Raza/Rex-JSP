@@ -43,7 +43,7 @@ public class ClientModal {
 				return new ErrorBean("C-A-1", "Incorrect Password!", this.getClass().toGenericString());
 			}
 		} catch (SQLException e) {
-			return new ErrorBean("C-A-1", e.getMessage(), this.getClass().toGenericString());
+			return new ErrorBean("C-A-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
 
@@ -72,32 +72,4 @@ public class ClientModal {
 		}
 	}
 
-	public Object activate(String act, String id) {
-		try {
-			stmt = conn.prepareStatement("UPDATE users SET auth=? WHERE user_id=?");
-			stmt.setString(1, act);
-			stmt.setString(2, id);
-			if (stmt.executeUpdate() == 1) {
-				return "Client " + ((act.equals("1")) ? "A" : "Dea") + "ctivated Successfully!";
-			} else {
-				return new ErrorBean("A-C-2", "User Existance not Found", this.getClass().toGenericString());
-			}
-		} catch (SQLException e) {
-			return new ErrorBean("A-C-1", e.getMessage(), this.getClass().toGenericString());
-		}
-	}
-
-	public Object delete(String id) {
-		try {
-			stmt = conn.prepareStatement("DELETE FROM users WHERE user_id=?");
-			stmt.setString(1, id);
-			if (stmt.executeUpdate() == 1) {
-				return "Client Kicked out Successfully!";
-			} else {
-				return new ErrorBean("A-C-4", "User Existance not Found", this.getClass().toGenericString());
-			}
-		} catch (SQLException e) {
-			return new ErrorBean("A-C-3", e.getMessage(), this.getClass().toGenericString());
-		}
-	}
 }

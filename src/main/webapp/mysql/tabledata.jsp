@@ -70,6 +70,8 @@
 			String columnnm, record;
 			PreparedStatement pstm1 = con.prepareStatement("USE `" + db + "`");
 			rst = pstm1.executeQuery();
+			pstm1.close();
+			pstm1 = null;
 			if (query1 == "" || query1 == null) {
 				pstm1 = con.prepareStatement("SELECT * FROM " + table);
 			} else {

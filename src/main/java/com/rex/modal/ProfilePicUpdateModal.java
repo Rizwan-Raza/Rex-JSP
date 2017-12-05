@@ -31,7 +31,7 @@ public class ProfilePicUpdateModal {
 			process.setQuery("true");
 			return process;
 		} catch (SQLException e) {
-			return new ErrorBean("P-U-1", e.getMessage(), this.getClass().toGenericString());
+			return new ErrorBean("P-U-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
 }

@@ -17,15 +17,15 @@ $(document).ready(function() {
 	$("#repwd").focusout(function() {
 		clearTimeout(pass);
 	});
-	$("#signupForm #email").keydown(function() {
+	$("#signupForm #email").keyup(function() {
 		emailAvailable();
 	});
 
-	$("#adminLoginModal #usrname").keydown(function() {
+	$("#adminLoginModal #usrname").keyup(function() {
 		emailChecker("#adminLoginModal #usrname");
 	});
 
-	$("#clientLoginModal #usrname").keydown(function() {
+	$("#clientLoginModal #usrname").keyup(function() {
 		emailChecker("#clientLoginModal #usrname");
 	});
 
@@ -308,7 +308,7 @@ function signup(elem) {
 				$("#pwdHolder #pwd").nextAll().remove();
 				$("#repwdHolder #repwd").nextAll().remove();
 				elem.reset();
-				elem.removeClass("was-validated");
+				$(elem).removeClass("was-validated");
 				return true;
 			} else {
 				alert(data);

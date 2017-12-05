@@ -4,45 +4,51 @@ function activate(name, user_id) {
 	$("#activationModal .modal-info > b > span").text(name);
 	$("#activationModal .modal-footer > .btn-success").attr(
 			"onclick",
-			"asyncProcess('ClientActivation?activate=true', " + user_id
+			"asyncProcess('Admin-Client-Activation?activate=true', " + user_id
 					+ ", activateSuccess)");
 	$("#activationModal").modal('show');
 }
 function activateSuccess(data, status) {
 	var obj = JSON.parse(data);
 	$("#activationModal").modal("hide");
+	if (obj.response == "OK") {
+		$("tr#for-" + obj.user_id + " .act").html(
+				"<i class='fa fa-td fa-check text-success'></i>");
+		var elem = $("tr#for-" + obj.user_id + " .act-link");
+		var action = elem.attr("onclick");
+		elem.attr("onclick", "de" + action);
+		elem.html("<i class='fa fa-fw fa-remove'></i> Deactivate");
+	}
 	snackbar(obj.message);
-	$("tr#for-" + obj.user_id + " .act").html(
-			"<i class='fa fa-check text-success'></i>");
-	var elem = $("tr#for-" + obj.user_id + " .act-link");
-	var action = elem.attr("onclick");
-	elem.attr("onclick", "de" + action);
-	elem.html("<i class='fa fa-remove'></i> Deactivate");
 }
 function deactivate(name, user_id) {
 	$("#activationModal .modal-info > span").text("Dea");
 	$("#activationModal .modal-info > b > span").text(name);
 	$("#activationModal .modal-footer > .btn-success").attr(
 			"onclick",
-			"asyncProcess('ClientActivation?activate=false', " + user_id
+			"asyncProcess('Admin-Client-Activation?activate=false', " + user_id
 					+ ", deactivateSuccess)");
 	$("#activationModal").modal('show');
 }
 function deactivateSuccess(data, status) {
 	var obj = JSON.parse(data);
 	$("#activationModal").modal("hide");
+	if (obj.response == "OK") {
+		$("tr#for-" + obj.user_id + " .act").html(
+				"<i class='fa fa-td fa-remove text-danger'></i>");
+		var elem = $("tr#for-" + obj.user_id + " .act-link");
+		var action = elem.attr("onclick");
+		elem.attr("onclick", action.substring(2, action.length));
+		elem.html("<i class='fa fa-fw fa-check'></i> Activate");
+	}
 	snackbar(obj.message);
-	$("tr#for-" + obj.user_id + " .act").html(
-			"<i class='fa fa-remove text-danger'></i>");
-	var elem = $("tr#for-" + obj.user_id + " .act-link");
-	var action = elem.attr("onclick");
-	elem.attr("onclick", action.substring(2, action.length));
-	elem.html("<i class='fa fa-check'></i> Activate");
 }
 function kickout(name, user_id) {
 	$("#kickoutModal .modal-info > b > span").text(name);
-	$("#kickoutModal .modal-footer > .btn-danger").attr("onclick",
-			"asyncProcess('ClientDelete'," + user_id + ", kickoutSuccess)");
+	$("#kickoutModal .modal-footer > .btn-danger").attr(
+			"onclick",
+			"asyncProcess('Admin-Client-Delete'," + user_id
+					+ ", kickoutSuccess)");
 	$("#kickoutModal").modal('show');
 }
 function kickoutSuccess(data, status) {
@@ -54,49 +60,86 @@ function kickoutSuccess(data, status) {
 	});
 	snackbar(obj.message);
 }
-function makeAdmin(fname, cid) {
-	$("#makeAdminModal .modal-info > b > span").text(fname);
-	$("#makeAdminModal .modal-footer .btn-success").attr(
+function promote(fname, cid) {
+	$("#promoteModal .modal-info > span#adm-act").text("Pro");
+	$("#promoteModal .modal-info > span#adm-ud").text("as");
+	$("#promoteModal .modal-info > b > span").text(fname);
+	$("#promoteModal .modal-footer .btn-success").attr(
 			"onclick",
-			"asyncProcess('actions/admin/clients/promote.php'," + cid
-					+ ", makeAdminSuccess)");
-	$("#makeAdminModal").modal("show");
+			"asyncProcess('Admin-Client-Promote?promote=true'," + cid
+					+ ", promoteSuccess)");
+	$("#promoteModal").modal("show");
 }
-function makeAdminSuccess(data, status) {
+function promoteSuccess(data, status) {
 	var obj = JSON.parse(data);
-	$("#clients #adminMBtn-" + obj.cid).remove();
-	snackbar(obj.name + " is now a admin, Login with old data");
+	$("#promoteModal").modal("hide");
+	if (obj.response == "OK") {
+		$("tr#for-" + obj.user_id + " .act").html(
+				"<i class='fa fa-td fa-user-secret text-info'></i>");
+		var elem = $("tr#for-" + obj.user_id + " .adm-link");
+		var action = elem.attr("onclick");
+		elem.attr("onclick", "de" + action.substring(3, action.length));
+		elem.html("<i class='fa fa-fw fa-user-secret'></i> Demote");
+	}
+	snackbar(obj.message);
+}
+function demote(fname, cid) {
+	$("#promoteModal .modal-info > span#adm-act").text("De");
+	$("#promoteModal .modal-info > span#adm-ud").text("from");
+	$("#promoteModal .modal-info > b > span").text(fname);
+	$("#promoteModal .modal-footer .btn-success").attr(
+			"onclick",
+			"asyncProcess('Admin-Client-Promote?promote=false'," + cid
+					+ ", demoteSuccess)");
+	$("#promoteModal").modal("show");
+}
+function demoteSuccess(data, status) {
+	var obj = JSON.parse(data);
+	$("#promoteModal").modal("hide");
+	if (obj.response == "OK") {
+		$("tr#for-" + obj.user_id + " .act").html(
+				"<i class='fa fa-td fa-check text-success'></i>");
+		var elem = $("tr#for-" + obj.user_id + " .adm-link");
+		var action = elem.attr("onclick");
+		elem.attr("onclick", "pro" + action.substring(2, action.length));
+		elem.html("<i class='fa fa-fw fa-user-secret'></i> Promote");
+	}
+	snackbar(obj.message);
 }
 function edit(fname, lname, email, gender, cont, dp, street, town, city, state,
-		cid, add_id) {
+		uid, add_id, auth) {
 	$("#clientEditModal .modal-body .user-dp-lg").attr("style",
 			"background-image: url('" + dp + "');");
 	$("#clientEditModal .modal-body #fname").val(fname);
 	$("#clientEditModal .modal-body #lname").val(lname);
 	$("#clientEditModal .modal-body #email").val(email);
 	if (gender == "Male") {
-		$("#clientEditModal .modal-body #male").attr("checked", "checked");
-	} else if (gender == "Female") {
-		$("#clientEditModal .modal-body #female").attr("checked", "checked");
+		$("#clientEditModal .modal-body #g_l").removeClass("fa-venus");
+		$("#clientEditModal .modal-body #g_l").addClass("fa-mars");
+	} else {
+		$("#clientEditModal .modal-body #g_l").removeClass("fa-mars");
+		$("#clientEditModal .modal-body #g_l").addClass("fa-venus");
 	}
+	$("#clientEditModal .modal-body #clientEditGender" + gender).attr(
+			"checked", "checked");
 	$("#clientEditModal .modal-body #cont").val(cont);
 	$("#clientEditModal .modal-body #editForm").attr("action",
-			"actions/admin/clients/update.php?cid=" + cid);
+			"Admin-Client-Update?uid=" + uid);
 	// $("#clientEditModal .modal-body #editForm").attr("onsubmit",
-	// "editClientAction('actions/admin/client-update.php', "+cid+")");
+	// "editClientAction('actions/admin/client-update.php', "+uid+")");
 	$("#clientEditModal .modal-body #change-address").attr(
 			"onclick",
 			"changeAddress('" + street + "', '" + town + "', '" + city + "', '"
 					+ state + "', " + add_id + ")");
 	$("#clientEditModal .modal-body #change-password").attr("onclick",
-			"changePassword(" + cid + ")");
+			"changePassword(" + uid + ")");
 	$("#clientEditModal .modal-body .change-picture").attr(
 			"onclick",
-			"changePicture('" + dp + "', '" + fname + " " + lname + "', " + cid
-					+ ")");
+			"changePicture('" + dp + "', '" + fname + " " + lname + "', " + uid
+					+ ", " + auth + ")");
 	$("#clientEditModal").modal('show');
 }
-function editClientAction(url, cid) {
+function editClientAction(url, uid) {
 	// var elem = document.getElementById("editForm");
 	// $.ajax({
 	// type: 'POST',
@@ -104,7 +147,7 @@ function editClientAction(url, cid) {
 	// dataType: 'html',
 	// async: true,
 	// data: {
-	// cid: cid,
+	// uid: uid,
 	// fname: elem.fname.value,
 	// lname: elem.lname.value,
 	// email: elem.email.value,
@@ -150,20 +193,22 @@ function address(street, town, city, state, add_id) {
 					+ state + "', " + add_id + ", 'client')");
 	$("#clientAddressModal").modal('show');
 }
-function changePassword(cid) {
+function changePassword(uid) {
 	// $("#clientEditModal").modal('hide');
 	$("#clientChangePasswordModal form").attr("action",
-			"actions/admin/clients/change-password.php?cid=" + cid);
+			"actions/admin/clients/change-password.php?uid=" + uid);
 	$("#clientChangePasswordModal").modal('show');
 }
-function changePicture(dp, name, cid) {
+function changePicture(dp, name, uid, auth) {
 	// $("#clientEditModal").modal('hide');
 	$("#clientChangePictureModal .user-dp-xl").attr("style",
 			"background-image: url('" + dp + "');");
 	$("#clientChangePictureModal .user-dp-xl").attr("onclick",
 			"showImageModal('" + name + "', '" + dp + "')");
-	$("#clientChangePictureModal form").attr("action",
-			"actions/admin/clients/profile.php?old_dp=" + dp + "&cid=" + cid);
+	$("#clientChangePictureModal form").attr(
+			"action",
+			"Admin-Client-Profile-Update?old_dp=" + dp + "&uid=" + uid
+					+ "&auth=" + auth);
 	$("#clientChangePictureModal").modal('show');
 }
 function clientMail(email) {
@@ -294,4 +339,20 @@ function showPropInfo(amens, units, floor, t_floors, desc, tnc, time, edit, pid)
 					+ t_floors + ",'" + desc + "','" + tnc + "'," + pid + ")");
 	$("#propInfoModal").modal('show');
 }
+$(document).ready(function() {
+	if ($(window).width() < 768) {
+		$("#clients table").addClass("table-sm");
+		$("#clients table .fa-td").css("font-size", "16px");
+	} else {
+		$("#clients table").removeClass("table-sm");
+		$("#clients table .fa-td").css("font-size", "24px");
+	}
+});
+$(document).ready(function() {
+	if ($(window).width() < 480) {
+		$("#clients table").addClass("table-responsive-sm");
+	} else {
+		$("#clients table").removeClass("table-responsive-sm");
+	}
+});
 /** **** Admin end ********** */

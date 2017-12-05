@@ -23,6 +23,7 @@ function showSnackbar(id) {
     setTimeout(function(){ x.className = "showTheSnack"; }, 500);
     setTimeout(function(){ x.className = x.className.replace("showTheSnack", ""); }, 3500);
 }
+
 $(document).ready(function(){
 	$("input[autofocus]").first().focus();
 	$(".modal").on('shown.bs.modal', function () {
@@ -60,6 +61,11 @@ $(document).ready(function(){
 			$("#waitModal").modal("hide");
 		}
 	});
+	$(document).click(function (event) {
+		if($(".navbar-collapse").hasClass("show")) {
+            $("button.navbar-toggler").click();
+		}
+    });
 	// $("#waitModal").modal("show");
 	var int = setInterval(animateSlide, 1000);
 });

@@ -39,8 +39,8 @@
 				<div class="clearfix"></div>
 				<br>
 				<!-- <form role="form" onsubmit="editClientAction('actions/admin/client-update.php', 0)" method="post" id="editForm"> -->
-				<form role="form" action="actions/admin/client-update.php?cid="
-					method="post" id="editForm">
+				<form role="form" action="Admin-Client-Update?cid=" method="post"
+					id="editForm">
 					<div class="form-group">
 						<label for="usrname"><i class="fa fa-fw fa-user-circle"></i>
 							Username</label>
@@ -56,9 +56,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="email"><i class="fa fa-fw fa-envelope"></i> Email</label> <input
-							type="email" class="form-control" name="email" id="email"
-							required>
+						<label for="email"><i class="fa fa-fw fa-envelope"></i>
+							Email</label> <input type="email" class="form-control" name="email"
+							id="email" required>
 					</div>
 
 					<div class="form-row">
@@ -70,14 +70,16 @@
 						<div class="col-8">
 							<div class="form-check form-check-inline">
 								<label class="custom-control custom-radio"> <input
-									class="custom-control-input" type="radio" id="signUpGenderMale"
-									value="Male" name="gender" required checked
+									class="custom-control-input" type="radio"
+									id="clientEditGenderMale" value="Male" name="gender" required
+									checked
 									onclick="$('#g_l').removeClass('fa-venus');$('#g_l').addClass('fa-mars');">
 									<span class="custom-control-indicator"></span> <span
 									class="custom-control-description">Male</span>
 								</label> <label class="custom-control custom-radio"> <input
 									class="custom-control-input" type="radio"
-									id="signUpGenderFemale" value="Female" name="gender" required
+									id="clientEditGenderFemale" value="Female" name="gender"
+									required
 									onclick="$('#g_l').removeClass('fa-mars');$('#g_l').addClass('fa-venus');">
 									<span class="custom-control-indicator"></span> <span
 									class="custom-control-description">Female</span>
@@ -86,8 +88,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="cont"><i class="fa fa-fw fa-phone"></i> Contact
-							Number</label> <input type="tel" class="form-control" name="cont"
+						<label for="cont"><i class="fa fa-fw fa-phone"></i>
+							Contact Number</label> <input type="tel" class="form-control" name="cont"
 							id="cont" required>
 					</div>
 					<button type="submit" class="btn btn-default btn-success btn-block"

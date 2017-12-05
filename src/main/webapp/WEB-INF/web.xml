@@ -70,14 +70,35 @@
 		</description>
 		<display-name>ActivationController</display-name>
 		<servlet-name>ActivationController</servlet-name>
-		<servlet-class>com.rex.controller.admin.client.ActivationController</servlet-class>
+		<servlet-class>com.rex.controller.admin.client.Activate</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
 		</description>
 		<display-name>DeleteController</display-name>
 		<servlet-name>DeleteController</servlet-name>
-		<servlet-class>com.rex.controller.admin.client.DeleteController</servlet-class>
+		<servlet-class>com.rex.controller.admin.client.Delete</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>PromotionController</display-name>
+		<servlet-name>PromotionController</servlet-name>
+		<servlet-class>com.rex.controller.admin.client.Promote</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ClientUpdateController</display-name>
+		<servlet-name>ClientUpdateController</servlet-name>
+		<servlet-class>com.rex.controller.admin.client.Update</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>PicUpdate</display-name>
+		<servlet-name>PicUpdate</servlet-name>
+		<servlet-class>com.rex.controller.admin.client.PicUpdate</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SignUpController</servlet-name>
@@ -85,11 +106,11 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ClientLoginController</servlet-name>
-		<url-pattern>/ClientLogin</url-pattern>
+		<url-pattern>/Client-Login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AdminLoginController</servlet-name>
-		<url-pattern>/AdminLogin</url-pattern>
+		<url-pattern>/Admin-Login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>EmailChecker</servlet-name>
@@ -105,18 +126,30 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AdminUpdateController</servlet-name>
-		<url-pattern>/AdminUpdate</url-pattern>
+		<url-pattern>/Admin-Update</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UpdateController</servlet-name>
-		<url-pattern>/ClientUpdate</url-pattern>
+		<url-pattern>/Client-Update</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ActivationController</servlet-name>
-		<url-pattern>/ClientActivation</url-pattern>
+		<url-pattern>/Admin-Client-Activation</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DeleteController</servlet-name>
-		<url-pattern>/ClientDelete</url-pattern>
+		<url-pattern>/Admin-Client-Delete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PromotionController</servlet-name>
+		<url-pattern>/Admin-Client-Promote</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientUpdateController</servlet-name>
+		<url-pattern>/Admin-Client-Update</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PicUpdate</servlet-name>
+		<url-pattern>/Admin-Client-Profile-Update</url-pattern>
 	</servlet-mapping>
 </web-app>

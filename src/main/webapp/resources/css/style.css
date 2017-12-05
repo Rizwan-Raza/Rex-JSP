@@ -2,15 +2,6 @@
 	font-family: 'LeckerliOne';
 	src: url('../fonts/LeckerliOne-Regular.otf');
 }
-html {
-	position: relative;
-	min-height: 100%;
-}
-.sticky-bottom {
-	position: absolute;
-	bottom: 0px;
-	width: 100%;
-}
 .btn, .dropdown-menu, .form-control, .modal-header, .modal-content, .alert, .ui-slider,
 	.ui-slider-handle, .custom-checkbox .custom-control-indicator,
 	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link {
@@ -196,11 +187,11 @@ div.dropdown-menu.user-info h4 {
 }
 
 @media screen and (max-width: 767px) {
-	.user-info>div.col-xs-8 h4 {
+	.user-info>div.col-8 h5 {
 		color: white;
 		text-shadow: 3px 3px 2px #000;
 	}
-	.user-info>div.col-xs-8 h5 {
+	.user-info>div.col-8 h6 {
 		color: #aaa;
 		text-shadow: 3px 3px 2px #000;
 	}
@@ -223,7 +214,7 @@ div.dropdown-menu.user-info h4 {
 
 .user-dp-xs {
 	position: absolute;
-	top: 10px;
+	top: 8px;
 	left: 4px;
 	width: 35px;
 	height: 35px;
@@ -325,10 +316,12 @@ div.dropdown-menu.user-info h4 {
 		transform:rotate(0deg);
 	}
 }
-table td > a > .fa, table td > .fa {
+table td .fa-td {
 	font-size: 24px;
 }
-
+table.table-fluid {
+	
+}
 .modal table .fa.fa-minus {
 	font-size: 20px;
 }
@@ -419,6 +412,14 @@ table .fa.fa-rupee {
 }
 .imageModalBS {
 	position: relative;
+}
+.modal-dialog.modal-xl {
+	max-width:90% !important;
+	max-height:90% !important;
+	width: 90% !important;
+	height: 90% !important;
+	margin: 0px auto !important;
+	padding: 30px !important;
 }
 .image-close {
 	position: absolute;
@@ -585,15 +586,24 @@ hr.react {
 		margin-left: -25%;
 		/*background-color: red;*/
 	}
-	#f-o-f-dp {
-		width: 39px;
-		display: block;
+}
+@media screen and (max-width: 767px) {
+	.f-o-f-dp {
+		width: 36px;
 	}
-	#f-o-f-dp .user-dp-xs {
+	.f-o-f-dp .user-dp-xs {
+		top: 3px;
 		left: 2px;
+		width: 30px;
+		height: 30px;
+	}
+	.user-dp-xs:hover {
+		z-index: 10;
+		width: 100px;
+		height: 100px;
+		margin: -35px -35px;
 	}
 }
-
 @media screen and (max-width: 480px) {
 	.brand-title h1 {
 		font-size: 4.8em;

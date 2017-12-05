@@ -57,7 +57,7 @@
 </head>
 
 <body class="bg-default">
-<br>
+	<br>
 	<div class="card mx-auto col-12 col-sm-6 col-md-4 col-lg-3">
 		<img class="card-img-top pt-3 px-3" src="mysql/Images/logo.png"
 			alt="JSP MyAdmin">
@@ -79,7 +79,7 @@
 				<div class="form-group">
 					<label class="col-form-label" for="db-host">Host</label> <input
 						type="text" class="form-control" id="db-host" placeholder="Host"
-						name="host" value="localhost">
+						name="host" value="mysql-service">
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="db-port">Port</label> <input

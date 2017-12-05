@@ -14,24 +14,44 @@
 	</div> -->
 	<br>
 	<%
-		request.setAttribute("clients", (new AdminModal()).getClients());
+		request.setAttribute("clients", new AdminModal().getClients());
 	%>
 	<h5>
 		Total number of clients is: <b id='clients-num'>${clients.size() }</b>
 	</h5>
-	<table
-		class="table table-fluid table-hover table-bordered table-striped">
+	<table class="table table-hover table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col">#</th>
-				<th scope="col">Full Name</th>
-				<!-- 				<th scope="col">First Name</th> -->
-				<!-- 				<th scope="col">Last Name</th> -->
-				<th scope="col">Email</th>
-				<th scope="col">Gender</th>
-				<th scope="col">Contact</th>
-				<th scope="col">Address | Street N0.</th>
-				<th scope="col">Active</th>
+				<th scope="col" class="d-table-cell d-md-none">Name</th>
+				<th scope="col" class="d-none d-md-table-cell">F<span
+					class="d-lg-none">.</span><span class="d-none d-lg-inline">irst</span>&nbsp;Name
+				</th>
+				<th scope="col" class="d-none d-md-table-cell">L<span
+					class="d-lg-none">.</span><span class="d-none d-lg-inline">ast</span>&nbsp;Name
+				</th>
+				<th scope="col" class="text-center text-lg-left"><span
+					class="d-md-none" data-toggle="tooltip" data-placement="top"
+					title="Email"><i class="fa fa-fw fa-td fa-envelope"></i></span><span
+					class="d-none d-md-inline">Email</span></th>
+				<th scope="col" class="text-center text-lg-left"><span
+					class="d-md-none" data-toggle="tooltip" data-placement="top"
+					title="Gender"><i class="fa fa-fw fa-td fa-mars"></i></span><span
+					class="d-none d-md-inline">Gender</span></th>
+				<th scope="col" class="text-center text-lg-left"><span
+					class="d-md-none" data-toggle="tooltip" data-placement="top"
+					title="Contact"><i class="fa fa-fw fa-td fa-phone"></i></span><span
+					class="d-none d-md-inline">Contact</span></th>
+				<th scope="col" class="text-center text-lg-left"><span
+					class="d-md-none" data-toggle="tooltip" data-placement="top"
+					title="Address"><i class="fa fa-fw fa-td fa-map-marker"></i></span><span
+					class="d-none d-md-inline">Address</span> <span
+					class="d-none d-xl-inline">| Street N0.</span></th>
+				<th scope="col" class="text-center text-lg-left"><span
+					class="d-md-none" data-toggle="tooltip" data-placement="top"
+					title="Active / Admin"><i
+						class="fa fa-fw fa-td fa-info-circle"></i></span><span
+					class="d-none d-md-inline">Active</span></th>
 				<th scope="col">Actions</th>
 			</tr>
 		</thead>
@@ -40,35 +60,50 @@
 				<tr id="for-${client.getUid() }" scope="row">
 					<td class="f-o-f-dp"><div class="user-dp user-dp-xs"
 							style="background-image: url('${client.getSrc() }');"
-							onclick="changePicture('${client.getSrc() }', '${client.getFullname() }', ${Integer.parseInt(client.getUid())})"></div></td>
-					<td class="c-name">${client.getFullname() }</td>
-					<%-- 					<td class="c-fname">${client.getFname() }</td> --%>
-					<%-- 					<td class="c-lname">${client.getLname() }</td> --%>
-					<td class="c-email"><a
-						onclick="clientMail('${client.getEmail() }')">${client.getEmail() }</a></td>
-					<td class="c-gender">${client.getGender() }</td>
-					<td class="c-cont">${client.getPassword() }</td>
-					<td><a
-						onclick="address('${client.getStreet()}', '${client.getTown()}', '${client.getCity()}', '${client.getState()}', null)">${client.getStreet() }</a></td>
+							onclick="changePicture('${client.getSrc() }', '${client.getFullname() }', ${Integer.parseInt(client.getUid())}, ${Integer.parseInt(client.getAuth())})"></div></td>
+					<td class="c-name d-table-cell d-md-none">${client.getFullname() }</td>
+					<td class="c-fname d-none d-md-table-cell">${client.getFname() }</td>
+					<td class="c-lname d-none d-md-table-cell">${client.getLname() }</td>
+					<td class="c-email text-center text-lg-left"><a
+						onclick="clientMail('${client.getEmail() }')"><span
+							class="d-inline d-lg-none" data-toggle="tooltip"
+							data-placement="top" title="${client.getEmail() }"><i
+								class="fa fa-fw fa-td fa-envelope"></i></span> <span
+							class="d-none d-lg-inline">${client.getEmail() }</span></a></td>
+					<td class="c-gender text-center text-lg-left"><span
+						class="d-inline d-lg-none" data-toggle="tooltip"
+						data-placement="top" title="${client.getGender() }"><i
+							class="fa fa-fw fa-td ${client.getGender() eq 'Male' ? 'fa-mars' : 'fa-venus'}"></i></span>
+						<span class="d-none d-lg-inline">${client.getGender() }</span></td>
+					<td class="c-cont text-center text-lg-left"><span
+						class="d-inline d-lg-none" data-toggle="tooltip"
+						data-placement="top" title="${client.getContact() }"><i
+							class="fa fa-fw fa-td fa-phone"></i></span> <span
+						class="d-none d-lg-inline">${client.getPassword() }</span></td>
+					<td class="text-center text-xl-left"><a
+						onclick="address('${client.getStreet()}', '${client.getTown()}', '${client.getCity()}', '${client.getState()}', null)"><span
+							class="d-inline d-xl-none"><i
+								class="fa fa-fw fa-td fa-map-marker"></i></span> <span
+							class="d-none d-xl-inline">${client.getStreet() }</span></a></td>
 					<td class="text-center act"><c:choose>
 							<c:when test="${client.getAuth() eq '0'}">
-								<i class="fa fa-fw fa-remove text-danger"></i>
+								<i class="fa fa-fw fa-td fa-remove text-danger"></i>
 							</c:when>
 							<c:when test="${client.getAuth() eq '1'}">
-								<i class="fa fa-fw fa-check text-success"></i>
+								<i class="fa fa-fw fa-td fa-check text-success"></i>
 							</c:when>
 							<c:when test="${client.getAuth() eq '2'}">
-								<i class="fa fa-fw fa-user-secret text-info"></i>
+								<i class="fa fa-fw fa-td fa-user-secret text-info"></i>
 							</c:when>
 							<c:otherwise></c:otherwise>
 						</c:choose></td>
 					<td>
 						<div class="dropdown">
-							<button class="btn btn-primary btn-sm dropdown-toggle"
+							<button class="btn btn-primary btn-sm pt-0 dropdown-toggle"
 								data-toggle="dropdown">User</button>
 							<div class="dropdown-menu dropdown-menu-right">
 								<a class="dropdown-item"
-									onclick="edit('${client.getFname() }', '${client.getLname() }', '${client.getEmail() }', '${client.getGender() }', '${client.getContact() }', '${client.getSrc() }', '${client.getStreet() }', '${client.getTown() }', '${client.getCity() }', '${client.getState() }', ${client.getUid() }, null)"><i
+									onclick="edit('${client.getFname() }', '${client.getLname() }', '${client.getEmail() }', '${client.getGender() }', '${client.getContact() }', '${client.getSrc() }', '${client.getStreet() }', '${client.getTown() }', '${client.getCity() }', '${client.getState() }', ${Integer.parseInt(client.getUid())}, null, ${Integer.parseInt(client.getAuth())})"><i
 									class="fa fa-fw fa-pencil"></i> Edit </a> <a class="dropdown-item"
 									onclick="kickout('${client.getFname()}', ${client.getUid() })">
 									<i class="fa fa-fw fa-user-times"></i> Kickout
@@ -87,21 +122,21 @@
 										</a>
 									</c:when>
 									<c:when test="${client.getAuth() eq '2'}">
-										<a id="adminMBtn-$cid" class="dropdown-item"
+										<a class="dropdown-item adm-link"
 											class="btn btn-block btn-sm btn-info"
-											onclick="makeAdmin('${client.getFname()}', ${client.getUid() });">
+											onclick="demote('${client.getFname()}', ${client.getUid() });">
 											<i class="fa fa-fw fa-user-secret"></i> Demote
-										</a>
-									</c:when>
-									<c:when test="${client.getAuth() ne '2'}">
-										<a id="adminMBtn-$cid" class="dropdown-item"
-											class="btn btn-block btn-sm btn-info"
-											onclick="makeAdmin('${client.getFname()}', ${client.getUid() });">
-											<i class="fa fa-fw fa-user-secret"></i> Promote
 										</a>
 									</c:when>
 									<c:otherwise></c:otherwise>
 								</c:choose>
+								<c:if test="${client.getAuth() ne '2'}">
+									<a class="dropdown-item adm-link"
+										class="btn btn-block btn-sm btn-info"
+										onclick="promote('${client.getFname()}', ${client.getUid() });">
+										<i class="fa fa-fw fa-user-secret"></i> Promote
+									</a>
+								</c:if>
 							</div>
 						</div>
 					</td>
