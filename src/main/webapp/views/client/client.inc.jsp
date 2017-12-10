@@ -1,5 +1,5 @@
 <!--  <?php 
-	include 'components/client/modals/editProfile.php'; 
+	include 'components/client/modals/editProfile.php'; -- done -- 
 	include 'components/client/modals/postRequirement.php';
 	include 'components/client/modals/myRequirement.php';
 	include 'components/client/modals/othersRequirement.php';
@@ -38,6 +38,7 @@
 	</nav>
 
 	<div class="tab-content">
+	<
 		<!-- <?php 
 			$conn = connectDB();
 			include 'components/client/buyProperty.php'; 

@@ -2,6 +2,9 @@
 var x = 0, num = 1;
 var valid_url = true;
 function snackbar (text) {
+	if (valid_url) {
+		$("#waitModal").modal("hide");
+	}
 	var div = document.createElement("div");        // Create a <button> element
 	var t = document.createTextNode(text);       // Create a text node
 	div.appendChild(t);                                // Append the text to
@@ -49,7 +52,7 @@ $(document).ready(function(){
 	});
 	$(document).ajaxSend(function (e, xhr, options) {
 		// alert(options.url);
-		if (options.url.search("email-checker.php") == -1) {
+		if (options.url.search("EmailChecker") == -1) {
 			$("#waitModal").modal("show");
 			valid_url = true;
 		} else {
@@ -61,12 +64,22 @@ $(document).ready(function(){
 			$("#waitModal").modal("hide");
 		}
 	});
+	$(document).ajaxSuccess(function () {
+		if (valid_url) {
+			$("#waitModal").modal("hide");
+		}
+	});
+	$(document).ajaxStop(function () {
+		if (valid_url) {
+			$("#waitModal").modal("hide");
+		}
+	});
 	$(document).click(function (event) {
 		if($(".navbar-collapse").hasClass("show")) {
             $("button.navbar-toggler").click();
 		}
     });
-	// $("#waitModal").modal("show");
+// $("#waitModal").modal("show");
 	var int = setInterval(animateSlide, 1000);
 });
 function animateSlide() 

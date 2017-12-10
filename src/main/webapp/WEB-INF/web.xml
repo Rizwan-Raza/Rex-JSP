@@ -24,6 +24,10 @@
          resources/uploads/props/
       </param-value>
 	</context-param>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/views/ErrorPage.jsp</location>
+	</error-page>
 	<servlet>
 		<servlet-name>SignUpController</servlet-name>
 		<servlet-class>com.rex.controller.SignUpController</servlet-class>

@@ -13,6 +13,7 @@
 	<jsp:directive.include file="views/nav.jspf" />
 	<jsp:directive.include file="views/modals/error.inc.html" />
 	<jsp:directive.include file="views/modals/image.inc.html" />
+	<jsp:directive.include file="views/modals/wait.inc.html" />
 	<c:choose>
 		<c:when test="${log ne null}">
 			<jsp:directive.include file="views/modals/profile-picture.jspf" />
@@ -39,7 +40,7 @@
 		include "actions/detecter.php"; -- Done -- 
 		include "components/nav.php"; -- Done --
 		include 'components/modals/image.html';	 -- Done --
-		include 'components/modals/wait.html';	
+		include 'components/modals/wait.html';	 -- Done --
 		include 'components/modals/seller.php'; 
 
 		if (isset($_SESSION['log'])) {
