@@ -4,7 +4,7 @@
 }
 .btn, .dropdown-menu, .form-control, .modal-header, .modal-content, .alert, .ui-slider,
 	.ui-slider-handle, .custom-checkbox .custom-control-indicator,
-	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link {
+	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link, .input-group-addon {
 	border-radius: 0px;
 }
 
@@ -515,6 +515,12 @@ table .fa.fa-rupee {
 	#imageModalBS .modal-dialog, .image-modal-content {
         width: 100%;
     }
+}
+
+
+.card fieldset.border > legend {
+	width: auto;
+	padding: 0px 5px;
 }
 
 .panel-group div[data-toggle='collapse']:hover {

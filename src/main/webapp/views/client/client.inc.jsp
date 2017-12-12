@@ -11,7 +11,7 @@
 	include 'components/client/showProps.php';
 	$GLOBALS['script'] = ""; 
 ?> -->
-<jsp:directive.include file="modals/edit-profile.jspf"/>
+<jsp:directive.include file="modals/edit-profile.jspf" />
 <br>
 <div class="container client-section">
 	<div
@@ -38,7 +38,7 @@
 	</nav>
 
 	<div class="tab-content">
-	<
+		<jsp:directive.include file="sell.inc.html" />
 		<!-- <?php 
 			$conn = connectDB();
 			include 'components/client/buyProperty.php'; 

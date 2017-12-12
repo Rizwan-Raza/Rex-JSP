@@ -1,20 +1,19 @@
 <div id="sell-property" class="tab-pane fade">
-	<h3>Sell any Property</h3>
+	<br>
+	<h4>Sell any Property</h4>
 	<p>Fill the below info of the property.</p>
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h4>Freely Post Property</h4>
-		</div>
+	<div class="card card-primary">
+		<h4 class="card-header">Freely Post Property</h4>
 		<form class="form" action="actions/client/props/sell-property.php"
 			method="post" enctype="multipart/form-data">
-			<div class="panel-body">
-				<fieldset>
+			<div class="card-body">
+				<fieldset class="border px-3">
 					<legend>Basic Info.</legend>
 					<div class="row">
 						<div class="col-md-6 form-group">
 							<label class="control-label" for="p-type"><i
 								class="fa fa-fw fa-home"></i> Property Type</label> <select
-								class="form-control" name="p-type" required>
+								class="form-control custom-select" name="p-type" required>
 								<option value="Residential">Residential</option>
 								<option value="Commercial">Commercial</option>
 								<option value="Industrial">Industrial</option>
@@ -23,7 +22,7 @@
 						<div class="col-md-6 form-group">
 							<label class="control-label" for="t-type"><i
 								class="fa fa-fw fa-home"></i> Transaction Type</label> <select
-								class="form-control" name="t-type" required
+								class="form-control custom-select" name="t-type" required
 								onchange="ageChecker()" id="t-type">
 								<option value="New">New</option>
 								<option value="Re-Sale">Re-Sale</option>
@@ -40,7 +39,7 @@
 						</div>
 					</div>
 				</fieldset>
-				<fieldset>
+				<fieldset class="border px-3">
 					<legend>Location:</legend>
 					<div class="row">
 						<div class="col-md-6 form-group">
@@ -70,7 +69,7 @@
 								required>
 						</div>
 					</div>
-					<!-- Map API 
+					<!-- Map API
 					<div class="form-horizontal" style="width: 100%">
 				        <div class="form-group">
 				            <label class="col-sm-2 control-label">Location:</label>
@@ -80,7 +79,7 @@
 				            </div>
 				        </div>
 				        <div class="form-group">
-				            <label class="col-sm-2 control-label">Radius:</label> 
+				            <label class="col-sm-2 control-label">Radius:</label>
 
 				            <div class="col-sm-5">
 				                <input type="text" class="form-control hidden" id="us3-radius" />
@@ -125,7 +124,7 @@
 				    </div>
 				    Map API -->
 				</fieldset>
-				<fieldset>
+				<fieldset class="border px-3">
 					<legend>Features:</legend>
 					<div class="row">
 						<div class="col-md-6 form-group">
@@ -149,22 +148,28 @@
 							<div class="input-group">
 								<input type="number" name="age" class="form-control"
 									placeholder="Enter Number of Years passed after Construction"
-									required id="age" max="100" min="0"> <span
-									class="input-group-addon">Years</span>
+									required id="age" max="100" min="0">
+								<div class="input-group-addon border-left-0">Years</div>
 							</div>
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label" for="furnished"><i
 								class="fa fa-fw fa-home"></i> Furnished</label><br> <label
-								class="control-label radio-inline"> <input type="radio"
-								name="furnished" value="yes" required> Yes
-							</label> <label class="control-label radio-inline"> <input
-								type="radio" name="furnished" value="no" required> No
+								class="custom-control custom-radio"> <input
+								name="furnished" value="yes" type="radio"
+								class="custom-control-input" required> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">Yes</span>
+							</label> <label class="custom-control custom-radio"> <input
+								name="furnished" value="no" required type="radio"
+								class="custom-control-input"> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">No</span>
 							</label>
 						</div>
 					</div>
 				</fieldset>
-				<fieldset>
+				<fieldset class="border px-3">
 					<legend>Area and Price:</legend>
 					<div class="row">
 						<div class="col-md-6 form-group">
@@ -173,8 +178,8 @@
 							<div class="input-group">
 								<input type="number" name="p-area" class="form-control"
 									placeholder="Enter Area Covered by Property" required
-									step="100" max="1000000" min="100"> <span
-									class="input-group-addon">Sq-Ft.</span>
+									step="100" max="1000000" min="100">
+								<div class="input-group-addon border-left-0">Sq-Ft.</div>
 							</div>
 						</div>
 						<div class="col-md-6 form-group">
@@ -183,7 +188,8 @@
 							<div class="input-group">
 								<input type="number" name="land" class="form-control"
 									placeholder="Enter Land Area" required step="100" max="1000000"
-									min="100"> <span class="input-group-addon">Sq-Ft.</span>
+									min="100">
+								<div class="input-group-addon border-left-0">Sq-Ft.</div>
 							</div>
 						</div>
 					</div>
@@ -192,61 +198,81 @@
 							<label class="control-label" for="price"><i
 								class="fa fa-fw fa-money"></i> Total Price</label>
 							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="fa fa-fw fa-rupee"></i></span> <input type="number"
-									name="price" class="form-control"
+								<div class="input-group-addon border-right-0">
+									<i class="fa fa-fw fa-rupee"></i>
+								</div>
+								<input type="number" name="price" class="form-control"
 									placeholder="Enter Price in Rupees" required step="100000"
-									max="100000000" min="100000"> <span
-									class="input-group-addon">.00</span>
+									max="100000000" min="100000">
+								<div class="input-group-addon border-left-0">.00</div>
 							</div>
 						</div>
 						<div class="col-md-3 form-group">
+
 							<label class="control-label" for="price-display"><i
 								class="fa fa-fw fa-tag"></i> Display Price</label><br> <label
-								class="control-label radio-inline"> <input type="radio"
-								name="price-display" value="yes" required> Yes
-							</label> <label class="control-label radio-inline"> <input
-								type="radio" name="price-display" value="no" required>
-								No
+								class="custom-control custom-radio"> <input
+								name="price-display" value="yes" type="radio"
+								class="custom-control-input" required> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">Yes</span>
+							</label> <label class="custom-control custom-radio"> <input
+								name="price-display" value="no" required type="radio"
+								class="custom-control-input"> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">No</span>
 							</label>
 						</div>
 						<div class="col-md-3 form-group">
 							<label class="control-label" for="available"><i
 								class="fa fa-fw fa-truck"></i> Available</label><br> <label
-								class="control-label radio-inline"> <input type="radio"
-								name="available" value="yes" required> Yes
-							</label> <label class="control-label radio-inline"> <input
-								type="radio" name="available" value="no" required> No
+								class="custom-control custom-radio"> <input
+								name="available" value="yes" type="radio"
+								class="custom-control-input" required> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">Yes</span>
+							</label> <label class="custom-control custom-radio"> <input
+								name="available" value="no" required type="radio"
+								class="custom-control-input"> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">No</span>
 							</label>
 						</div>
 					</div>
 				</fieldset>
-				<fieldset>
+				<fieldset class="border px-3">
 					<legend>Amenities:</legend>
 					<div class="row">
 						<div class="col-md-12 form-group">
 							<label class="control-label" for="desc"><i
 								class="fa fa-fw fa-key"></i> In House</label> <br> <label
-								class="control-label checkbox-inline"> <input
-								type="checkbox" name="in-house[]" value="net"> Internet
-								/ Wi-Fi
-							</label> <label class="control-label checkbox-inline"> <input
-								type="checkbox" name="in-house[]" value="air">
-								Air-Conditioned
-							</label> <label class="control-label checkbox-inline"> <input
-								type="checkbox" name="in-house[]" value="ro"> RO Water
-								System
-							</label> <label class="control-label checkbox-inline"> <input
-								type="checkbox" name="in-house[]" value="gas"> Gas
-								Supply
-							</label> <label class="control-label checkbox-inline"> <input
-								type="checkbox" name="in-house[]" value="water"> Water
-								Supply and Pipeling
+								class="custom-control custom-checkbox"> <input
+								type="checkbox" class="custom-control-input" name="in-house[]"
+								value="net"> <span class="custom-control-indicator"></span>
+								<span class="custom-control-description"> Internet /
+									Wi-Fi</span>
+							</label> <label class="custom-control custom-checkbox"> <input
+								type="checkbox" class="custom-control-input" name="in-house[]"
+								value="air"> <span class="custom-control-indicator"></span>
+								<span class="custom-control-description"> Air-Conditioned</span>
+							</label> <label class="custom-control custom-checkbox"> <input
+								type="checkbox" class="custom-control-input" name="in-house[]"
+								value="ro"> <span class="custom-control-indicator"></span>
+								<span class="custom-control-description"> RO Water System</span>
+							</label> <label class="custom-control custom-checkbox"> <input
+								type="checkbox" class="custom-control-input" name="in-house[]"
+								value="gas"> <span class="custom-control-indicator"></span>
+								<span class="custom-control-description"> Gas Supply</span>
+							</label> <label class="custom-control custom-checkbox"> <input
+								type="checkbox" class="custom-control-input" name="in-house[]"
+								value="water"> <span class="custom-control-indicator"></span>
+								<span class="custom-control-description"> Water Supply
+									and Pipeling</span>
 							</label>
 						</div>
 					</div>
 				</fieldset>
-				<fieldset>
+				<fieldset class="border px-3">
 					<legend>Distance from Key Facility:</legend>
 					<div class="row">
 						<div class="col-md-4 form-group">
@@ -255,7 +281,7 @@
 							<div class="input-group">
 								<input type="number" class="form-control" name="h-dis"
 									placeholder="Distance from nearest Hospital in KMS" max="1000"
-									min="0"> <span class="input-group-addon">KMS</span>
+									min="0"> <span class="input-group-addon border-left-0">KMS</span>
 							</div>
 						</div>
 						<div class="col-md-4 form-group">
@@ -264,7 +290,7 @@
 							<div class="input-group">
 								<input type="number" class="form-control" name="s-dis"
 									placeholder="Distance from nearest School in KMS" max="1000"
-									min="0"> <span class="input-group-addon">KMS</span>
+									min="0"> <span class="input-group-addon border-left-0">KMS</span>
 							</div>
 						</div>
 						<div class="col-md-4 form-group">
@@ -273,12 +299,13 @@
 							<div class="input-group">
 								<input type="number" class="form-control" name="r-dis"
 									placeholder="Distance from nearest Railway Station in KMS"
-									max="1000" min="0"> <span class="input-group-addon">KMS</span>
+									max="1000" min="0"> <span
+									class="input-group-addon border-left-0">KMS</span>
 							</div>
 						</div>
 					</div>
 				</fieldset>
-				<fieldset>
+				<fieldset class="border px-3">
 					<legend>Property Snapshot:</legend>
 					<div class="row">
 						<div class="col-md-4 form-group">
@@ -287,7 +314,7 @@
 							<div class="input-group">
 								<input type="number" name="units" class="form-control"
 									placeholder="Enter Available Units" required max="1000" min="1">
-								<span class="input-group-addon">Units.</span>
+								<span class="input-group-addon border-left-0">Units.</span>
 							</div>
 						</div>
 						<div class="col-md-4 form-group">
@@ -322,18 +349,22 @@
 						<div class="col-md-4 form-group">
 							<label class="control-label" for="image"><i
 								class="fa fa-fw fa-picture-o"></i> Property Images (at least 1)
-							</label> <input type="file" name="images[]" accept="image/*" multiple
-								id="s-p-images" onchange="readURLs(this)" required min="1"
-								max="20">
+							</label> <label class="custom-file"> <input type="file"
+								name="images[]" accept="image/*" multiple id="s-p-images"
+								onchange="readURLs(this)" required min="1" max="20"
+								class="custom-file-input"> <span
+								class="custom-file-control"></span>
+							</label>
 							<div class="row insert-here"></div>
 						</div>
 					</div>
 				</fieldset>
 			</div>
-			<div class="panel-footer">
+			<div class="card-footer">
 				<button class="btn btn-success btn-block" type="submit"
 					name="sell-submit" value="sell_submit_btn">Post</button>
 			</div>
 		</form>
 	</div>
+	<br>
 </div>
