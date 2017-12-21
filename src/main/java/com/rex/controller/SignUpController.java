@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rex.bean.UserBean;
 import com.rex.modal.SignUpModal;
+import com.rex.util.Mailer;
 
 /**
  * Servlet implementation class SignUpController
@@ -33,18 +34,23 @@ public class SignUpController extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-
-		if (!request.getParameter("psw").equals(request.getParameter("repsw"))) {
+		String email = request.getParameter("email");
+		String psw = request.getParameter("psw");
+		if (!psw.equals(request.getParameter("repsw"))) {
 			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Password Mismatch!\"}");
 			return;
 		}
+		String fname = request.getParameter("fname");
+		String lname = request.getParameter("lname");
+		String name = fname + " " + lname;
+		String id = (new SignUpModal()).add(new UserBean(fname, lname, request.getParameter("email"), psw,
+				request.getParameter("gender"), request.getParameter("cont"), request.getParameter("street"),
+				request.getParameter("town"), request.getParameter("city"), request.getParameter("state")));
+		if (id != null) {
 
-		if ((new SignUpModal()).add(new UserBean(request.getParameter("fname"), request.getParameter("lname"),
-				request.getParameter("email"), request.getParameter("psw"), request.getParameter("gender"),
-				request.getParameter("cont"), request.getParameter("street"), request.getParameter("town"),
-				request.getParameter("city"), request.getParameter("state")))) {
-			response.getWriter().println("{\"response\": \"OK\",\"name\": \"" + request.getParameter("fname") + " "
-					+ request.getParameter("lname") + "\", \"email\": \"" + request.getParameter("email") + "\"}");
+			Mailer.send(email, "Activate Yourself", Mailer.getActivationMsg(id, name));
+			response.getWriter()
+					.println("{\"response\": \"OK\",\"name\": \"" + name + "\", \"email\": \"" + email + "\"}");
 		} else {
 			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Can't Sign Up User\"}");
 		}

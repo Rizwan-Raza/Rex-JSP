@@ -103,7 +103,9 @@ function errorHandler(XMLHttpRequest, textStatus, errorThrown) {
         case 500:
             // alert("Can't Registered Customer's Address, Query Error
 			// "+textStatus);
-            showSnackbar("errorSnackbar500");
+        	$("#errorModalBS p#upper-text").html("Code: "+XMLHttpRequest.status+"<br>Message: "+XMLHttpRequest.responseText);
+			$("#errorModalBS p#lower-text").html("Occur Due to:"+XMLHttpRequest.statusText+"");
+			$("#errorModalBS").modal("show");
             break;
         case 501:
             alert("Can't Registered Customer, Query Error "+textStatus);
