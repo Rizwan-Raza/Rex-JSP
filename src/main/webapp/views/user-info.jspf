@@ -34,13 +34,13 @@
 	<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 		id="navbarProfileDropdown" data-toggle="dropdown" aria-haspopup="true"
 		aria-expanded="false">
-			<div style="background-image: url('${user.getSrc()}');"
+			<div style="background-image: url('${user.getUser().getSrc()}');"
 				class="user-nav user-dp user-dp-sm"></div>
 	</a>
 		<div class="dropdown-menu dropdown-menu-right user-info"
 			aria-labelledby="navbarProfileDropdown">
 			<div class="col-4 col-sm-4 col-md-4 float-left">
-				<div style="background-image: url('${user.getSrc()}');"
+				<div style="background-image: url('${user.getUser().getSrc()}');"
 					class="user-dp user-dp-lg center-block">
 					<div class="info" data-toggle="modal"
 						data-target="#profilePictureModal">
@@ -51,8 +51,8 @@
 				</div>
 			</div>
 			<div class="col-8 col-sm-8 col-md-8 float-right">
-				<h5 class="pt-1">${user.getFullname() }</h5>
-				<h6>${user.getEmail() }</h6>
+				<h5 class="pt-1">${user.getUser().getFullname() }</h5>
+				<h6>${user.getUser().getEmail() }</h6>
 
 				<c:choose>
 					<c:when test="${log eq 'client'}">

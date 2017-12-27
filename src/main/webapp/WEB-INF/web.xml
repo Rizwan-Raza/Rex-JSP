@@ -104,6 +104,20 @@
 		<servlet-name>PicUpdate</servlet-name>
 		<servlet-class>com.rex.controller.admin.client.PicUpdate</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ActivateMe</display-name>
+		<servlet-name>ActivateMe</servlet-name>
+		<servlet-class>com.rex.controller.ActivateMe</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SellProperty</display-name>
+		<servlet-name>SellProperty</servlet-name>
+		<servlet-class>com.rex.controller.client.SellProperty</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SignUpController</servlet-name>
 		<url-pattern>/SignUp</url-pattern>
@@ -155,5 +169,13 @@
 	<servlet-mapping>
 		<servlet-name>PicUpdate</servlet-name>
 		<url-pattern>/Admin-Client-Profile-Update</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActivateMe</servlet-name>
+		<url-pattern>/ActivateMe</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SellProperty</servlet-name>
+		<url-pattern>/SellProperty</url-pattern>
 	</servlet-mapping>
 </web-app>

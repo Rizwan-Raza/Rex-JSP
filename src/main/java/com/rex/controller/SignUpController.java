@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.rex.bean.AddressBean;
+import com.rex.bean.MemberBean;
 import com.rex.bean.UserBean;
-import com.rex.modal.SignUpModal;
+import com.rex.model.SignUpModel;
 import com.rex.util.Mailer;
 
 /**
@@ -43,16 +45,17 @@ public class SignUpController extends HttpServlet {
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String name = fname + " " + lname;
-		String id = (new SignUpModal()).add(new UserBean(fname, lname, request.getParameter("email"), psw,
-				request.getParameter("gender"), request.getParameter("cont"), request.getParameter("street"),
-				request.getParameter("town"), request.getParameter("city"), request.getParameter("state")));
-		if (id != null) {
-
+		String id = (new SignUpModel()).add(new MemberBean(
+				new UserBean(fname, lname, request.getParameter("email"), psw, request.getParameter("gender"),
+						request.getParameter("cont")),
+				new AddressBean(request.getParameter("street"), request.getParameter("town"),
+						request.getParameter("city"), request.getParameter("state"))));
+		if (id.matches("\\d+")) {
 			Mailer.send(email, "Activate Yourself", Mailer.getActivationMsg(id, name));
 			response.getWriter()
 					.println("{\"response\": \"OK\",\"name\": \"" + name + "\", \"email\": \"" + email + "\"}");
 		} else {
-			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Can't Sign Up User\"}");
+			response.getWriter().println("{\"response\": \"KO\",\"message\": \"" + id + "\"}");
 		}
 	}
 

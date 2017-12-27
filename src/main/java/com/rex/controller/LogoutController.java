@@ -40,7 +40,7 @@ public class LogoutController extends HttpServlet {
 			sess.setAttribute("bean", new SuccessBean("L-O-1", "Logout Successfull!", "logout", "success"));
 		} else {
 			sess.setAttribute("process", "failed");
-			sess.setAttribute("bean", new ErrorBean("L-O-1", "Logout Failed!", "LogoutController"));
+			sess.setAttribute("bean", new ErrorBean("L-O-1", "Logout Failed!", this.getClass().toGenericString()));
 		}
 		response.sendRedirect("./");
 	}

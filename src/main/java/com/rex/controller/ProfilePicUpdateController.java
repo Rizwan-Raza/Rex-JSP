@@ -15,10 +15,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
+import com.rex.bean.MemberBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
-import com.rex.modal.ProfilePicUpdateModal;
+import com.rex.model.ProfilePicUpdateModel;
 
 /**
  * Servlet implementation class ProfilePicUpdateController
@@ -101,16 +103,20 @@ public class ProfilePicUpdateController extends HttpServlet {
 						} else {
 							process.setCleanUp("failed");
 						}
-						UserBean curr_user = (UserBean) sess.getAttribute("user");
-						ProfilePicUpdateModal ppum = new ProfilePicUpdateModal();
-						Object bean = ppum.update(uFilePath + uploadedFile, curr_user.getUid(), process);
+						MemberBean curr_user = (MemberBean) sess.getAttribute("user");
+						ProfilePicUpdateModel ppum = new ProfilePicUpdateModel();
+						Object bean = ppum.update(uFilePath + uploadedFile, curr_user.getUser().getUid(), process);
 						if (bean instanceof SuccessBean) {
 							sess.setAttribute("user",
-									new UserBean(curr_user.getUid(), curr_user.getFname(), curr_user.getLname(),
-											curr_user.getEmail(), curr_user.getPassword(), curr_user.getGender(),
-											curr_user.getContact(), curr_user.getStreet(), curr_user.getTown(),
-											curr_user.getCity(), curr_user.getState(), null, oFilePath + uploadedFile,
-											curr_user.getTime()));
+									new MemberBean(
+											new UserBean(curr_user.getUser().getUid(), curr_user.getUser().getFname(),
+													curr_user.getUser().getLname(), curr_user.getUser().getEmail(),
+													curr_user.getUser().getPassword(), curr_user.getUser().getGender(),
+													curr_user.getUser().getContact(), null, uFilePath + uploadedFile,
+													curr_user.getUser().getTime()),
+											new AddressBean(curr_user.getAddress().getStreet(),
+													curr_user.getAddress().getTown(), curr_user.getAddress().getCity(),
+													curr_user.getAddress().getState())));
 							((SuccessBean) bean).setSession("success");
 							sess.setAttribute("process", "success");
 							((SuccessBean) bean).setCompletion("success");
@@ -123,11 +129,13 @@ public class ProfilePicUpdateController extends HttpServlet {
 				}
 			} catch (Exception ex) {
 				sess.setAttribute("process", "failed");
-				sess.setAttribute("bean", new ErrorBean("P-U-3", ex.toString(), "ProfilePicUpdateController"));
+				sess.setAttribute("bean", new ErrorBean("P-U-3", ex.getMessage(), this.getClass().toGenericString()));
+				System.out.println(ex);
 			}
 		} else {
 			sess.setAttribute("process", "failed");
-			sess.setAttribute("bean", new ErrorBean("P-U-2", "File Selection Problem", "ProfilePicUpdateController"));
+			sess.setAttribute("bean",
+					new ErrorBean("P-U-2", "File Selection Problem", this.getClass().toGenericString()));
 		}
 		response.sendRedirect("./");
 	}

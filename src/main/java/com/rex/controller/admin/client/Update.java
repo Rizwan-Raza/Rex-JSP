@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
-import com.rex.modal.AdminModal;
+import com.rex.model.AdminModel;
 
 /**
  * Servlet implementation class UpdateController
@@ -32,7 +32,7 @@ public class Update extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		AdminModal admin = new AdminModal();
+		AdminModel admin = new AdminModel();
 		HttpSession sess = request.getSession(true);
 
 		UserBean user = new UserBean(request.getParameter("fname"), request.getParameter("lname"),

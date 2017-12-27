@@ -1,4 +1,4 @@
-package com.rex.modal;
+package com.rex.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +8,14 @@ import com.rex.bean.ErrorBean;
 import com.rex.bean.SuccessBean;
 import com.rex.util.DBConnector;
 
-public class ProfilePicUpdateModal {
+public class ProfilePicUpdateModel {
 	private Connection conn;
 	private PreparedStatement stmt;
 
-	public ProfilePicUpdateModal() {
+	public ProfilePicUpdateModel() {
 		conn = (new DBConnector()).getConnection();
 		try {
-			stmt = conn.prepareStatement("UPDATE users SET src=? WHERE user_id=?");
+			stmt = conn.prepareStatement("UPDATE users SET users.src=? WHERE users.user_id=?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

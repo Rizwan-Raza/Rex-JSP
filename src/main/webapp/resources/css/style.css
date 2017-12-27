@@ -4,7 +4,7 @@
 }
 .btn, .dropdown-menu, .form-control, .modal-header, .modal-content, .alert, .ui-slider,
 	.ui-slider-handle, .custom-checkbox .custom-control-indicator,
-	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link, .input-group-addon {
+	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link, .input-group-addon, .card {
 	border-radius: 0px;
 }
 
@@ -724,7 +724,7 @@ div[id*='Snackbar'] {
 	text-align: center; /* Centered text */
 	padding: 16px; /* Padding */
 	position: fixed; /* Sit on top of the screen */
-	z-index: 1; /* Add a z-index if needed */
+	z-index: 1100; /* Add a z-index if needed */
 	left: 50%; /* Center the snackbar */
 	bottom: 30px; /* 30px from the bottom */
 }

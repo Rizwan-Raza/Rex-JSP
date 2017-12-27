@@ -77,8 +77,9 @@
 			} else {
 				pstm1 = con.prepareStatement(query1);
 			}
-			rst = pstm1.executeQuery();
-			rsmd = rst.getMetaData();
+			if (request.getParameter("select") == null) {
+				rst = pstm1.executeQuery();
+				rsmd = rst.getMetaData();
 		%>
 
 		<table class="table table-hovered table-fluid table-striped table-sm">
@@ -87,7 +88,7 @@
 					<th>Action</th>
 					<%
 						for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-							columnnm = rsmd.getColumnName(i).toString();
+								columnnm = rsmd.getColumnName(i).toString();
 					%>
 
 					<th><%=columnnm + "  " + rsmd.getColumnTypeName(i) + "(" + rsmd.getColumnDisplaySize(i) + ")"%></th>
@@ -107,7 +108,7 @@
 							class="fa fa-fw fa-trash text-danger"></i></a></td>
 					<%
 						for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-								record = rst.getString(i);
+									record = rst.getString(i);
 					%>
 
 					<td><%=record%></td>
@@ -117,7 +118,7 @@
 				</tr>
 				<%
 					num_rows++;
-					}
+						}
 				%>
 			</tbody>
 			<tfoot style="background-color: #d0dce0">
@@ -151,6 +152,16 @@
 				</form>
 			</div>
 		</div>
+		<%
+			} else {
+				int num = pstm1.executeUpdate();
+		%>
+		<h2><%=num%>
+			row(s) updated successfully
+		</h2>
+		<%
+			}
+		%>
 	</div>
 </body>
 </html>

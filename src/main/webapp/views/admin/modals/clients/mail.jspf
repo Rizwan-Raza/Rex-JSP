@@ -21,7 +21,7 @@
 					<div class="form-group">
 						<label for="from"><i class="fa fa-fw fa-envelope"></i>
 							From</label> <input type="text" class="form-control disabled" name="from"
-							disabled required value="${user.getEmail() }" readonly>
+							disabled required value="${user.getUser().getEmail() }" readonly>
 					</div>
 					<div class="form-group">
 						<label for="to"><i class="fa fa-fw fa-envelope"></i> To</label> <input

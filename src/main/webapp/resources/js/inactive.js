@@ -21,12 +21,12 @@ $(document).ready(function() {
 		emailAvailable();
 	});
 
-	$("#adminLoginModal #usrname").keyup(function() {
-		emailChecker("#adminLoginModal #usrname");
+	$("#adminLoginModal input[name='usrname']").keyup(function() {
+		emailChecker("#adminLoginModal input[name='usrname']");
 	});
 
-	$("#clientLoginModal #usrname").keyup(function() {
-		emailChecker("#clientLoginModal #usrname");
+	$("#clientLoginModal input[name='usrname']").keyup(function() {
+		emailChecker("#clientLoginModal input[name='usrname']");
 	});
 
 	$("#range-all").click(function() {
@@ -146,7 +146,12 @@ function passwordChecker() {
 	}
 }
 function emailAvailable() {
-	var email = $("#signupForm #email").val()
+	var email = $("#signupForm #email").val();
+
+	if (oldData == email || email.length == 0)
+		return;
+	else
+		oldData = email;
 	// alert(email.substring(email.indexOf("@"), email.length-2).search(".") !=
 	// -1);
 	if (email.length > 8 && email.search("@") != -1) {
@@ -159,27 +164,29 @@ function emailAvailable() {
 				email : email
 			},
 			success : function(data, status) {
-				obj = JSON.parse(data);
+				var obj = JSON.parse(data);
 				if (obj.response == "KO") {
 					$("#email").removeClass('is-invalid');
 					$("#email").addClass('is-valid');
-					$("#email .valid-feedback").show();
-					$("#email .invalid-feedback").hide();
+					$("#email ~ .valid-feedback").show();
+					$("#email ~ .invalid-feedback").hide();
 					emailVerified = true;
 				} else {
+					if (obj.message != "KO")
+						$(id + " ~ .invalid-feedback").text(obj.message);
 					$("#email").addClass('is-invalid');
 					$("#email").removeClass('is-valid');
-					$("#email .valid-feedback").hide();
-					$("#email .invalid-feedback").show();
+					$("#email ~ .valid-feedback").hide();
+					$("#email ~ .invalid-feedback").show();
 					emailVerified = false;
 				}
 			},
 			error : function(data, status) {
 				$("#email").addClass('is-invalid');
 				$("#email").removeClass('is-valid');
-				$("#email .valid-feedback").hide();
-				$("#email .invalid-feedback").show();
-				$("#email .invalid-feedback").text(
+				$("#email ~ .valid-feedback").hide();
+				$("#email ~ .invalid-feedback").show();
+				$("#email ~ .invalid-feedback").text(
 						"Can't Verify Email right now.");
 				emailVerified = true;
 			}
@@ -187,12 +194,16 @@ function emailAvailable() {
 	} else {
 		$("#email").removeClass('is-invalid');
 		$("#email").removeClass('is-valid');
-		$("#email .valid-feedback").hide();
-		$("#email .invalid-feedback").hide();
+		$("#email ~ .valid-feedback").hide();
+		$("#email ~ .invalid-feedback").hide();
 	}
 }
 function emailChecker(id) {
-	var email = $(id).val()
+	var email = $(id).val();
+	if (oldData == email || email.length == 0)
+		return;
+	else
+		oldData = email;
 	// alert(email.substring(email.indexOf("@"), email.length-2).search(".") !=
 	// -1);
 	if (email.length > 8 && email.search("@") != -1) {
@@ -205,33 +216,36 @@ function emailChecker(id) {
 				email : email
 			},
 			success : function(data, status) {
-				obj = JSON.parse(data);
+				var obj = JSON.parse(data);
 				if (obj.response == "OK") {
 					$(id).removeClass('is-invalid');
 					$(id).addClass('is-valid');
-					$(id + " .valid-feedback").show();
-					$(id + " .invalid-feedback").hide();
+					$(id + " ~ .valid-feedback").show();
+					$(id + " ~ .invalid-feedback").hide();
 				} else {
+					if (obj.message != "KO") {
+						$(id + " ~ .invalid-feedback").text(obj.message);
+					}
 					$(id).addClass('is-invalid');
 					$(id).removeClass('is-valid');
-					$(id + " .valid-feedback").hide();
-					$(id + " .invalid-feedback").show();
+					$(id + " ~ .valid-feedback").hide();
+					$(id + " ~ .invalid-feedback").show();
 				}
 			},
 			error : function(data, status) {
 				$(id).addClass('is-invalid');
 				$(id).removeClass('is-valid');
-				$(id + " .valid-feedback").hide();
-				$(id + " .invalid-feedback").show();
-				$(id + " .invalid-feedback").text(
+				$(id + " ~ .valid-feedback").hide();
+				$(id + " ~ .invalid-feedback").show();
+				$(id + " ~ .invalid-feedback").text(
 						"Can't Verify Email right now.");
 			}
 		});
 	} else {
 		$(id).removeClass('is-invalid');
 		$(id).removeClass('is-valid');
-		$(id + " .valid-feedback").hide();
-		$(id + " .invalid-feedback").hide();
+		$(id + " ~ .valid-feedback").hide();
+		$(id + " ~ .invalid-feedback").hide();
 	}
 }
 function passwordHelper() {
@@ -311,7 +325,7 @@ function signup(elem) {
 				$(elem).removeClass("was-validated");
 				return true;
 			} else {
-				alert(data);
+				// alert(data);
 				snackbar(obj.message);
 				return false;
 			}

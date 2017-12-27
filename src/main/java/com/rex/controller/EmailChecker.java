@@ -19,13 +19,15 @@ import com.rex.util.DBConnector;
 public class EmailChecker extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection conn;
-	private PreparedStatement stmt;
+	private PreparedStatement stmt = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public EmailChecker() {
 		conn = new DBConnector().getConnection();
+		if(conn == null)
+			return;
 		try {
 			stmt = conn.prepareStatement("SELECT email FROM users WHERE email=?");
 		} catch (SQLException e) {
@@ -38,21 +40,26 @@ public class EmailChecker extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		if(conn == null || stmt == null) {
+			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Can't verify email right now. Connection refuses\"}");
+			return;
+		}
 		try {
 			stmt.setString(1, request.getParameter("email"));
 
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				response.getWriter()
-						.println("{\"response\": \"OK\", \"email\": \"" + request.getParameter("email") + "\"}");
+						.println("{\"response\": \"OK\"}");
 			} else {
 				response.getWriter()
-						.println("{\"response\": \"KO\", \"email\": \"" + request.getParameter("email") + "\"}");
+						.println("{\"response\": \"KO\",\"message\": \"KO\"}");
 			}
 		} catch (SQLException e) {
+			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Can't verify email right now. SQL Problem\"}");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

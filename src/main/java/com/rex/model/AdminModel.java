@@ -1,4 +1,4 @@
-package com.rex.modal;
+package com.rex.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
 import com.rex.bean.LoginBean;
+import com.rex.bean.MemberBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
 import com.rex.util.DBConnector;
 
-public class AdminModal {
+public class AdminModel {
 	private Connection conn = null;
 
 	private PreparedStatement auth;
@@ -22,15 +24,17 @@ public class AdminModal {
 	private PreparedStatement ck;
 	private PreparedStatement cu;
 
-	public AdminModal() {
+	public AdminModel() {
 		conn = (new DBConnector()).getConnection();
 		try {
-			auth = conn.prepareStatement("SELECT * FROM users WHERE email=? AND password=?");
-			gcl = conn.prepareStatement("SELECT * FROM users");
+			auth = conn.prepareStatement(
+					"SELECT * FROM users, addresses WHERE users.email=? AND users.password=? AND addresses.add_id=users.add_id");
+			gcl = conn.prepareStatement("SELECT * FROM users, addresses WHERE addresses.add_id=users.add_id");
 			upd = conn.prepareStatement(
-					"UPDATE users SET firstname=?, lastname=?, gender=?, contact=?, street_no=?, town=?, city=?, state=? WHERE user_id=?");
-			cap = conn.prepareStatement("UPDATE users SET auth=? WHERE user_id=?");
-			cu = conn.prepareStatement("UPDATE users SET firstname=?, lastname=?, gender=?, contact=? WHERE user_id=?");
+					"UPDATE users, addresses SET users.firstname=?, users.lastname=?, users.gender=?, users.contact=?, addresses.street_no=?, addresses.town=?, addresses.city=?, addresses.state=? WHERE users.user_id=? AND users.add_id=addresses.add_id");
+			cap = conn.prepareStatement("UPDATE users SET users.auth=? WHERE users.user_id=?");
+			cu = conn.prepareStatement(
+					"UPDATE users SET users.firstname=?, users.lastname=?, users.gender=?, users.contact=? WHERE users.user_id=?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,10 +57,13 @@ public class AdminModal {
 					return new ErrorBean("A-A-4", "Are you an Admin ? Try to Login as a Client",
 							this.getClass().toGenericString());
 				}
-				return new UserBean(rs.getString("user_id"), rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("email"), rs.getString("password"), rs.getString("gender"),
-						rs.getString("contact"), rs.getString("street_no"), rs.getString("town"), rs.getString("city"),
-						rs.getString("state"), rs.getString("auth"), rs.getString("src"), rs.getString("time"));
+				return new MemberBean(new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
+						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
+						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
+						rs.getString("users.src"), rs.getString("users.time")),
+						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"),
+								rs.getString("addresses.town"), rs.getString("addresses.city"),
+								rs.getString("addresses.state")));
 			} else {
 				return new ErrorBean("A-A-1", "Incorrect Password!", this.getClass().toGenericString());
 			}
@@ -65,15 +72,17 @@ public class AdminModal {
 		}
 	}
 
-	public ArrayList<UserBean> getClients() {
+	public ArrayList<MemberBean> getClients() {
 		try {
 			ResultSet rs = gcl.executeQuery();
-			ArrayList<UserBean> al = new ArrayList<UserBean>();
+			ArrayList<MemberBean> al = new ArrayList<MemberBean>();
 			while (rs.next()) {
-				al.add(new UserBean(rs.getString("user_id"), rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("email"), rs.getString("password"), rs.getString("gender"),
-						rs.getString("contact"), rs.getString("street_no"), rs.getString("city"), rs.getString("town"),
-						rs.getString("state"), rs.getString("auth"), rs.getString("src"), rs.getString("time")));
+				al.add(new MemberBean(new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
+						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
+						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
+						rs.getString("users.src"), rs.getString("users.time")),
+						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"), rs.getString("addresses.city"),
+								rs.getString("addresses.town"), rs.getString("addresses.state"))));
 			}
 			return al;
 		} catch (SQLException e) {
@@ -83,23 +92,23 @@ public class AdminModal {
 		return null;
 	}
 
-	public Object update(UserBean user) {
+	public Object update(MemberBean mem) {
 		try {
-			upd.setString(1, user.getFname());
-			upd.setString(2, user.getLname());
-			upd.setString(3, user.getGender());
-			upd.setString(4, user.getContact());
-			upd.setString(5, user.getStreet());
-			upd.setString(6, user.getTown());
-			upd.setString(7, user.getCity());
-			upd.setString(8, user.getState());
-			upd.setString(9, user.getUid());
+			upd.setString(1, mem.getUser().getFname());
+			upd.setString(2, mem.getUser().getLname());
+			upd.setString(3, mem.getUser().getGender());
+			upd.setString(4, mem.getUser().getContact());
+			upd.setString(5, mem.getAddress().getStreet());
+			upd.setString(6, mem.getAddress().getTown());
+			upd.setString(7, mem.getAddress().getCity());
+			upd.setString(8, mem.getAddress().getState());
+			upd.setString(9, mem.getUser().getUid());
 
-			if (upd.executeUpdate() == 1) {
+			if (upd.executeUpdate() == 2) {
 				return new SuccessBean("A-U-1", "Profile Updated Successfully", "admin-update", "success");
 			} else {
-				return new SuccessBean("A-U-1", "User Existance not Found (" + user.getUid() + ")", "admin-update",
-						"failed");
+				return new SuccessBean("A-U-1", "User Existance not Found (" + mem.getUser().getUid() + ")",
+						"admin-update", "failed");
 			}
 		} catch (SQLException e) {
 			return new ErrorBean("A-U-1", e.toString(), this.getClass().toGenericString());
@@ -122,7 +131,8 @@ public class AdminModal {
 
 	public Object delete(String id) {
 		try {
-			ck = conn.prepareStatement("DELETE FROM users WHERE user_id=?");
+			ck = conn
+					.prepareStatement("DELETE FROM users, addresses WHERE user_id=? AND users.add_id=addresses.add_id");
 			ck.setString(1, id);
 			if (ck.executeUpdate() == 1) {
 				return "Client Kicked out Successfully!";

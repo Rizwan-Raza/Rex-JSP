@@ -14,35 +14,25 @@ public class UserBean implements Serializable {
 	private String password;
 	private String gender;
 	private String contact;
-	private String street;
-	private String town;
-	private String city;
-	private String state;
 	private String auth;
 	private String src;
 	private String time;
 
 	public UserBean() {
-		uid = fname = lname = email = password = gender = contact = street = town = city = state = auth = src = time = null;
+		uid = fname = lname = email = password = gender = contact = auth = src = time = null;
 	}
 
-	public UserBean(String fname, String lname, String email, String psw, String gender, String cont, String street,
-			String town, String city, String state) {
+	public UserBean(String fname, String lname, String email, String psw, String gender, String cont) {
 		setFname(fname);
 		setLname(lname);
 		setEmail(email);
 		setPassword(psw);
 		setGender(gender);
 		setContact(cont);
-		setStreet(street);
-		setTown(town);
-		setCity(city);
-		setState(state);
-
 	}
 
 	public UserBean(String uid, String fname, String lname, String email, String psw, String gender, String cont,
-			String street, String town, String city, String state, String auth, String src, String time) {
+			String auth, String src, String time) {
 		setUid(uid);
 		setFname(fname);
 		setLname(lname);
@@ -50,10 +40,6 @@ public class UserBean implements Serializable {
 		setPassword(psw);
 		setGender(gender);
 		setContact(cont);
-		setStreet(street);
-		setTown(town);
-		setCity(city);
-		setState(state);
 		setAuth(auth);
 		setSrc(src);
 		setTime(time);
@@ -138,38 +124,6 @@ public class UserBean implements Serializable {
 
 	public void setContact(String contact) {
 		this.contact = contact;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getTown() {
-		return town;
-	}
-
-	public void setTown(String town) {
-		this.town = town;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
 	}
 
 	public String getFullname() {

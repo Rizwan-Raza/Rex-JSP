@@ -35,7 +35,7 @@
 	<div
 		class="alert alert-success text-center alert-dismissible fade show"
 		role="alert">
-		<label>Welcome to Admin Panel <strong>${user.getFname()}</strong>!
+		<label>Welcome to Admin Panel <strong>${user.getUser().getFname()}</strong>!
 		</label>
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">

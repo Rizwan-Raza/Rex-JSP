@@ -17,7 +17,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.rex.bean.ErrorBean;
 import com.rex.bean.SuccessBean;
-import com.rex.modal.ProfilePicUpdateModal;
+import com.rex.model.ProfilePicUpdateModel;
 
 /**
  * Servlet implementation class PicUpdate
@@ -100,7 +100,7 @@ public class PicUpdate extends HttpServlet {
 						} else {
 							process.setCleanUp("failed");
 						}
-						ProfilePicUpdateModal ppum = new ProfilePicUpdateModal();
+						ProfilePicUpdateModel ppum = new ProfilePicUpdateModel();
 						Object bean = ppum.update(uFilePath + uploadedFile, request.getParameter("uid"), process);
 						if (bean instanceof SuccessBean) {
 							sess.setAttribute("process", "success");
@@ -113,11 +113,11 @@ public class PicUpdate extends HttpServlet {
 				}
 			} catch (Exception ex) {
 				sess.setAttribute("process", "failed");
-				sess.setAttribute("bean", new ErrorBean("P-U-3", ex.toString(), "ProfilePicUpdateController"));
+				sess.setAttribute("bean", new ErrorBean("P-U-3", ex.toString(), this.getClass().toGenericString()));
 			}
 		} else {
 			sess.setAttribute("process", "failed");
-			sess.setAttribute("bean", new ErrorBean("P-U-2", "File Selection Problem", "ProfilePicUpdateController"));
+			sess.setAttribute("bean", new ErrorBean("P-U-2", "File Selection Problem", this.getClass().toGenericString()));
 		}
 		response.sendRedirect("./");
 	}

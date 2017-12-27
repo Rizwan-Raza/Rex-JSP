@@ -15,17 +15,17 @@
 				</button>
 			</div>
 			<form role="form"
-				action="ProfilePicUpdate?old_dp=${user.getSrc() }" method="post"
-				enctype="multipart/form-data">
+				action="ProfilePicUpdate?old_dp=${user.getUser().getSrc().replace('\\', '/') }"
+				method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="user-dp user-dp-xl mx-auto image-triggerer"
-						style="background-image: url('${user.getSrc() }');"
-						onclick="showImageModal('${user.getFullname() }', '${user.getSrc() }')">
+						style="background-image: url('${user.getUser().getSrc().replace('\\', '/') }');"
+						onclick="showImageModal('${user.getUser().getFullname() }', '${user.getUser().getSrc().replace('\\', '/') }')">
 					</div>
 					<br>
 					<div class="form-group">
-						<label class="custom-file"> <input type="file" id="dp"
-							name="dp" accept="image/*"
+						<label class="custom-file"> <input type="file" name="dp"
+							accept="image/*"
 							onchange="readURL(this, '#profilePictureModal .user-dp-xl');"
 							class="custom-file-input"> <span
 							class="custom-file-control"></span>

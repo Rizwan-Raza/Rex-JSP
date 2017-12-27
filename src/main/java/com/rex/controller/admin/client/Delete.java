@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rex.bean.ErrorBean;
-import com.rex.modal.AdminModal;
+import com.rex.model.AdminModel;
 
 /**
  * Servlet implementation class DeleteController
@@ -32,7 +32,7 @@ public class Delete extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		Object obj = (new AdminModal()).delete(request.getParameter("id"));
+		Object obj = (new AdminModel()).delete(request.getParameter("id"));
 		if (obj instanceof String) {
 			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + obj + "\", \"user_id\": \""
 					+ request.getParameter("id") + "\"}");

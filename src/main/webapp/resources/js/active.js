@@ -22,7 +22,7 @@ function readURLs(input) {
 			reader.readAsDataURL(files[i]);
 			reader.onloadend = function() {
 				$(".insert-here").append(
-						"<div class='col-xs-3 prop-image' id='image" + x
+						"<div class='col-3 prop-image' id='image" + x
 								+ "'></div>");
 				$(".insert-here #image" + x).css("background-image",
 						"url(" + this.result + ")");

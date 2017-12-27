@@ -4,7 +4,15 @@
 $(document).ready(function() {
 <c:choose>
 	<c:when test="${process eq 'success' }">
-		snackbar("${ bean.message}");
+		<c:choose>
+			<c:when test="${bean.code eq 'C-Act-1' }">
+				$("#successModalBS p#upper-text").html("${ bean.message.replace('\\', '/')}");
+				$("#successModalBS").modal('show');
+			</c:when>
+			<c:otherwise>
+				snackbar("${ bean.message}");
+			</c:otherwise>
+		</c:choose>
 	</c:when>
 	<c:when test="${process eq 'failed' }">
 		<c:choose>

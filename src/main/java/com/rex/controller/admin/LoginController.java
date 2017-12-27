@@ -10,9 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import com.rex.bean.ErrorBean;
 import com.rex.bean.LoginBean;
+import com.rex.bean.MemberBean;
 import com.rex.bean.SuccessBean;
-import com.rex.bean.UserBean;
-import com.rex.modal.AdminModal;
+import com.rex.model.AdminModel;
 
 /**
  * Servlet implementation class ClientLoginController
@@ -36,10 +36,10 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sess = request.getSession(true);
 		LoginBean userData = new LoginBean(request.getParameter("usrname"), request.getParameter("psw"));
-		AdminModal admin = new AdminModal();
+		AdminModel admin = new AdminModel();
 		Object data = admin.auth(userData);
-		if (data instanceof UserBean) {
-			UserBean user = (UserBean) data;
+		if (data instanceof MemberBean) {
+			MemberBean user = (MemberBean) data;
 			sess.setAttribute("log", "admin");
 			sess.setAttribute("user", user);
 			sess.setAttribute("process", "success");

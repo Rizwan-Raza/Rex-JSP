@@ -12,6 +12,7 @@
 	<jsp:directive.include file="resources/js/detecter.jspf" />
 	<jsp:directive.include file="views/nav.jspf" />
 	<jsp:directive.include file="views/modals/error.inc.html" />
+	<jsp:directive.include file="views/modals/success.inc.html" />
 	<jsp:directive.include file="views/modals/image.inc.html" />
 	<jsp:directive.include file="views/modals/wait.inc.html" />
 	<c:choose>
