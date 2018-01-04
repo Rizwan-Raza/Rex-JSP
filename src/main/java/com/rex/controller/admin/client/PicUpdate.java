@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.rex.bean.ErrorBean;
+import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.model.ProfilePicUpdateModel;
 
@@ -91,7 +92,7 @@ public class PicUpdate extends HttpServlet {
 						}
 						fi.write(new File(oFilePath + uploadedFile));
 						// Uploaded
-						SuccessBean process = new SuccessBean("P-U-1", "Client's Pic Updated Succcessfully", "upload",
+						SuccessBean process = new SuccessBean("C-P-U-1", "Client's Pic Updated Succcessfully", "upload",
 								null);
 						if (!request.getParameter("old_dp").equals("resources/uploads/users/temp.png")) {
 							file = new File(getServletContext().getRealPath(request.getParameter("old_dp")));
@@ -101,7 +102,7 @@ public class PicUpdate extends HttpServlet {
 							process.setCleanUp("failed");
 						}
 						ProfilePicUpdateModel ppum = new ProfilePicUpdateModel();
-						Object bean = ppum.update(uFilePath + uploadedFile, request.getParameter("uid"), process);
+						ResponseBean bean = ppum.update(uFilePath + uploadedFile, request.getParameter("uid"), process);
 						if (bean instanceof SuccessBean) {
 							sess.setAttribute("process", "success");
 
@@ -113,11 +114,12 @@ public class PicUpdate extends HttpServlet {
 				}
 			} catch (Exception ex) {
 				sess.setAttribute("process", "failed");
-				sess.setAttribute("bean", new ErrorBean("P-U-3", ex.toString(), this.getClass().toGenericString()));
+				sess.setAttribute("bean", new ErrorBean("C-P-U-2", ex.toString(), this.getClass().toGenericString()));
 			}
 		} else {
 			sess.setAttribute("process", "failed");
-			sess.setAttribute("bean", new ErrorBean("P-U-2", "File Selection Problem", this.getClass().toGenericString()));
+			sess.setAttribute("bean",
+					new ErrorBean("C-P-U-1", "File Selection Problem", this.getClass().toGenericString()));
 		}
 		response.sendRedirect("./");
 	}

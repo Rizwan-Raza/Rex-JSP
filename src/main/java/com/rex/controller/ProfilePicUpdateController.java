@@ -17,7 +17,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
-import com.rex.bean.MemberBean;
+import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
 import com.rex.model.ProfilePicUpdateModel;
@@ -94,7 +94,7 @@ public class ProfilePicUpdateController extends HttpServlet {
 						}
 						fi.write(new File(oFilePath + uploadedFile));
 						// Uploaded
-						SuccessBean process = new SuccessBean("P-U-1", "Profile Pic Updated Succcessfully", "upload",
+						SuccessBean process = new SuccessBean("G-P-U-1", "Profile Pic Updated Succcessfully", "upload",
 								null);
 						if (!request.getParameter("old_dp").equals("resources/uploads/users/temp.png")) {
 							file = new File(getServletContext().getRealPath(request.getParameter("old_dp")));
@@ -103,18 +103,15 @@ public class ProfilePicUpdateController extends HttpServlet {
 						} else {
 							process.setCleanUp("failed");
 						}
-						MemberBean curr_user = (MemberBean) sess.getAttribute("user");
+						UserBean curr_user = (UserBean) sess.getAttribute("user");
 						ProfilePicUpdateModel ppum = new ProfilePicUpdateModel();
-						Object bean = ppum.update(uFilePath + uploadedFile, curr_user.getUser().getUid(), process);
+						ResponseBean bean = ppum.update(uFilePath + uploadedFile, curr_user.getUid(), process);
 						if (bean instanceof SuccessBean) {
 							sess.setAttribute("user",
-									new MemberBean(
-											new UserBean(curr_user.getUser().getUid(), curr_user.getUser().getFname(),
-													curr_user.getUser().getLname(), curr_user.getUser().getEmail(),
-													curr_user.getUser().getPassword(), curr_user.getUser().getGender(),
-													curr_user.getUser().getContact(), null, uFilePath + uploadedFile,
-													curr_user.getUser().getTime()),
-											new AddressBean(curr_user.getAddress().getStreet(),
+									new UserBean(curr_user.getUid(), curr_user.getFname(), curr_user.getLname(),
+											curr_user.getEmail(), curr_user.getPassword(), curr_user.getGender(),
+											curr_user.getContact(), curr_user.getAuth(), uFilePath + uploadedFile, curr_user.getTime(),
+											new AddressBean(curr_user.getAddress().getAdd_id(), curr_user.getAddress().getStreet(),
 													curr_user.getAddress().getTown(), curr_user.getAddress().getCity(),
 													curr_user.getAddress().getState())));
 							((SuccessBean) bean).setSession("success");
@@ -129,13 +126,13 @@ public class ProfilePicUpdateController extends HttpServlet {
 				}
 			} catch (Exception ex) {
 				sess.setAttribute("process", "failed");
-				sess.setAttribute("bean", new ErrorBean("P-U-3", ex.getMessage(), this.getClass().toGenericString()));
+				sess.setAttribute("bean", new ErrorBean("G-P-U-3", ex.getMessage(), this.getClass().toGenericString()));
 				System.out.println(ex);
 			}
 		} else {
 			sess.setAttribute("process", "failed");
 			sess.setAttribute("bean",
-					new ErrorBean("P-U-2", "File Selection Problem", this.getClass().toGenericString()));
+					new ErrorBean("G-P-U-2", "File Selection Problem", this.getClass().toGenericString()));
 		}
 		response.sendRedirect("./");
 	}

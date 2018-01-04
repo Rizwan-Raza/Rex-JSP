@@ -1,0 +1,17 @@
+<%@page import="com.rex.bean.UserBean"%>
+<%@page import="com.rex.model.ClientModel"%>
+<div id="buy-property" class="tab-pane fade show active">
+	<br>
+	<h4>
+		Buy any following Property or
+		<button class="btn btn-primary btn-sm" data-toggle="modal"
+			data-target="#postRequirementModal">Post Requirement</button>
+	</h4>
+	<br>
+	<c:set var="fetcherType" scope="request" value="BUY" />
+	<%
+		request.setAttribute("props", new ClientModel().getProps(((UserBean) session.getAttribute("user")).getUid(),
+				(String) request.getAttribute("fetcherType")));
+	%>
+	<jsp:directive.include file="propFetcher.jspf" />
+</div>

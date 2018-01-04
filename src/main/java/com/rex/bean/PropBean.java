@@ -1,14 +1,12 @@
 package com.rex.bean;
 
+import java.util.List;
+
 public class PropBean {
 	private String propID;
 	private String propType;
 	private String tranType;
 	private String title;
-	private String street;
-	private String town;
-	private String city;
-	private String state;
 	private String bhk;
 	private String bath;
 	private String age;
@@ -18,7 +16,8 @@ public class PropBean {
 	private String price;
 	private String priceDisplay;
 	private String available;
-	private String amens;
+	private List<String> amens;
+	private List<String> images;
 	private String hospital;
 	private String school;
 	private String rail;
@@ -27,23 +26,27 @@ public class PropBean {
 	private String totalFloors;
 	private String desc;
 	private String tnc;
+	private String time;
+	private String edit;
+	private AddressBean address;
+	private UserBean seller;
 
 	public PropBean() {
-		this.propID = this.propType = this.tranType = this.title = this.street = this.town = this.city = this.state = this.bhk = this.bath =this.age = this.furnished = this.propArea = this.land = this.price = this.priceDisplay = this.available = this.amens = this.hospital = this.school = this.rail = this.units = this.floor = this.totalFloors = this.desc = this.tnc = null;
+		this.propID = this.propType = this.tranType = this.title = this.bhk = this.bath = this.age = this.furnished = this.propArea = this.land = this.price = this.priceDisplay = this.available = this.hospital = this.school = this.rail = this.units = this.floor = this.totalFloors = this.time = this.edit = this.desc = this.tnc = null;
+		this.amens = this.images = null;
+		this.address = null;
 	}
 
-	public PropBean(String propID, String propType, String tranType, String title, String street, String town,
-			String city, String state, String bhk, String bath, String age, String furnished, String propArea,
-			String land, String price, String priceDisplay, String available, String amens, String hospital,
-			String school, String rail, String units, String floor, String totalFloors, String desc, String tnc) {
+	public PropBean(UserBean seller, String propID, String propType, String tranType, String title, String bhk,
+			String bath, String age, String furnished, String propArea, String land, String price, String priceDisplay,
+			String available, List<String> amens, String hospital, String school, String rail, String units,
+			String floor, String totalFloors, String desc, String tnc, AddressBean address, String time, String edit,
+			List<String> images) {
+		this.seller = seller;
 		this.propID = propID;
 		this.propType = propType;
 		this.tranType = tranType;
 		this.title = title;
-		this.street = street;
-		this.town = town;
-		this.city = city;
-		this.state = state;
 		this.bhk = bhk;
 		this.bath = bath;
 		this.age = age;
@@ -62,38 +65,10 @@ public class PropBean {
 		this.totalFloors = totalFloors;
 		this.desc = desc;
 		this.tnc = tnc;
-	}
-
-	public PropBean(String propType, String tranType, String title, String street, String town, String city,
-			String state, String bhk, String bath, String age, String furnished, String propArea, String land,
-			String price, String priceDisplay, String available, String amens, String hospital, String school,
-			String rail, String units, String floor, String totalFloors, String desc, String tnc) {
-		super();
-		this.propType = propType;
-		this.tranType = tranType;
-		this.title = title;
-		this.street = street;
-		this.town = town;
-		this.city = city;
-		this.state = state;
-		this.bhk = bhk;
-		this.bath = bath;
-		this.age = age;
-		this.furnished = furnished;
-		this.propArea = propArea;
-		this.land = land;
-		this.price = price;
-		this.priceDisplay = priceDisplay;
-		this.available = available;
-		this.amens = amens;
-		this.hospital = hospital;
-		this.school = school;
-		this.rail = rail;
-		this.units = units;
-		this.floor = floor;
-		this.totalFloors = totalFloors;
-		this.desc = desc;
-		this.tnc = tnc;
+		this.address = address;
+		this.time = time;
+		this.edit = edit;
+		this.images = images;
 	}
 
 	public String getPropID() {
@@ -126,38 +101,6 @@ public class PropBean {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getTown() {
-		return town;
-	}
-
-	public void setTown(String town) {
-		this.town = town;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
 	}
 
 	public String getBhk() {
@@ -232,11 +175,11 @@ public class PropBean {
 		this.available = available;
 	}
 
-	public String getAmens() {
+	public List<String> getAmens() {
 		return amens;
 	}
 
-	public void setAmens(String amens) {
+	public void setAmens(List<String> amens) {
 		this.amens = amens;
 	}
 
@@ -288,6 +231,22 @@ public class PropBean {
 		this.totalFloors = totalFloors;
 	}
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getEdit() {
+		return edit;
+	}
+
+	public void setEdit(String edit) {
+		this.edit = edit;
+	}
+
 	public String getDesc() {
 		return desc;
 	}
@@ -303,4 +262,29 @@ public class PropBean {
 	public void setTnc(String tnc) {
 		this.tnc = tnc;
 	}
+
+	public AddressBean getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressBean address) {
+		this.address = address;
+	}
+
+	public UserBean getSeller() {
+		return seller;
+	}
+
+	public void setSeller(UserBean seller) {
+		this.seller = seller;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
+	}
+
 }

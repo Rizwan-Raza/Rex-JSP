@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:directive.page language="java"
 	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
 <!DOCTYPE html>
@@ -7,8 +8,6 @@
 <jsp:directive.include file="views/head.inc.html" />
 </head>
 <body>
-
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<jsp:directive.include file="resources/js/detecter.jspf" />
 	<jsp:directive.include file="views/nav.jspf" />
 	<jsp:directive.include file="views/modals/error.inc.html" />
@@ -22,11 +21,11 @@
 			<jsp:directive.include file="views/modals/logout.inc.html" />
 			<c:choose>
 				<c:when test="${log eq 'client'}">
-					<jsp:directive.include file="views/client/client.inc.jsp" />
+					<jsp:directive.include file="views/client/client.jspf" />
 					<script type="text/javascript" src="resources/js/client.js"></script>
 				</c:when>
 				<c:otherwise>
-					<jsp:directive.include file="views/admin/admin.inc.jsp" />
+					<jsp:directive.include file="views/admin/admin.jspf" />
 					<script type="text/javascript" src="resources/js/admin.js"></script>
 				</c:otherwise>
 			</c:choose>

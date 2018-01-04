@@ -1,0 +1,59 @@
+<%@page import="com.rex.model.ClientModel"%>
+<div id="posts" class="tab-pane fade">
+	<br>
+	<h4>Posted Properties of our System</h4>
+	<!-- 	<div class="ratio row">
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<h4>Client&apos;s Gender Ratio</h4>
+			<div id="pie"></div>
+		</div>
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<h4>Active Client&apos;s Ratio</h4>
+			<div id="pie"></div>
+		</div>
+	</div> -->
+	<br>
+	<%
+		request.setAttribute("props", new ClientModel().getProps("0", "ALL"));
+	%>
+	<c:choose>
+		<c:when test="${empty props }">
+			<div class=" alert alert-danger">
+				<i class="fa fa-5x fa-warning text-center d-block"></i>
+				<h4 class="alert-heading text-center">Sorry, Something went
+					wrong</h4>
+				<p class="text-center">
+					Try to reload? <a href="javascript:window.location.reload()"
+						class="alert-link">Reload Now</a>.
+				</p>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<h5>
+				Total number of properties are: <b id='clients-num'>${props.size() }</b>
+			</h5>
+			<table class="table table-hover table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Seller</th>
+						<th scope="col">Title</th>
+						<th scope="col">Type</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="prop" varStatus="status" items="${props}">
+						<tr id="for-${prop.propID }" scope="row">
+							<td class="f-o-f-dp"><div class="user-dp user-dp-xs"
+									style="background-image: url('${prop.seller.src }');"
+									onclick="changePicture('${prop.seller.src }', '${prop.seller.fullname }', ${Integer.parseInt(prop.seller.uid)}, ${Integer.parseInt(prop.seller.auth)})"></div></td>
+							<td>${prop.title }</td>
+							<td>${prop.propType }</td>
+
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:otherwise>
+	</c:choose>
+</div>

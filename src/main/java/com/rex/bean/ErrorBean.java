@@ -2,7 +2,7 @@ package com.rex.bean;
 
 import java.io.Serializable;
 
-public class ErrorBean implements Serializable{
+public class ErrorBean implements Serializable, ResponseBean {
 	/**
 	 * 
 	 */
@@ -14,15 +14,6 @@ public class ErrorBean implements Serializable{
 
 	public ErrorBean() {
 		message = null;
-	}
-
-	public ErrorBean(String message) {
-		setMessage(message);
-	}
-
-	public ErrorBean(String message, String occurAt) {
-		setMessage(message);
-		setOccurAt(occurAt);
 	}
 
 	public ErrorBean(String code, String message, String occurAt) {

@@ -85,8 +85,10 @@ $(document).ready(
 				}
 			});
 			// $(document).click(function() {
-			// $("#waitModal").modal("show");
-			// });
+			// $("#waitModal").modal({
+			// backdrop : 'static',
+			// keyboard : false
+			//			});
 			// $("#waitModal").modal("show");
 			// var int = setInterval(animateSlide, 1000);
 		});

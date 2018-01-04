@@ -69,60 +69,6 @@
 								required>
 						</div>
 					</div>
-					<!-- Map API
-					<div class="form-horizontal" style="width: 100%">
-				        <div class="form-group">
-				            <label class="col-sm-2 control-label">Location:</label>
-
-				            <div class="col-sm-10">
-				                <input type="text" class="form-control" id="us3-address" />
-				            </div>
-				        </div>
-				        <div class="form-group">
-				            <label class="col-sm-2 control-label">Radius:</label>
-
-				            <div class="col-sm-5">
-				                <input type="text" class="form-control hidden" id="us3-radius" />
-				            </div>
-				        </div>
-				        <div id="us3" style="width: 100%; height: 400px;"></div>
-				        <div class="clearfix">&nbsp;</div>
-				        <div class="m-t-small">
-				            <label class="p-r-small col-sm-1 control-label">Lat.:</label>
-
-				            <div class="col-sm-3">
-				                <input type="text" class="form-control hidden" style="width: 110px" id="us3-lat" name="lat" />
-				            </div>
-				            <label class="p-r-small col-sm-2 control-label">Long.:</label>
-
-				            <div class="col-sm-3">
-				                <input type="text" class="form-control hidden" style="width: 110px" id="us3-lon" name="long" />
-				            </div>
-				        </div>
-				        <div class="clearfix"></div>
-				        <script>
-					        // $("")
-				            $('#us3').locationpicker({
-				                location: {
-				                    latitude: 28.56296442557279,
-				                    longitude: 77.28902223432624
-				                },
-				                radius: 8,
-				                inputBinding: {
-				                    latitudeInput: $('#us3-lat'),
-				                    longitudeInput: $('#us3-lon'),
-				                    radiusInput: $('#us3-radius'),
-				                    locationNameInput: $('#us3-address')
-				                },
-				                enableAutocomplete: true,
-				                onchanged: function (currentLocation, radius, isMarkerDropped) {
-				                    // Uncomment line below to show alert on each Location Changed event
-				                    //alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
-				                }
-				            });
-				        </script>
-				    </div>
-				    Map API -->
 				</fieldset>
 				<fieldset class="border px-3">
 					<legend>Features:</legend>
@@ -156,12 +102,12 @@
 							<label class="control-label" for="furnished"><i
 								class="fa fa-fw fa-home"></i> Furnished</label><br> <label
 								class="custom-control custom-radio"> <input
-								name="furnished" value="yes" type="radio"
+								name="furnished" value="1" type="radio"
 								class="custom-control-input" required> <span
 								class="custom-control-indicator"></span> <span
 								class="custom-control-description">Yes</span>
 							</label> <label class="custom-control custom-radio"> <input
-								name="furnished" value="no" required type="radio"
+								name="furnished" value="0" required type="radio"
 								class="custom-control-input"> <span
 								class="custom-control-indicator"></span> <span
 								class="custom-control-description">No</span>
@@ -212,12 +158,12 @@
 							<label class="control-label" for="price-display"><i
 								class="fa fa-fw fa-tag"></i> Display Price</label><br> <label
 								class="custom-control custom-radio"> <input
-								name="price-display" value="yes" type="radio"
+								name="price-display" value="1" type="radio"
 								class="custom-control-input" required> <span
 								class="custom-control-indicator"></span> <span
 								class="custom-control-description">Yes</span>
 							</label> <label class="custom-control custom-radio"> <input
-								name="price-display" value="no" required type="radio"
+								name="price-display" value="0" required type="radio"
 								class="custom-control-input"> <span
 								class="custom-control-indicator"></span> <span
 								class="custom-control-description">No</span>
@@ -227,12 +173,12 @@
 							<label class="control-label" for="available"><i
 								class="fa fa-fw fa-truck"></i> Available</label><br> <label
 								class="custom-control custom-radio"> <input
-								name="available" value="yes" type="radio"
+								name="available" value="1" type="radio"
 								class="custom-control-input" required> <span
 								class="custom-control-indicator"></span> <span
 								class="custom-control-description">Yes</span>
 							</label> <label class="custom-control custom-radio"> <input
-								name="available" value="no" required type="radio"
+								name="available" value="0" required type="radio"
 								class="custom-control-input"> <span
 								class="custom-control-indicator"></span> <span
 								class="custom-control-description">No</span>
@@ -247,27 +193,27 @@
 							<label class="control-label" for="desc"><i
 								class="fa fa-fw fa-key"></i> In House</label> <br> <label
 								class="custom-control custom-checkbox"> <input
-								type="checkbox" class="custom-control-input" name="in-house[]"
+								type="checkbox" class="custom-control-input" name="inHouse"
 								value="net"> <span class="custom-control-indicator"></span>
 								<span class="custom-control-description"> Internet /
 									Wi-Fi</span>
 							</label> <label class="custom-control custom-checkbox"> <input
-								type="checkbox" class="custom-control-input" name="in-house[]"
+								type="checkbox" class="custom-control-input" name="inHouse"
 								value="air"> <span class="custom-control-indicator"></span>
 								<span class="custom-control-description"> Air-Conditioned</span>
 							</label> <label class="custom-control custom-checkbox"> <input
-								type="checkbox" class="custom-control-input" name="in-house[]"
+								type="checkbox" class="custom-control-input" name="inHouse"
 								value="ro"> <span class="custom-control-indicator"></span>
 								<span class="custom-control-description"> RO Water System</span>
 							</label> <label class="custom-control custom-checkbox"> <input
-								type="checkbox" class="custom-control-input" name="in-house[]"
+								type="checkbox" class="custom-control-input" name="inHouse"
 								value="gas"> <span class="custom-control-indicator"></span>
 								<span class="custom-control-description"> Gas Supply</span>
 							</label> <label class="custom-control custom-checkbox"> <input
-								type="checkbox" class="custom-control-input" name="in-house[]"
+								type="checkbox" class="custom-control-input" name="inHouse"
 								value="water"> <span class="custom-control-indicator"></span>
 								<span class="custom-control-description"> Water Supply
-									and Pipeling</span>
+									and Pipelining</span>
 							</label>
 						</div>
 					</div>
@@ -350,7 +296,7 @@
 							<label class="control-label" for="image"><i
 								class="fa fa-fw fa-picture-o"></i> Property Images (at least 1)
 							</label> <label class="custom-file"> <input type="file"
-								name="images[]" accept="image/*" multiple id="s-p-images"
+								name="images" accept="image/*" multiple id="s-p-images"
 								onchange="readURLs(this)" required min="1" max="20"
 								class="custom-file-input"> <span
 								class="custom-file-control"></span>

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rex.bean.ErrorBean;
+import com.rex.bean.ResponseBean;
+import com.rex.bean.SuccessBean;
 import com.rex.model.AdminModel;
 
 /**
@@ -32,14 +34,14 @@ public class Activate extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		Object obj = (new AdminModel()).activate(request.getParameter("activate").equals("true") ? "1" : "0",
+		ResponseBean obj = (new AdminModel()).activate(request.getParameter("activate").equals("true") ? "1" : "0",
 				request.getParameter("id"));
-		if (obj instanceof String) {
-			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + obj + "\", \"user_id\": \""
-					+ request.getParameter("id") + "\"}");
+		if (obj instanceof SuccessBean) {
+			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + ((SuccessBean) obj).getMessage()
+					+ "\", \"user_id\": \"" + request.getParameter("id") + "\"}");
 		} else {
-			ErrorBean eb = (ErrorBean) obj;
-			response.getWriter().println("{\"response\": \"KO\",\"message\": \"" + eb.getMessage() + "\"}");
+			response.getWriter()
+					.println("{\"response\": \"KO\",\"message\": \"" + ((ErrorBean) obj).getMessage() + "\"}");
 		}
 	}
 

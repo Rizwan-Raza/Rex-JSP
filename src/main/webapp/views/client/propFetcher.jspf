@@ -1,0 +1,63 @@
+<c:choose>
+	<c:when test="${props.size() eq '0' }">
+		<div class=" alert alert-danger">
+			<i class="fa fa-5x fa-shopping-cart text-center d-block"></i>
+			<h4 class="alert-heading text-center">
+				<c:choose>
+					<c:when test="${(fetcherType eq 'BUY') or (fetcherType eq 'ALL')}">
+				Sorry, no one posted any property
+				</h5>
+						<p class="text-center">
+							Want to post property? then <a
+								href="javascript:navTo('sell-property')" class="alert-link">Post
+								Now</a>.
+						</p>
+					</c:when>
+					<c:when test="${fetcherType eq 'MY' }">
+				Sorry, zero property posted by you.
+					</h5>
+						<p class="text-center">
+							Want to post property? then <a
+								href="javascript:navTo('sell-property')" class="alert-link">Post
+								Now</a>.
+						</p>
+					</c:when>
+				</c:choose>
+		</div>
+	</c:when>
+	<c:when test="${empty props }">
+		<div class=" alert alert-danger">
+			<i class="fa fa-5x fa-warning text-center d-block"></i>
+			<h4 class="alert-heading text-center">Sorry, Something went
+				wrong</h4>
+			<p class="text-center">
+				Try to reload? <a href="javascript:window.location.reload()"
+					class="alert-link">Reload Now</a>.
+			</p>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="card-columns">
+			<c:forEach var="prop" varStatus="status" items="${props}">
+				<div class="card">
+					<img class="card-img-top" src="resources/img/property (1).jpg"
+						alt="Property Image">
+					<div class="card-body">
+						<h5 class="card-title">
+							<div class="user-nav user-dp user-dp-sm mr-2 diggle"
+								style="background-image: url('${prop.seller.src }');"></div>${prop.title }</h5>
+						<p class="card-text">${prop.propType }.</p>
+						<p class="card-text">${prop.tranType }</p>
+						<p class="card-text">${prop.furnished  }</p>
+					</div>
+					<div class="card-footer">
+						<small class="text-muted">Posted on: ${prop.time }</small>
+						<c:if test="${prop.edit ne null}">
+							<small class="text-muted">Edited on: ${prop.edit } 
+						</c:if>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</c:otherwise>
+</c:choose>

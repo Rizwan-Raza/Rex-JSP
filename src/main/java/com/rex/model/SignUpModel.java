@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.rex.bean.MemberBean;
+import com.rex.bean.UserBean;
 import com.rex.util.DBConnector;
 
 public class SignUpModel {
@@ -32,7 +32,7 @@ public class SignUpModel {
 		}
 	}
 
-	public String add(MemberBean mem) {
+	public String add(UserBean mem) {
 		if (conn == null || add == null || stmt == null)
 			return "Can't connect with Database";
 		try {
@@ -44,12 +44,12 @@ public class SignUpModel {
 			rs = add.getGeneratedKeys();
 			rs.next();
 
-			stmt.setString(1, mem.getUser().getFname());
-			stmt.setString(2, mem.getUser().getLname());
-			stmt.setString(3, mem.getUser().getEmail());
-			stmt.setString(4, mem.getUser().getPassword());
-			stmt.setString(5, mem.getUser().getGender());
-			stmt.setString(6, mem.getUser().getContact());
+			stmt.setString(1, mem.getFname());
+			stmt.setString(2, mem.getLname());
+			stmt.setString(3, mem.getEmail());
+			stmt.setString(4, mem.getPassword());
+			stmt.setString(5, mem.getGender());
+			stmt.setString(6, mem.getContact());
 			stmt.setString(7, rs.getString(1));
 
 			stmt.executeUpdate();

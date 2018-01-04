@@ -1,0 +1,14 @@
+<%@page import="com.rex.bean.UserBean"%>
+<%@page import="com.rex.model.ClientModel"%>
+<div id="my-property" class="tab-pane fade">
+	<br>
+	<h4>Properties Posted by You.</h4>
+	<br>
+	<c:set var="fetcher-type" scope="request" value="MY" />
+	<%
+		UserBean user = (UserBean) session.getAttribute("user");
+		request.setAttribute("props", new ClientModel().getProps(((UserBean) session.getAttribute("user")).getUid(),
+				(String)request.getAttribute("fetcherType")));
+	%>
+	<jsp:directive.include file="propFetcher.jspf" />
+</div>

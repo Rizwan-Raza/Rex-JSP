@@ -1,6 +1,12 @@
 package com.rex.bean;
 
-public class AddressBean {
+import java.io.Serializable;
+
+public class AddressBean implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4516125172897035140L;
 	private String add_id;
 	private String street;
 	private String town;
@@ -9,13 +15,6 @@ public class AddressBean {
 
 	public AddressBean() {
 		add_id = street = town = city = state = null;
-	}
-
-	public AddressBean(String street, String town, String city, String state) {
-		setStreet(street);
-		setTown(town);
-		setCity(city);
-		setState(state);
 	}
 
 	public AddressBean(String add_id, String street, String town, String city, String state) {

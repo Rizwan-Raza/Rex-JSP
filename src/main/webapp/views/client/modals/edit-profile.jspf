@@ -21,18 +21,18 @@
 					<div class="row">
 						<div class="col-md-6 form-group">
 							<input type="text" class="form-control" name="fname" required
-								value="${user.getUser().getFname() }">
+								value="${user.getFname() }">
 						</div>
 						<div class="col-md-6 form-group">
 							<input type="text" class="form-control" name="lname"
-								value="${user.getUser().getLname() }" required>
+								value="${user.getLname() }" required>
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="col-4">
 							<label class="control-label"> <i
-								class="fa fa-fw ${user.getUser().getGender() eq 'Male' ? 'fa-mars' : 'fa-venus'}"
+								class="fa fa-fw ${user.getGender() eq 'Male' ? 'fa-mars' : 'fa-venus'}"
 								id="g_l_e"> </i> Gender
 							</label>
 						</div>
@@ -40,7 +40,7 @@
 							<div class="form-check form-check-inline">
 								<label class="custom-control custom-radio"> <jsp:text>
 										<![CDATA[<input ]]>
-									</jsp:text> <c:if test="${user.getUser().getGender() eq \"Male\" }"> checked</c:if>
+									</jsp:text> <c:if test="${user.getGender() eq \"Male\" }"> checked</c:if>
 									class="custom-control-input" type="radio" id="signUpGenderMale"
 									value="Male" name="gender" required
 									onclick="$('#g_l_e').removeClass('fa-venus');$('#g_l_e').addClass('fa-mars');">
@@ -48,7 +48,7 @@
 									class="custom-control-description">Male</span>
 								</label> <label class="custom-control custom-radio"> <jsp:text>
 										<![CDATA[<input ]]>
-									</jsp:text> <c:if test="${user.getUser().getGender() eq \"Female\" }"> checked</c:if>
+									</jsp:text> <c:if test="${user.getGender() eq \"Female\" }"> checked</c:if>
 									class="custom-control-input" type="radio"
 									id="signUpGenderFemale" value="Female" name="gender" required
 									onclick="$('#g_l_e').removeClass('fa-mars');$('#g_l_e').addClass('fa-venus');">
@@ -61,7 +61,7 @@
 					<div class="form-group">
 						<label for="cont"><i class="fa fa-fw fa-phone"></i>
 							Contact Number</label> <input type="text" class="form-control"
-							name="cont" value="${user.getUser().getContact() }" required>
+							name="cont" value="${user.getContact() }" required>
 					</div>
 					<div class="form-group">
 						<label for="cont"><i class="fa fa-fw fa-map-marker"></i>

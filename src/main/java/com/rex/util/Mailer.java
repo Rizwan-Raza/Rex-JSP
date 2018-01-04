@@ -42,7 +42,7 @@ public class Mailer {
 		NAME = mailer.getProperty("NAME");
 	}
 
-	public static void send(String to, String sub, String msg) {
+	public static boolean send(String to, String sub, String msg) {
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", HOST);
 		properties.put("mail.smtp.auth", AUTH);
@@ -64,11 +64,14 @@ public class Mailer {
 
 			Transport.send(message);
 			System.out.println("Activation Message Sent Successfully.");
+			return true;
 		} catch (MessagingException ex) {
 			ex.printStackTrace();
+			return false;
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 
 	}

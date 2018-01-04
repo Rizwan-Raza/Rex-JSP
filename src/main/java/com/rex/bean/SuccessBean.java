@@ -2,7 +2,7 @@ package com.rex.bean;
 
 import java.io.Serializable;
 
-public class SuccessBean implements Serializable {
+public class SuccessBean implements Serializable, ResponseBean {
 	/**
 	 * 
 	 */
@@ -17,10 +17,6 @@ public class SuccessBean implements Serializable {
 
 	public SuccessBean() {
 		code = message = process = completion = query = session = cleanUp = null;
-	}
-
-	public SuccessBean(String code) {
-		setCode(code);
 	}
 
 	public SuccessBean(String code, String message) {

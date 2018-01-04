@@ -15,12 +15,12 @@
 				</button>
 			</div>
 			<form role="form"
-				action="ProfilePicUpdate?old_dp=${user.getUser().getSrc().replace('\\', '/') }"
+				action="ProfilePicUpdate?old_dp=${user.src.replace('\\', '/') }"
 				method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="user-dp user-dp-xl mx-auto image-triggerer"
-						style="background-image: url('${user.getUser().getSrc().replace('\\', '/') }');"
-						onclick="showImageModal('${user.getUser().getFullname() }', '${user.getUser().getSrc().replace('\\', '/') }')">
+						style="background-image: url('${user.src.replace('\\', '/') }');"
+						onclick="showImageModal('${user.fullname }', '${user.src.replace('\\', '/') }')">
 					</div>
 					<br>
 					<div class="form-group">

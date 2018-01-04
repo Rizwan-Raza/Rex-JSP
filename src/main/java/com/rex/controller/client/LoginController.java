@@ -10,8 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import com.rex.bean.ErrorBean;
 import com.rex.bean.LoginBean;
-import com.rex.bean.MemberBean;
+import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
+import com.rex.bean.UserBean;
 import com.rex.model.ClientModel;
 
 /**
@@ -35,12 +36,10 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LoginBean userData = new LoginBean(request.getParameter("usrname"), request.getParameter("psw"));
-		ClientModel client = new ClientModel();
 		HttpSession sess = request.getSession(true);
-		Object data = client.auth(userData);
-		if (data instanceof MemberBean) {
-			MemberBean user = (MemberBean) data;
+		ResponseBean data = (new ClientModel()).auth(new LoginBean(request.getParameter("usrname"), request.getParameter("psw")));
+		if (data instanceof UserBean) {
+			UserBean user = (UserBean) data;
 			sess.setAttribute("log", "client");
 			sess.setAttribute("user", user);
 			sess.setAttribute("process", "success");

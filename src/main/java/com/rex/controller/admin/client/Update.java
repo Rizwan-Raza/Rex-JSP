@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
 import com.rex.model.AdminModel;
@@ -32,15 +33,13 @@ public class Update extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		AdminModel admin = new AdminModel();
 		HttpSession sess = request.getSession(true);
 
-		UserBean user = new UserBean(request.getParameter("fname"), request.getParameter("lname"),
-				request.getParameter("email"), null, request.getParameter("gender"), request.getParameter("cont"), null,
-				null, null, null);
-		user.setUid(request.getParameter("uid"));
+		UserBean user = new UserBean(request.getParameter("uid"), request.getParameter("fname"),
+				request.getParameter("lname"), request.getParameter("email"), null, request.getParameter("gender"),
+				request.getParameter("cont"), null, null, null, null);
 
-		Object bean = admin.clientUpdate(user);
+		ResponseBean bean = (new AdminModel()).clientUpdate(user);
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
 		} else {

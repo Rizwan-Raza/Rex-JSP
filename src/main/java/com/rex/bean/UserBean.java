@@ -2,7 +2,7 @@ package com.rex.bean;
 
 import java.io.Serializable;
 
-public class UserBean implements Serializable {
+public class UserBean implements Serializable, ResponseBean {
 	/**
 	 * 
 	 */
@@ -10,6 +10,8 @@ public class UserBean implements Serializable {
 	private String uid;
 	private String fname;
 	private String lname;
+	@SuppressWarnings("unused")
+	private String fullname;
 	private String email;
 	private String password;
 	private String gender;
@@ -17,22 +19,15 @@ public class UserBean implements Serializable {
 	private String auth;
 	private String src;
 	private String time;
+	private AddressBean address;
 
 	public UserBean() {
-		uid = fname = lname = email = password = gender = contact = auth = src = time = null;
-	}
-
-	public UserBean(String fname, String lname, String email, String psw, String gender, String cont) {
-		setFname(fname);
-		setLname(lname);
-		setEmail(email);
-		setPassword(psw);
-		setGender(gender);
-		setContact(cont);
+		uid = fullname = fname = lname = email = password = gender = contact = auth = src = time = null;
+		address = null;
 	}
 
 	public UserBean(String uid, String fname, String lname, String email, String psw, String gender, String cont,
-			String auth, String src, String time) {
+			String auth, String src, String time, AddressBean address) {
 		setUid(uid);
 		setFname(fname);
 		setLname(lname);
@@ -43,7 +38,8 @@ public class UserBean implements Serializable {
 		setAuth(auth);
 		setSrc(src);
 		setTime(time);
-
+		this.fullname = fname + " " + lname;
+		this.address = address;
 	}
 
 	public String getFname() {
@@ -126,7 +122,19 @@ public class UserBean implements Serializable {
 		this.contact = contact;
 	}
 
+	public AddressBean getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressBean address) {
+		this.address = address;
+	}
+
 	public String getFullname() {
 		return getFname() + " " + getLname();
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 }

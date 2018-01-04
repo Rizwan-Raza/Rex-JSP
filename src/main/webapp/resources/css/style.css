@@ -4,7 +4,7 @@
 }
 .btn, .dropdown-menu, .form-control, .modal-header, .modal-content, .alert, .ui-slider,
 	.ui-slider-handle, .custom-checkbox .custom-control-indicator,
-	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link, .input-group-addon, .card {
+	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link, .input-group-addon, .card, .card-img-top {
 	border-radius: 0px;
 }
 

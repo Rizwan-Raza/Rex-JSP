@@ -17,7 +17,7 @@
 	<div
 		class="alert alert-success text-center alert-dismissible fade show"
 		role="alert">
-		<label>Welcome to Client Panel <strong>${user.getUser().getFname()}</strong>!
+		<label>Welcome to Client Panel <strong>${user.fname}</strong>!
 		</label>
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">
@@ -30,7 +30,7 @@
 			aria-selected="true">Buy Property</a> <a class="nav-item nav-link"
 			href="#sell-property" data-toggle="tab" role="tab"
 			aria-controls="sell-property" aria-selected="false">Sell Property</a>
-		<a class="nav-item nav-link disabled" href="#my-property"
+		<a class="nav-item nav-link" href="#my-property"
 			data-toggle="tab" role="tab" aria-controls="my-property"
 			aria-selected="false">My Properties</a> <a
 			class="nav-item nav-link disabled" href="#wishlist" data-toggle="tab"
@@ -38,12 +38,14 @@
 	</nav>
 
 	<div class="tab-content">
+		<jsp:directive.include file="buy.jspf" />
 		<jsp:directive.include file="sell.inc.html" />
+		<jsp:directive.include file="my.jspf" />
 		<!-- <?php 
 			$conn = connectDB();
-			include 'components/client/buyProperty.php'; 
-			include 'components/client/sellProperty.php'; 
-			include 'components/client/myProperty.php'; 
+			include 'components/client/buyProperty.php'; -- done --
+			include 'components/client/sellProperty.php'; -- done --
+			include 'components/client/myProperty.php'; -- done --
 			include 'components/client/wishlist.php'; 
 			closeDB($conn);
 		?> -->
