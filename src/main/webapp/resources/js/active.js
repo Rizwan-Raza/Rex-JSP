@@ -36,15 +36,9 @@ function changeAddress(street, town, city, state, add_id, type) {
 	$("#changeAddressModal #town").val(town);
 	$("#changeAddressModal #city").val(city);
 	$("#changeAddressModal #state").val(state);
-	if (type == "prop") {
-		$("#changeAddressModal .modal-header h4").html(
-				"<i class='fa fa-home'></i> Property's Address");
-		$("#changeAddressModal form").attr("action",
-				"actions/cnp-change-address.php?type=prop&add_id=" + add_id);
-	} else {
-		$("#changeAddressModal form").attr("action",
-				"actions/cnp-change-address.php?type=client&add_id=" + add_id);
-	}
+	$("#changeAddressModal .modal-header h4 span").html(type);
+	$("#changeAddressModal form").attr("action",
+			"Change-Address?type=" + type + "&add_id=" + add_id);
 	$("#changeAddressModal").modal('show');
 }
 function editPropFeatures(bhk, bath, age, furn, hosp, school, rail, area,
@@ -96,7 +90,7 @@ function editPropInfo(amens, units, floor, t_floors, desc, tnc, pid) {
 		}
 	}
 	elem.units.value = units;
-	if (floor != 'NULL') {
+	if (floor != '-5') {
 		elem.floor.value = floor;
 	} else {
 		elem.floor.value = "";
@@ -295,8 +289,7 @@ function editProp(title, type, t_type, price, d_p, avail, pid) {
 	// "editPropAction('actions/props/edit-prop.php', "+pid+")");
 	// $("#propEditModal #editPropForm").attr("onsubmit",
 	// "editPropAction('actions/props/test.php', "+pid+")");
-	$("#propEditModal #editPropForm").attr("action",
-			"actions/props/edit-prop.php?pid=" + pid);
+	$("#propEditModal #editPropForm").attr("action", "Prop-Edit?pid=" + pid);
 	$("#propEditModal").modal('show');
 }
 function editPropAction(url, pid) {
@@ -329,10 +322,8 @@ function deleteProp(name, pid) {
 	$("#deletePropModal .modal-info > b > span").text(name);
 	// $("#deletePropModal .modal-footer > .btn-danger").attr("onclick",
 	// "window.location.href='actions/props/delete-prop.php?pid="+pid+"'");
-	$("#deletePropModal .modal-footer > .btn-danger").attr(
-			"onclick",
-			"asyncProcess('actions/props/delete-prop.php'," + pid
-					+ ", deletePropSuccess)");
+	$("#deletePropModal .modal-footer > .btn-danger").attr("onclick",
+			"asyncProcess('Prop-Delete'," + pid + ", deletePropSuccess)");
 	$("#deletePropModal").modal('show');
 }
 function deletePropSuccess(data, status) {

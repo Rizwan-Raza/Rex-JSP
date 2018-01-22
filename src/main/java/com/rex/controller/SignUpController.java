@@ -44,7 +44,7 @@ public class SignUpController extends HttpServlet {
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String name = fname + " " + lname;
-		String id = (new SignUpModel()).add(new UserBean(null, fname, lname, request.getParameter("email"), psw,
+		String id = (new SignUpModel()).add(new UserBean(null, fname, lname, email, psw,
 				request.getParameter("gender"), request.getParameter("cont"), null, null, null,
 				new AddressBean(null, request.getParameter("street"), request.getParameter("town"),
 						request.getParameter("city"), request.getParameter("state"))));

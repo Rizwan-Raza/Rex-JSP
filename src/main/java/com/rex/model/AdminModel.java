@@ -38,6 +38,9 @@ public class AdminModel {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -60,7 +63,7 @@ public class AdminModel {
 				return new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
 						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
-						rs.getString("users.src"), rs.getString("users.time"),
+						rs.getString("users.src"), rs.getDate("users.time"),
 						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"),
 								rs.getString("addresses.town"), rs.getString("addresses.city"),
 								rs.getString("addresses.state")));
@@ -80,7 +83,7 @@ public class AdminModel {
 				al.add(new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
 						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
-						rs.getString("users.src"), rs.getString("users.time"),
+						rs.getString("users.src"), rs.getDate("users.time"),
 						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"),
 								rs.getString("addresses.city"), rs.getString("addresses.town"),
 								rs.getString("addresses.state"))));

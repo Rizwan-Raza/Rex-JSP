@@ -35,7 +35,7 @@
 		id="navbarProfileDropdown" data-toggle="dropdown" aria-haspopup="true"
 		aria-expanded="false">
 			<div style="background-image: url('${user.src}');"
-				class="user-nav user-dp user-dp-sm"></div>
+				class="user-nav user-dp user-dp-sm mr-2"></div> ${user.fname}
 	</a>
 		<div class="dropdown-menu dropdown-menu-right user-info"
 			aria-labelledby="navbarProfileDropdown">

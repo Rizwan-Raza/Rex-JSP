@@ -11,24 +11,27 @@
 	include 'modals/clients/mail.php';  -- done --
 
 	// For Props 
-	include 'modals/props/address.html'; 
-	include 'modals/props/features.html'; 
-	include 'modals/props/info.html'; 
+	include 'modals/props/address.html';  -- done --
+	include 'modals/props/features.html';  -- done --
+	include 'modals/props/info.html';  -- done --
 
 	// For Self
 	include 'snacks/me.html'; -- done --
 	include 'modals/editProfile.php';  -- done --
 	include 'components/errorSnacks.html'; -- done --
 ?> -->
-<jsp:directive.include file="modals/clients/activation.html" />
-<jsp:directive.include file="modals/clients/kickout.html" />
-<jsp:directive.include file="modals/clients/promote.html" />
-<jsp:directive.include file="modals/clients/edit.html" />
-<jsp:directive.include file="modals/clients/address.html" />
-<jsp:directive.include file="modals/clients/change-password.html" />
-<jsp:directive.include file="modals/clients/change-picture.html" />
+<jsp:directive.include file="modals/clients/activation.inc.html" />
+<jsp:directive.include file="modals/clients/kickout.inc.html" />
+<jsp:directive.include file="modals/clients/promote.inc.html" />
+<jsp:directive.include file="modals/clients/edit.inc.html" />
+<jsp:directive.include file="modals/clients/change-password.inc.html" />
+<jsp:directive.include file="modals/clients/change-picture.inc.html" />
 <jsp:directive.include file="modals/clients/mail.jspf" />
 
+<jsp:directive.include file="modals/props/features.inc.html" />
+<jsp:directive.include file="modals/props/info.inc.html" />
+
+<jsp:directive.include file="modals/address.inc.html" />
 <jsp:directive.include file="modals/edit-profile.jspf" />
 <br>
 <div class="container admin-section">

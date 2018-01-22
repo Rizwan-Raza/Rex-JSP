@@ -1,5 +1,6 @@
 package com.rex.bean;
 
+import java.util.Date;
 import java.util.List;
 
 public class PropBean {
@@ -26,21 +27,22 @@ public class PropBean {
 	private String totalFloors;
 	private String desc;
 	private String tnc;
-	private String time;
-	private String edit;
+	private Date time;
+	private Date edit;
 	private AddressBean address;
 	private UserBean seller;
 
 	public PropBean() {
-		this.propID = this.propType = this.tranType = this.title = this.bhk = this.bath = this.age = this.furnished = this.propArea = this.land = this.price = this.priceDisplay = this.available = this.hospital = this.school = this.rail = this.units = this.floor = this.totalFloors = this.time = this.edit = this.desc = this.tnc = null;
+		this.propID = this.propType = this.tranType = this.title = this.bhk = this.bath = this.age = this.furnished = this.propArea = this.land = this.price = this.priceDisplay = this.available = this.hospital = this.school = this.rail = this.units = this.floor = this.totalFloors = this.desc = this.tnc = null;
 		this.amens = this.images = null;
 		this.address = null;
+		this.time = this.edit = null;
 	}
 
 	public PropBean(UserBean seller, String propID, String propType, String tranType, String title, String bhk,
 			String bath, String age, String furnished, String propArea, String land, String price, String priceDisplay,
 			String available, List<String> amens, String hospital, String school, String rail, String units,
-			String floor, String totalFloors, String desc, String tnc, AddressBean address, String time, String edit,
+			String floor, String totalFloors, String desc, String tnc, AddressBean address, Date time, Date edit,
 			List<String> images) {
 		this.seller = seller;
 		this.propID = propID;
@@ -231,19 +233,19 @@ public class PropBean {
 		this.totalFloors = totalFloors;
 	}
 
-	public String getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 
-	public String getEdit() {
+	public Date getEdit() {
 		return edit;
 	}
 
-	public void setEdit(String edit) {
+	public void setEdit(Date edit) {
 		this.edit = edit;
 	}
 

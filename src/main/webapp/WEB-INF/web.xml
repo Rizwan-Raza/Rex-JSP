@@ -118,6 +118,20 @@
 		<servlet-name>SellProperty</servlet-name>
 		<servlet-class>com.rex.controller.client.SellProperty</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>UserMail</display-name>
+		<servlet-name>UserMail</servlet-name>
+		<servlet-class>com.rex.controller.UserMail</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AddressChange</display-name>
+		<servlet-name>AddressChange</servlet-name>
+		<servlet-class>com.rex.controller.AddressChange</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>SignUpController</servlet-name>
 		<url-pattern>/SignUp</url-pattern>
@@ -178,4 +192,18 @@
 		<servlet-name>SellProperty</servlet-name>
 		<url-pattern>/SellProperty</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserMail</servlet-name>
+		<url-pattern>/User-Mail</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddressChange</servlet-name>
+		<url-pattern>/Change-Address</url-pattern>
+	</servlet-mapping>
+	<jsp-config>
+      <taglib>
+          <taglib-uri>/WEB-INF/functions</taglib-uri>
+          <taglib-location>/WEB-INF/functions.tld</taglib-location>
+      </taglib>
+  </jsp-config>
 </web-app>

@@ -124,8 +124,8 @@ public class SellProperty extends HttpServlet {
 					(String) request.getAttribute("price-display"), (String) request.getAttribute("available"), amens,
 					(String) request.getAttribute("h-dis"), (String) request.getAttribute("s-dis"),
 					(String) request.getAttribute("r-dis"), (String) request.getAttribute("units"),
-					(String) ((request.getAttribute("floor") == null || request.getAttribute("floor") == "") ? "-5"
-							: request.getAttribute("floor")),
+					(String) ((request.getAttribute("floor") == null || request.getAttribute("floor") == ""
+							|| request.getAttribute("floor").equals("")) ? "-5" : request.getAttribute("floor")),
 					(String) request.getAttribute("t-floors"),
 					(String) ((request.getAttribute("desc") == null || request.getAttribute("desc") == "") ? "NULL"
 							: request.getAttribute("desc")),

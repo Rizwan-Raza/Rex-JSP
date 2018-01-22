@@ -30,6 +30,7 @@ public class ClientModel {
 	private PreparedStatement gpm = null;
 	private PreparedStatement gpa = null;
 	private PreparedStatement gpi = null;
+	private PreparedStatement gvw = null;
 
 	private ResultSet rs = null;
 	private ResultSet rs_temp = null;
@@ -56,10 +57,12 @@ public class ClientModel {
 					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id=? ORDER BY properties.time DESC");
 			gpa = conn.prepareStatement("SELECT * FROM property_amenities WHERE pid=?");
 			gpi = conn.prepareStatement("SELECT * FROM property_images WHERE pid=?");
+			gvw = conn.prepareStatement("SELECT firstname FROM users WHERE email=?");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} // Activation
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public ResponseBean auth(LoginBean user) {
@@ -80,7 +83,7 @@ public class ClientModel {
 				return new UserBean(rs.getString("user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
 						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
-						rs.getString("users.src"), rs.getString("users.time"),
+						rs.getString("users.src"), rs.getDate("users.time"),
 						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"),
 								rs.getString("addresses.town"), rs.getString("addresses.city"),
 								rs.getString("addresses.state")));
@@ -88,7 +91,11 @@ public class ClientModel {
 				return new ErrorBean("C-L-A-1", "Incorrect Password!", this.getClass().toGenericString());
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("C-L-A-1", e.toString(), this.getClass().toGenericString());
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return new ErrorBean("C-L-A-3", e.toString(), this.getClass().toGenericString());
 		}
 	}
 
@@ -111,6 +118,7 @@ public class ClientModel {
 						"failed");
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("C-D-U-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -118,8 +126,8 @@ public class ClientModel {
 	public ResponseBean sell(PropBean prop) {
 		try {
 			add.setString(1, prop.getAddress().getStreet());
-			add.setString(2, prop.getAddress().getCity());
-			add.setString(3, prop.getAddress().getTown());
+			add.setString(2, prop.getAddress().getTown());
+			add.setString(3, prop.getAddress().getCity());
 			add.setString(4, prop.getAddress().getState());
 			add.executeUpdate();
 			rs = add.getGeneratedKeys();
@@ -163,6 +171,7 @@ public class ClientModel {
 
 			return new SuccessBean("C-P-S-1", "Property Added Successfully", "client-prop-sell", "success");
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("C-P-S-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -182,14 +191,14 @@ public class ClientModel {
 			ResultSet rs = gpd.executeQuery();
 			ArrayList<PropBean> al = new ArrayList<PropBean>();
 			while (rs.next()) {
-				String add_id = rs.getString("addresses.add_id");
-				gpa.setString(1, add_id);
+				String pid = rs.getString("properties.pid");
+				gpa.setString(1, pid);
 				rs_temp = gpa.executeQuery();
 				List<String> amens = new ArrayList<String>();
 				while (rs_temp.next()) {
 					amens.add(rs_temp.getString("amenity"));
 				}
-				gpi.setString(1, add_id);
+				gpi.setString(1, pid);
 				rs_temp = gpi.executeQuery();
 				List<String> images = new ArrayList<String>();
 				while (rs_temp.next()) {
@@ -198,11 +207,11 @@ public class ClientModel {
 				UserBean seller = new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), null, rs.getString("users.gender"),
 						rs.getString("users.contact"), rs.getString("users.auth"), rs.getString("users.src"),
-						rs.getString("users.time"), null);
-				AddressBean address = new AddressBean(add_id, rs.getString("addresses.street_no"),
-						rs.getString("addresses.town"), rs.getString("addresses.city"),
-						rs.getString("addresses.state"));
-				PropBean prop = new PropBean(seller, null, rs.getString("properties.type"),
+						rs.getDate("users.time"), null);
+				AddressBean address = new AddressBean(rs.getString("addresses.add_id"),
+						rs.getString("addresses.street_no"), rs.getString("addresses.town"),
+						rs.getString("addresses.city"), rs.getString("addresses.state"));
+				PropBean prop = new PropBean(seller, pid, rs.getString("properties.type"),
 						rs.getString("properties.t_type"), rs.getString("properties.title"),
 						rs.getString("properties.bhk"), rs.getString("properties.bathrooms"),
 						rs.getString("properties.age"), rs.getString("properties.furnished"),
@@ -212,8 +221,8 @@ public class ClientModel {
 						rs.getString("properties.school"), rs.getString("properties.rail"),
 						rs.getString("properties.units"), rs.getString("properties.floor"),
 						rs.getString("properties.t_floors"), rs.getString("properties.b_desc"),
-						rs.getString("properties.tnc"), address, rs.getString("properties.time"),
-						rs.getString("properties.edit"), images);
+						rs.getString("properties.tnc"), address, rs.getTimestamp("properties.time"),
+						rs.getTimestamp("properties.edit"), images);
 				al.add(prop);
 			}
 			return al;
@@ -222,5 +231,18 @@ public class ClientModel {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String getNameViaEmail(String email) {
+		try {
+			gvw.setString(1, email);
+			rs = gvw.executeQuery();
+			rs.next();
+
+			return rs.getString(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "User";
+		}
 	}
 }

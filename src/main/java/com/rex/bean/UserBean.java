@@ -1,6 +1,7 @@
 package com.rex.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class UserBean implements Serializable, ResponseBean {
 	/**
@@ -18,26 +19,27 @@ public class UserBean implements Serializable, ResponseBean {
 	private String contact;
 	private String auth;
 	private String src;
-	private String time;
+	private Date time;
 	private AddressBean address;
 
 	public UserBean() {
-		uid = fullname = fname = lname = email = password = gender = contact = auth = src = time = null;
-		address = null;
+		this.uid = this.fullname = this.fname = this.lname = this.email = this.password = this.gender = this.contact = this.auth = this.src = null;
+		this.address = null;
+		this.time = null;
 	}
 
 	public UserBean(String uid, String fname, String lname, String email, String psw, String gender, String cont,
-			String auth, String src, String time, AddressBean address) {
-		setUid(uid);
-		setFname(fname);
-		setLname(lname);
-		setEmail(email);
-		setPassword(psw);
-		setGender(gender);
-		setContact(cont);
-		setAuth(auth);
-		setSrc(src);
-		setTime(time);
+			String auth, String src, Date time, AddressBean address) {
+		this.uid = uid;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.password = psw;
+		this.gender = gender;
+		this.contact = cont;
+		this.auth = auth;
+		this.src = src;
+		this.time = time;
 		this.fullname = fname + " " + lname;
 		this.address = address;
 	}
@@ -74,11 +76,11 @@ public class UserBean implements Serializable, ResponseBean {
 		this.src = src;
 	}
 
-	public String getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 

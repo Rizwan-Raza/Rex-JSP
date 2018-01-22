@@ -16,7 +16,7 @@
 			<div class="modal-body">
 				<!-- <form role="form" onsubmit="return signup(this)" method="post"> -->
 				<form role="form"
-					onsubmit="return mailAction('actions/admin/clients/mail.php', this, 'client')"
+					onsubmit="return mailAction('User-Mail', this, 'client')"
 					method="post">
 					<div class="form-group">
 						<label for="from"><i class="fa fa-fw fa-envelope"></i>

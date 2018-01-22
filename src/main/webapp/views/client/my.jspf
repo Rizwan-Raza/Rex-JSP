@@ -4,7 +4,7 @@
 	<br>
 	<h4>Properties Posted by You.</h4>
 	<br>
-	<c:set var="fetcher-type" scope="request" value="MY" />
+	<c:set var="fetcherType" scope="request" value="MY" />
 	<%
 		UserBean user = (UserBean) session.getAttribute("user");
 		request.setAttribute("props", new ClientModel().getProps(((UserBean) session.getAttribute("user")).getUid(),

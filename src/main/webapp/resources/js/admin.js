@@ -15,8 +15,8 @@ function activateSuccess(data, status) {
 		$("tr#for-" + obj.user_id + " .act").html(
 				"<i class='fa fa-td fa-check text-success'></i>");
 		var elem = $("tr#for-" + obj.user_id + " .act-link");
-		var action = elem.attr("onclick");
-		elem.attr("onclick", "de" + action);
+		var action = elem.attr("href");
+		elem.attr("href", "javascript:de" + action.replace("javascript:", ""));
 		elem.html("<i class='fa fa-fw fa-remove'></i> Deactivate");
 	}
 	snackbar(obj.message);
@@ -37,8 +37,8 @@ function deactivateSuccess(data, status) {
 		$("tr#for-" + obj.user_id + " .act").html(
 				"<i class='fa fa-td fa-remove text-danger'></i>");
 		var elem = $("tr#for-" + obj.user_id + " .act-link");
-		var action = elem.attr("onclick");
-		elem.attr("onclick", action.substring(2, action.length));
+		var action = elem.attr("href");
+		elem.attr("href", "javascript:" + action.substring(13, action.length));
 		elem.html("<i class='fa fa-fw fa-check'></i> Activate");
 	}
 	snackbar(obj.message);
@@ -78,7 +78,9 @@ function promoteSuccess(data, status) {
 				"<i class='fa fa-td fa-user-secret text-info'></i>");
 		var elem = $("tr#for-" + obj.user_id + " .adm-link");
 		var action = elem.attr("onclick");
-		elem.attr("onclick", "de" + action.substring(3, action.length));
+		elem
+				.attr("href", "javascript:de"
+						+ action.substring(14, action.length));
 		elem.html("<i class='fa fa-fw fa-user-secret'></i> Demote");
 	}
 	snackbar(obj.message);
@@ -101,7 +103,9 @@ function demoteSuccess(data, status) {
 				"<i class='fa fa-td fa-check text-success'></i>");
 		var elem = $("tr#for-" + obj.user_id + " .adm-link");
 		var action = elem.attr("onclick");
-		elem.attr("onclick", "pro" + action.substring(2, action.length));
+		elem
+				.attr("href", "javascript:pro"
+						+ action.substring(2, action.length));
 		elem.html("<i class='fa fa-fw fa-user-secret'></i> Promote");
 	}
 	snackbar(obj.message);
@@ -130,7 +134,7 @@ function edit(fname, lname, email, gender, cont, dp, street, town, city, state,
 	$("#clientEditModal .modal-body #change-address").attr(
 			"onclick",
 			"changeAddress('" + street + "', '" + town + "', '" + city + "', '"
-					+ state + "', " + add_id + ")");
+					+ state + "', " + add_id + ", 'Client')");
 	$("#clientEditModal .modal-body #change-password").attr("onclick",
 			"changePassword(" + uid + ")");
 	$("#clientEditModal .modal-body .change-picture").attr(
@@ -182,16 +186,18 @@ function editClientSuccess(data, status) {
 	// $('#for-'+elem[0]+' .btn-primary').attr("onclick", newAction);
 	// showSnackbar("clientEditedSnackbar");
 }
-function address(street, town, city, state, add_id) {
+function address(street, town, city, state, add_id, who) {
 	// alert(street);
-	$("#clientAddressModal table tbody").html(
-			"<tr><td>" + street + "</td><td>" + town + "</td><td>" + city
-					+ "</td><td>" + state + "</td></tr>");
-	$("#clientAddressModal .modal-footer #change-address-2").attr(
+	$("#addressModal table tbody").html(
+			"<tr scope='row'><td scope='col'>" + street
+					+ "</td><td scope='col'>" + town + "</td><td scope='col'>"
+					+ city + "</td><td scope='col'>" + state + "</td></tr>");
+	$("#addressModal .modal-footer #change-address").attr(
 			"onclick",
 			"changeAddress('" + street + "', '" + town + "', '" + city + "', '"
-					+ state + "', " + add_id + ", 'client')");
-	$("#clientAddressModal").modal('show');
+					+ state + "', " + add_id + ", '" + who + "')");
+	$("#addressModalLabel span").html(who);
+	$("#addressModal").modal('show');
 }
 function changePassword(uid) {
 	// $("#clientEditModal").modal('hide');
@@ -223,10 +229,15 @@ function mailAction(url, elem, type) {
 		async : true,
 		data : {
 			to : elem.to.value,
+			from : elem.from.value,
 			msg : elem.msg.value
 		},
-		success : mailClientSuccess,
-		error : mailClientError
+		success : function(data, status) {
+			snackbar(JSON.parse(data).response);
+		},
+		error : function() {
+			snackbar("Can't mail to the user right now, try again.");
+		}
 	});
 	if (type == "client") {
 		$("#clientMailModal").modal('hide');
@@ -234,12 +245,6 @@ function mailAction(url, elem, type) {
 		$("#showSellerModal").modal('hide');
 	}
 	return false;
-}
-function mailClientSuccess(data, status) {
-	snackbar("User has been mailed Successfully!");
-}
-function mailClientError(data, status) {
-	snackbar("Can't mail to the user right now, try again.");
 }
 function showPropAddress(street, town, city, state, add_id) {
 	$("#propAddressModal table tbody").html(
@@ -253,7 +258,7 @@ function showPropAddress(street, town, city, state, add_id) {
 }
 function showPropFeatures(bhk, bath, age, furn, area, l_area, hosp, school,
 		rail, pid) {
-	var furnished = "<i class='fa fa-";
+	var furnished = "<i class='fa fa-fw fa-td fa-";
 	if (furn == 1) {
 		furnished += "check text-success";
 	} else {
@@ -261,11 +266,15 @@ function showPropFeatures(bhk, bath, age, furn, area, l_area, hosp, school,
 	}
 	furnished += "'></i>"
 	$("#propFeaturesModal table tbody").html(
-			"<tr><td>" + bhk + "</td><td>" + bath + "</td><td>" + age
-					+ " Years</td><td class='text-center'>" + furnished
-					+ "</td><td>" + hosp + " KMS.</td><td>" + school
-					+ " KMS</td><td>" + rail + " KMS</td><td>" + area
-					+ " Sq-Ft.</td><td>" + l_area + " Sq-Ft.</td></tr>");
+			"<tr><td scope='col'>" + bhk + "</td><td scope='col'>" + bath
+					+ "</td><td scope='col'>" + age
+					+ " Years</td><td scope='col' class='text-center'>"
+					+ furnished + "</td><td scope='col'>" + hosp
+					+ " KMS.</td><td scope='col'>" + school
+					+ " KMS</td><td scope='col'>" + rail
+					+ " KMS</td><td scope='col'>" + area
+					+ " Sq-Ft.</td><td scope='col'>" + l_area
+					+ " Sq-Ft.</td></tr>");
 	$("#propFeaturesModal #change-prop-features").attr(
 			"onclick",
 			"editPropFeatures(" + bhk + "," + bath + "," + age + "," + furn
@@ -275,64 +284,61 @@ function showPropFeatures(bhk, bath, age, furn, area, l_area, hosp, school,
 }
 function showPropInfo(amens, units, floor, t_floors, desc, tnc, time, edit, pid) {
 	var empty_a = false, empty_f = false, empty_d = false, empty_t = false;
-	var num_of_a = amens.length;
+	// Amenities
 	var amenities = "";
-	for (var i = 0; i < num_of_a; i++) {
-		amenities += "<code style='margin: 0px 5px;'>" + amens[i] + "</code>";
-	}
-	if (amens == "NULL") {
+	if (amens == "[]") {
 		amenities = "<i class='fa fa-minus text-info'></i>";
-		empty_a = true;
-	}
-	if (floor == "-*-") {
-		var floorno = "<i class='fa fa-minus text-info'></i>";
-		floor = "'-*-'";
-		empty_f = true;
-	} else {
-		var floorno = floor;
-	}
-	if (desc == "NULL") {
-		var descr = "<i class='fa fa-minus text-info'></i>";
-		empty_d = true;
-	} else {
-		var descr = desc;
-	}
-	if (tnc == "NULL") {
-		var t_n_c = "<i class='fa fa-minus text-info'></i>";
-		empty_t = true;
-	} else {
-		var t_n_c = tnc;
-	}
-	// $("#propInfoModal table
-	// #amen").html("<tr><td>"+amenities+"</td><td>"+units+"</td><td>"+floor+"</td><td>"+t_floors+"</td><td>"+desc+"</td><td>"+tnc+"</td><td>"+time+"</td><td>"+edit+"</td></tr>");
-	$("#propInfoModal table #amen").html(amenities);
-	$("#propInfoModal table #units").html(units);
-	$("#propInfoModal table #floor").html(floorno);
-	$("#propInfoModal table #t-floors").html(t_floors);
-	$("#propInfoModal table #b-desc").html(descr);
-	$("#propInfoModal table #tnc").html(t_n_c);
-	$("#propInfoModal table #p-on").html(time);
-	$("#propInfoModal table #e-on").html(edit);
-	if (empty_a) {
 		$("#propInfoModal table tbody tr td#amen").addClass("text-center");
 	} else {
+		var num_of_a = amens.length;
+		for (var i = 0; i < num_of_a; i++) {
+			amenities += "<code style='margin: 0px 5px;'>" + amens[i]
+					+ "</code>";
+		}
 		$("#propInfoModal table tbody tr td#amen").removeClass("text-center");
 	}
-	if (empty_f) {
+	$("#propInfoModal table #amen").html(amenities);
+	// Floor Number
+	if (floor == "-5") {
+		var floorno = "<i class='fa fa-minus text-info'></i>";
 		$("#propInfoModal table tbody tr td#floor").addClass("text-center");
 	} else {
+		var floorno = floor;
 		$("#propInfoModal table tbody tr td#floor").removeClass("text-center");
 	}
-	if (empty_d) {
+	$("#propInfoModal table #floor").html(floorno);
+	// Brief Description
+	if (desc == "NULL" || desc == "" || desc == null) {
+		var descr = "<i class='fa fa-minus text-info'></i>";
 		$("#propInfoModal table tbody tr td#b-desc").addClass("text-center");
 	} else {
+		var descr = desc;
 		$("#propInfoModal table tbody tr td#b-desc").removeClass("text-center");
 	}
-	if (empty_t) {
+	$("#propInfoModal table #b-desc").html(descr);
+	// Terms and Condition
+	if (tnc == "NULL" || tnc == "" || tnc == null) {
+		var t_n_c = "<i class='fa fa-minus text-info'></i>";
 		$("#propInfoModal table tbody tr td#tnc").addClass("text-center");
 	} else {
+		var t_n_c = tnc;
 		$("#propInfoModal table tbody tr td#tnc").removeClass("text-center");
 	}
+	$("#propInfoModal table #tnc").html(t_n_c);
+	// Edited on
+	if (edit == "NULL" || edit == "" || edit == null) {
+		var e_on = "<i class='fa fa-minus text-info'></i>";
+		$("#propInfoModal table tbody tr td#tnc").addClass("text-center");
+	} else {
+		var e_on = edit;
+		$("#propInfoModal table tbody tr td#tnc").removeClass("text-center");
+	}
+	$("#propInfoModal table #e-on").html(e_on);
+	// Remaining Features
+	$("#propInfoModal table #units").html(units);
+	$("#propInfoModal table #t-floors").html(t_floors);
+	$("#propInfoModal table #p-on").html(time);
+	// Changes again
 	$("#propInfoModal #change-prop-info").attr(
 			"onclick",
 			"editPropInfo('" + amens + "'," + units + "," + floor + ","
@@ -341,18 +347,14 @@ function showPropInfo(amens, units, floor, t_floors, desc, tnc, time, edit, pid)
 }
 $(document).ready(function() {
 	if ($(window).width() < 768) {
-		$("#clients table").addClass("table-sm");
-		$("#clients table .fa-td").css("font-size", "16px");
+		$(".admin-section table").addClass("table-sm");
 	} else {
-		$("#clients table").removeClass("table-sm");
-		$("#clients table .fa-td").css("font-size", "24px");
+		$(".admin-section table").removeClass("table-sm");
 	}
-});
-$(document).ready(function() {
 	if ($(window).width() < 480) {
-		$("#clients table").addClass("table-responsive-sm");
+		$(".admin-section table").addClass("table-responsive-sm");
 	} else {
-		$("#clients table").removeClass("table-responsive-sm");
+		$(".admin-section table").removeClass("table-responsive-sm");
 	}
 });
 /** **** Admin end ********** */

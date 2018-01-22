@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="/WEB-INF/functions" prefix="cf" %>
 <jsp:directive.page language="java"
 	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
 <!DOCTYPE html>
@@ -14,11 +16,18 @@
 	<jsp:directive.include file="views/modals/success.inc.html" />
 	<jsp:directive.include file="views/modals/image.inc.html" />
 	<jsp:directive.include file="views/modals/wait.inc.html" />
+	<jsp:directive.include file="views/modals/seller.jspf" />
 	<c:choose>
 		<c:when test="${log ne null}">
 			<jsp:directive.include file="views/modals/profile-picture.jspf" />
 			<jsp:directive.include file="views/modals/change-password.inc.html" />
 			<jsp:directive.include file="views/modals/logout.inc.html" />
+			
+			<jsp:directive.include file="views/modals/props/edit.inc.html" />
+			<jsp:directive.include file="views/modals/props/delete.inc.html" />
+			<jsp:directive.include file="views/modals/props/change-features.inc.html" />
+			<jsp:directive.include file="views/modals/props/change-info.inc.html" />
+			<jsp:directive.include file="views/modals/change-address.inc.html" />
 			<c:choose>
 				<c:when test="${log eq 'client'}">
 					<jsp:directive.include file="views/client/client.jspf" />
@@ -49,13 +58,13 @@
 			include 'components/modals/changePassword.html';  -- Done --
 			include 'components/modals/logout.html'; -- Done --
 			
-			include 'components/snacks/common.html'; 
+			include 'components/snacks/common.html';  -- Done --
 			
-			include 'components/modals/props/edit.html'; 
-			include 'components/modals/props/delete.html'; 
-			include 'components/modals/props/changeFeatures.html'; 
-			include 'components/modals/props/changeInfo.html'; 
-			include 'components/modals/cnpChangeAddress.html'; 
+			include 'components/modals/props/edit.html';  -- Done --
+			include 'components/modals/props/delete.html';  -- Done --
+			include 'components/modals/props/changeFeatures.html';  -- Done --
+			include 'components/modals/props/changeInfo.html';  -- Done --
+			include 'components/modals/cnpChangeAddress.html';  -- Done --
 			include 'components/admin/modals/props/images.html'; 
 			include 'components/admin/modals/props/addImage.html'; 
 			include 'components/admin/modals/props/removeImage.html'; 

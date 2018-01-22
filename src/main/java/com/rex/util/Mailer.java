@@ -63,7 +63,7 @@ public class Mailer {
 			message.setContent(msg, "text/html");
 
 			Transport.send(message);
-			System.out.println("Activation Message Sent Successfully.");
+			System.out.println("Message Sent Successfully.");
 			return true;
 		} catch (MessagingException ex) {
 			ex.printStackTrace();
@@ -88,6 +88,39 @@ public class Mailer {
 				+ "    >Verify your email</a>\r\n" + "    <br clear=\"all\">\r\n" + "    <br>\r\n"
 				+ "    <font color=\"#4f4f4f\" face=\"Arial,Helvetica,sans-serif\" style=\"font-size:16px; line-height:28px;\">Thank you, and welcome to the Real Estate eXplorer!\r\n"
 				+ "      <br><br>Sincerely,<br/>\r\n" + "      <b>The R.E.X</b></font>\r\n" + "    </div>\r\n"
+				+ "    <div style=\"background-color:#343a40;color:#fff;font-family:Arial,Helvetica,sans-serif; padding: 12px 12px; font-size: 1.625rem\">\r\n"
+				+ "      <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\r\n"
+				+ "        <tbody>\r\n" + "          <tr>\r\n" + "            <td width=\"40%\">\r\n"
+				+ "              <a href=\"" + SERVER
+				+ "\" style=\"color: #fff; font-size:1.25rem; font-weight: bold; padding: .3125rem 0px;text-decoration: none;\">\r\n"
+				+ "                <img src=\"" + SERVER
+				+ "/resources/img/rex.png\" width=\"20px\" height-\"20px\">.E.X&nbsp;-&nbsp;Real&nbsp;Estate&nbsp;eXplorer\r\n"
+				+ "              </a>\r\n" + "            </td>\r\n" + "            <td>\r\n"
+				+ "              <a href=\"" + SERVER + "/#\"\r\n"
+				+ "              face=\"Arial,Helvetica,sans-serif\"\r\n"
+				+ "              style=\"color: rgba(255, 255, 255, .5);font-size:1rem;font-weight: 400;line-height:1.5; text-decoration: none;text-align: center;display:block;cursor: pointer\"\r\n"
+				+ "              >About Us</a>\r\n" + "            </td>\r\n" + "\r\n" + "            <td>\r\n"
+				+ "              <a href=\"" + SERVER + "/#\"\r\n"
+				+ "              face=\"Arial,Helvetica,sans-serif\"\r\n"
+				+ "              style=\"color: rgba(255, 255, 255, .5);font-size:1rem;font-weight: 400;line-height:1.5; text-decoration: none;text-align: center;display:block;cursor: pointer\"\r\n"
+				+ "              >Gallery</a>\r\n" + "            </td>\r\n" + "            <td>\r\n"
+				+ "              <a href=\"" + SERVER + "/#\"\r\n"
+				+ "              face=\"Arial,Helvetica,sans-serif\"\r\n"
+				+ "              style=\"color: rgba(255, 255, 255, .5);font-size:1rem;font-weight: 400;line-height:1.5; text-decoration: none;text-align: center;display:block;cursor: pointer\"\r\n"
+				+ "              >Contact Us</a>\r\n" + "            </td>\r\n" + "          </tr>\r\n"
+				+ "        </tbody>\r\n" + "      </table>\r\n" + "    </div>\r\n" + "  </body>\r\n" + "  </html>\r\n";
+	}
+
+	public static String getUserMailMsg(String admin, String user, String msg, String from) {
+		return "<html>\r\n" + "<body style=\"margin: 0px;padding: 0px;background-color: #eee;\">\r\n"
+				+ "  <div style=\"background-color:#343a40;color:#fff;font-family:Arial,Helvetica,sans-serif; padding: 12px 12px; font-size: 1.625rem\">\r\n"
+				+ "    Hello " + user + ", from " + admin + "\r\n" + "  </div>\r\n"
+				+ "  <div style=\"padding: 10px; background-color: #eee;\">\r\n"
+				+ "    <font color=\"#4f4f4f\" face=\"Arial,Helvetica,sans-serif\" style=\"font-size:16px; line-height:28px;\">Here "
+				+ admin + " says something to you.\r\n" + "    <br>\r\n" + "    <br>\r\n"
+				+ "		<div style=\"background-color: #fff; padding: 10px 20px;\">" + msg + "</div>\r\n"
+				+ "      <br>Sincerely,<br/>\r\n" + "      <b>" + admin + "</b> (" + from + ")</font>\r\n"
+				+ "    </div>\r\n"
 				+ "    <div style=\"background-color:#343a40;color:#fff;font-family:Arial,Helvetica,sans-serif; padding: 12px 12px; font-size: 1.625rem\">\r\n"
 				+ "      <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\r\n"
 				+ "        <tbody>\r\n" + "          <tr>\r\n" + "            <td width=\"40%\">\r\n"

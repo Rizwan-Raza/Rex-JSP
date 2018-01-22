@@ -37,24 +37,197 @@
 		</div>
 	</c:when>
 	<c:otherwise>
-		<div class="card-columns">
-			<c:forEach var="prop" varStatus="status" items="${props}">
-				<div class="card">
-					<img class="card-img-top" src="resources/img/property (1).jpg"
-						alt="Property Image">
-					<div class="card-body">
-						<h5 class="card-title">
-							<div class="user-nav user-dp user-dp-sm mr-2 diggle"
-								style="background-image: url('${prop.seller.src }');"></div>${prop.title }</h5>
-						<p class="card-text">${prop.propType }.</p>
-						<p class="card-text">${prop.tranType }</p>
-						<p class="card-text">${prop.furnished  }</p>
-					</div>
-					<div class="card-footer">
-						<small class="text-muted">Posted on: ${prop.time }</small>
-						<c:if test="${prop.edit ne null}">
-							<small class="text-muted">Edited on: ${prop.edit } 
-						</c:if>
+		<div class="row mb-4">
+			<c:forEach var="prop" varStatus="propStatus" items="${props}">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="card">
+						<div id="propCarousel-${prop.propID}"
+							class="card-img-top carousel slide" data-ride="carousel">
+							<div class="prop-location text-light px-2">${prop.address.city},
+								${prop.address.state}</div>
+							<ol class="carousel-indicators">
+								<c:forEach begin="0" end="${prop.images.size() }"
+									varStatus="loop">
+									<c:if test="${loop.index < prop.images.size() }">
+										<jsp:text>
+											<![CDATA[<li]]>
+										</jsp:text>
+										data-target="#propCarousel-${prop.propID}" data-slide-to="${loop.index}"
+										<c:if test="${loop.index eq 0 }"> class="active"</c:if>"
+										<jsp:text>
+											<![CDATA[></li>]]>
+										</jsp:text>
+									</c:if>
+								</c:forEach>
+							</ol>
+							<div class="carousel-inner">
+								<c:forEach var="image" varStatus="imageStatus"
+									items="${prop.images}">
+									<jsp:text>
+										<![CDATA[<div class="carousel-item]]>
+									</jsp:text>
+									<c:if test="${imageStatus.first }"> active</c:if>"
+									<jsp:text>
+										<![CDATA[ style="background-image: url(']]>${image}<![CDATA[');"></div>]]>
+									</jsp:text>
+									<%-- 									<div class="carousel-item ${imageStatus.index eq 0 ? 'active' }" style="background-image: url('${image}');"></div> --%>
+								</c:forEach>
+							</div>
+							<a class="carousel-control-prev"
+								href="#propCarousel-${prop.propID}" role="button"
+								data-slide="prev"> <span class="carousel-control-prev-icon"
+								aria-hidden="true"></span> <span class="sr-only">Previous</span>
+							</a> <a class="carousel-control-next"
+								href="#propCarousel-${prop.propID}" role="button"
+								data-slide="next"> <span class="carousel-control-next-icon"
+								aria-hidden="true"></span> <span class="sr-only">Next</span>
+							</a>
+						</div>
+						<div class="card-body p-2">
+							<div class="media mb-2">
+								<div class="user-dp user-dp-sm mr-2 diggle"
+									style="background-image: url('${prop.seller.src }');"></div>
+								<div class="media-body card-block">
+									<h5 class="card-title mb-0">${prop.title }</h5>
+									<small class="card-subtitle mb-2 text-muted">${prop.address.street },
+										${prop.address.town }</small>
+								</div>
+							</div>
+							<h6 class="card-text">${prop.propType },
+								${prop.tranType } <small>Property</small>
+							</h6>
+							<div id="accordion">
+								<div class="card">
+									<div class="card-header p-0" id="headingOne">
+										<h5 class="m-0">
+											<button class="btn btn-light collapsed btn-block text-left"
+												data-toggle="collapse" data-target="#collapseOne"
+												aria-expanded="false" aria-controls="collapseOne">Features</button>
+										</h5>
+									</div>
+
+									<div id="collapseOne" class="collapse"
+										aria-labelledby="headingOne" data-parent="#accordion">
+										<div class="card-body m-0 p-0">
+											<table class="table table-sm table-striped m-0">
+												<tbody>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Bedrooms/BHK:</h6></td>
+														<td>${prop.bhk }</td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Bathrooms:</h6></td>
+														<td>${prop.bath }</td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Construction Age:</h6></td>
+														<td>${prop.age } Years</td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Furnished:</h6></td>
+														<td>${prop.furnished == 1 ? 'Yes' : 'No'}</td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Covered Area:</h6></td>
+														<td>${prop.propArea } ft<sup>2</sup></td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Area of Land:</h6></td>
+														<td>${prop.land } ft<sup>2</sup></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header p-0" id="headingTwo">
+										<h5 class="m-0">
+											<button class="btn btn-light collapsed btn-block text-left"
+												data-toggle="collapse" data-target="#collapseTwo"
+												aria-expanded="false" aria-controls="collapseTwo">More
+												Informations</button>
+										</h5>
+									</div>
+									<div id="collapseTwo" class="collapse"
+										aria-labelledby="headingTwo" data-parent="#accordion">
+										<div class="card-body m-0 p-0">
+											<table class="table table-sm table-striped m-0">
+												<tbody>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Available Units:</h6></td>
+														<td>${prop.units } Units</td>
+													</tr>
+													<c:if test="${prop.floor ne -5 }">
+														<tr>
+															<td><h6 class="mb-0 pl-2">Floor N0:</h6></td>
+															<td>${prop.floor } Floor</td>
+														</tr>
+													</c:if>
+													<tr>
+														<td><h6 class="mb-0 pl-2">Total Floors:</h6></td>
+														<td>${prop.totalFloors } Floors</td>
+													</tr>
+													<tr>
+														<td colspan="2"><h6 class="mb-0 pl-2">Distance
+																from Key Facilities:</h6></td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-4">Hospital:</h6></td>
+														<td>${prop.hospital } KM</td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-4">School:</h6></td>
+														<td>${prop.school } KM</td>
+													</tr>
+													<tr>
+														<td><h6 class="mb-0 pl-4">Rail:</h6></td>
+														<td>${prop.rail } KM</td>
+													</tr>
+													<c:if test="${prop.desc ne null or prop.desc eq ''}">
+														<tr>
+															<td colspan="2"><h6 class="mb-0 pl-2">Brief
+																	Description:</h6></td>
+														</tr>
+														<tr>
+															<td colspan="2" class="pl-4">${prop.desc }</td>
+														</tr>
+													</c:if>
+													<c:if test="${prop.tnc ne null or prop.tnc eq ''}">
+														<tr>
+															<td colspan="4"><h6 class="mb-0 pl-2">Terms and Conditions:</h6></td>
+														</tr>
+														<tr>
+															<td>${prop.tnc }</td>
+														</tr>
+													</c:if>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer">
+							<small class="text-muted">Posted: <jsp:text>
+									<![CDATA[<span data-toggle="tooltip" data-placement="auto" title="]]>
+								</jsp:text> <fmt:formatDate value="${prop.time }"
+									pattern="MMM d, y 'at' h:mm a" /> <jsp:text>
+									<![CDATA[">]]>
+								</jsp:text>${cf:daysUntilToday(prop.time)} <jsp:text>
+									<![CDATA[</span>]]>
+								</jsp:text></small>
+							<c:if test="${prop.edit ne null}">
+								<small class="text-muted">Edited: <jsp:text>
+										<![CDATA[<span data-toggle="tooltip" data-placement="auto" title="]]>
+									</jsp:text> <fmt:formatDate value="${prop.edit }"
+										pattern="MMM d, y 'at' h:mm a" /> <jsp:text>
+										<![CDATA[">]]>
+									</jsp:text>${cf:daysUntilToday(prop.edit)} <jsp:text>
+										<![CDATA[</span>]]>
+									</jsp:text></small>
+							</c:if>
+						</div>
 					</div>
 				</div>
 			</c:forEach>

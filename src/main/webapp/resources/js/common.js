@@ -109,30 +109,16 @@ function closingWaitModal() {
 function errorHandler(XMLHttpRequest, textStatus, errorThrown) {
 	/* If something goes wrong we're comming here */
 	switch (XMLHttpRequest.status) {
-	case 400:
-		showSnackbar("dbConErrorSnackbar");
-		break;
-	case 401:
-		showSnackbar("authErrorSnackbar");
-		break;
 	case 404:
-		showSnackbar("noResourceSnackbar");
+		snackbar("No Resource Found, 4O4");
 		break;
 	case 500:
-		// alert("Can't Registered Customer's Address, Query Error
-		// "+textStatus);
 		$("#errorModalBS p#upper-text").html(
 				"Code: " + XMLHttpRequest.status + "<br>Message: "
 						+ XMLHttpRequest.responseText);
 		$("#errorModalBS p#lower-text").html(
 				"Occur Due to:" + XMLHttpRequest.statusText + "");
 		$("#errorModalBS").modal("show");
-		break;
-	case 501:
-		alert("Can't Registered Customer, Query Error " + textStatus);
-		break;
-	case 502:
-		alert("Authentication Error, Passwrod Mismatch " + textStatus);
 		break;
 	default:
 		snackbar("Something went wrong, Try again");

@@ -5,7 +5,7 @@ $(document).ready(function() {
 <c:choose>
 	<c:when test="${process eq 'success' }">
 		<c:choose>
-			<c:when test="${bean.code eq 'C-Act-1' }">
+			<c:when test="${bean.code eq 'C-S-A-1' }">
 				$("#successModalBS p#upper-text").html("${ bean.message.replace('\\', '/')}");
 				$("#successModalBS").modal('show');
 			</c:when>

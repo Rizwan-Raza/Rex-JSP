@@ -4,7 +4,7 @@
 }
 .btn, .dropdown-menu, .form-control, .modal-header, .modal-content, .alert, .ui-slider,
 	.ui-slider-handle, .custom-checkbox .custom-control-indicator,
-	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link, .input-group-addon, .card, .card-img-top {
+	.navbar-toggler, .custom-file-control, .nav-tabs .nav-link, .input-group-addon, .card, .card-img-top, .tooltip-inner {
 	border-radius: 0px;
 }
 
@@ -17,27 +17,39 @@ a {
 	overflow: hidden;
 	/*background-color: red;*/
 }
-
 .carousel-inner>.carousel-item {
-	height: 500px;
 	background-position: center;
-	background-attachment: fixed;
 	background-size: cover;
 }
+div[id^="propCarousel-"] .prop-location {
+	background-color: rgba(0,0,0,0.8);
+	font-size: 14px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	z-index: 1;
+}
+#myCarousel .carousel-inner>.carousel-item {
+	height: 500px;
+	background-attachment: fixed;
+}
+div[id^="propCarousel-"] .carousel-inner > .carousel-item {
+	height: 200px;
+} 
 
-.carousel-item:nth-child(1) {
+#myCarousel .carousel-item:nth-child(1) {
 	background-image: url("../img/property (1).jpg");
 }
 
-.carousel-item:nth-child(2) {
+#myCarousel .carousel-item:nth-child(2) {
 	background-image: url("../img/property (2).jpg");
 }
 
-.carousel-item:nth-child(3) {
+#myCarousel .carousel-item:nth-child(3) {
 	background-image: url("../img/property (3).jpg");
 }
 
-.carousel-item:nth-child(4) {
+#myCarousel .carousel-item:nth-child(4) {
 	background-image: url("../img/property (4).jpg");
 }
 
@@ -621,8 +633,14 @@ hr.react {
 		height: 100px;
 		margin: -35px -35px;
 	}
+	.fa-td {
+		font-size: 16px !important;
+	}
 }
 @media screen and (max-width: 480px) {
+	div[id^="propCarousel-"] .carousel-inner > .carousel-item {
+		height: 300px;
+	} 
 	.brand-title h1 {
 		font-size: 4.8em;
 		/*color: yellow;*/

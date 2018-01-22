@@ -1,0 +1,120 @@
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="changeFeaturesModal"
+	role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="changeFeaturesModalLabel">
+					<i class="fa fa-fw fa-key"></i> Property's Features
+				</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="actions/props/change-features.php?pid=" class="form"
+					method="post" id="changeFeatForm">
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<label class="control-label" for="bhk"><i
+								class="fa fa-home"></i> Bedroom/BHK</label> <input type="number"
+								name="bhk" class="form-control" placeholder="Enter BHK Number"
+								required max="1000" min="1" id="bhk">
+						</div>
+						<div class="col-md-6 form-group">
+							<label class="control-label" for="bath"><i
+								class="fa fa-home"></i> Bathrooms</label> <input type="number"
+								name="bath" class="form-control"
+								placeholder="Enter Number of Bathrooms" required max="1000"
+								min="1" id="bath">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<label class="control-label" for="age"><i
+								class="fa fa-home"></i> Age of Construction</label>
+							<div class="input-group">
+								<input type="number" name="age" class="form-control"
+									placeholder="Enter Number of Years passed after Construction"
+									required id="age" max="100" min="0"> <span
+									class="input-group-addon">Years</span>
+							</div>
+						</div>
+						<div class="col-md-6 form-group">
+							<label class="control-label" for="furnished"><i
+								class="fa fa-fw fa-home"></i> Furnished</label><br> <label
+								class="custom-control custom-radio"> <input
+								name="furnished" value="1" type="radio"
+								class="custom-control-input" required> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">Yes</span>
+							</label> <label class="custom-control custom-radio"> <input
+								name="furnished" value="0" required type="radio"
+								class="custom-control-input"> <span
+								class="custom-control-indicator"></span> <span
+								class="custom-control-description">No</span>
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 form-group">
+							<label class="control-label" for="h-dis"><i
+								class="fa fa-home"></i> Hospital</label>
+							<div class="input-group">
+								<input type="number" class="form-control" name="h_dis"
+									placeholder="Distance from nearest Hospital in KMS" max="1000"
+									min="0"> <span class="input-group-addon">km</span>
+							</div>
+						</div>
+						<div class="col-md-4 form-group">
+							<label class="control-label" for="s-dis"><i
+								class="fa fa-home"></i> School</label>
+							<div class="input-group">
+								<input type="number" class="form-control" name="s_dis"
+									placeholder="Distance from nearest School in KMS" max="1000"
+									min="0"> <span class="input-group-addon">km</span>
+							</div>
+						</div>
+						<div class="col-md-4 form-group">
+							<label class="control-label" for="r-dis"><i
+								class="fa fa-home"></i> Railway Station</label>
+							<div class="input-group">
+								<input type="number" class="form-control" name="r_dis"
+									placeholder="Distance from nearest Railway Station in KMS"
+									max="1000" min="0"> <span class="input-group-addon">km</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<label class="control-label" for="p-area"><i
+								class="fa fa-home"></i> Covered Area</label>
+							<div class="input-group">
+								<input type="number" name="p_area" class="form-control"
+									placeholder="Enter Area Covered by Property" required
+									step="100" max="1000000" min="100"> <span
+									class="input-group-addon">ft<sup>2</sup></span>
+							</div>
+						</div>
+						<div class="col-md-6 form-group">
+							<label class="control-label" for="land"><i
+								class="fa fa-home"></i> Land Area</label>
+							<div class="input-group">
+								<input type="number" name="land" class="form-control"
+									placeholder="Enter Land Area" required step="100" max="1000000"
+									min="100"> <span class="input-group-addon">ft<sup>2</sup></span>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-default btn-success btn-block"
+						name="submit_btn" value="featEdit">
+						<span class="fa fa-check"></span> Submit
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
