@@ -35,11 +35,9 @@ public class Update extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sess = request.getSession(true);
 
-		UserBean user = new UserBean(request.getParameter("uid"), request.getParameter("fname"),
-				request.getParameter("lname"), request.getParameter("email"), null, request.getParameter("gender"),
-				request.getParameter("cont"), null, null, null, null);
-
-		ResponseBean bean = (new AdminModel()).clientUpdate(user);
+		ResponseBean bean = (new AdminModel()).clientUpdate(new UserBean(Integer.parseInt(request.getParameter("uid")),
+				request.getParameter("fname"), request.getParameter("lname"), request.getParameter("email"), null,
+				request.getParameter("gender"), request.getParameter("cont"), 0, null, null, null));
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
 		} else {

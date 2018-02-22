@@ -12,6 +12,7 @@ import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
 import com.rex.bean.LoginBean;
 import com.rex.bean.PropBean;
+import com.rex.bean.ReqProp;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
@@ -31,6 +32,9 @@ public class ClientModel {
 	private PreparedStatement gpa = null;
 	private PreparedStatement gpi = null;
 	private PreparedStatement gvw = null;
+	private PreparedStatement prl = null;
+	private PreparedStatement pru = null;
+	private PreparedStatement prr = null;
 
 	private ResultSet rs = null;
 	private ResultSet rs_temp = null;
@@ -58,6 +62,10 @@ public class ClientModel {
 			gpa = conn.prepareStatement("SELECT * FROM property_amenities WHERE pid=?");
 			gpi = conn.prepareStatement("SELECT * FROM property_images WHERE pid=?");
 			gvw = conn.prepareStatement("SELECT firstname FROM users WHERE email=?");
+			prl = conn.prepareStatement("INSERT INTO wishlist(pid, cid) VALUES(?, ?)");
+			pru = conn.prepareStatement("DELETE FROM wishlist WHERE wid=?");
+			prr = conn.prepareStatement(
+					"INSERT INTO post_requirement (cid, type, city, state, bhk, bath, area, budget) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
@@ -80,11 +88,11 @@ public class ClientModel {
 				if (rs.getString("auth").equals("0")) {
 					return new ErrorBean("C-L-A-2", "Not Activated Yet!", this.getClass().toGenericString());
 				}
-				return new UserBean(rs.getString("user_id"), rs.getString("users.firstname"),
+				return new UserBean(rs.getInt("user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
-						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
+						rs.getString("users.gender"), rs.getString("users.contact"), rs.getInt("users.auth"),
 						rs.getString("users.src"), rs.getDate("users.time"),
-						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"),
+						new AddressBean(rs.getInt("addresses.add_id"), rs.getString("addresses.street_no"),
 								rs.getString("addresses.town"), rs.getString("addresses.city"),
 								rs.getString("addresses.state")));
 			} else {
@@ -109,7 +117,7 @@ public class ClientModel {
 			upd.setString(6, mem.getAddress().getTown());
 			upd.setString(7, mem.getAddress().getCity());
 			upd.setString(8, mem.getAddress().getState());
-			upd.setString(9, mem.getUid());
+			upd.setInt(9, mem.getUid());
 
 			if (upd.executeUpdate() == 2) {
 				return new SuccessBean("C-D-U-1", "Profile Updated Successfully", "client-update", "success");
@@ -133,27 +141,27 @@ public class ClientModel {
 			rs = add.getGeneratedKeys();
 			rs.next();
 
-			pro.setString(1, rs.getString(1));
-			pro.setString(2, prop.getSeller().getUid());
+			pro.setInt(1, rs.getInt(1));
+			pro.setInt(2, prop.getSeller().getUid());
 			pro.setString(3, prop.getPropType());
 			pro.setString(4, prop.getTranType());
 			pro.setString(5, prop.getTitle());
-			pro.setString(6, prop.getBhk());
-			pro.setString(7, prop.getBath());
-			pro.setString(8, prop.getAge());
-			pro.setString(9, prop.getFurnished());
-			pro.setString(10, prop.getPropArea());
-			pro.setString(11, prop.getLand());
-			pro.setString(12, prop.getPrice());
-			pro.setString(13, prop.getPriceDisplay());
+			pro.setInt(6, prop.getBhk());
+			pro.setInt(7, prop.getBath());
+			pro.setInt(8, prop.getAge());
+			pro.setInt(9, prop.getFurnished());
+			pro.setInt(10, prop.getPropArea());
+			pro.setInt(11, prop.getLand());
+			pro.setInt(12, prop.getPrice());
+			pro.setInt(13, prop.getPriceDisplay());
 			pro.setString(14, prop.getTnc());
 			pro.setString(15, prop.getDesc());
-			pro.setString(16, prop.getHospital());
-			pro.setString(17, prop.getSchool());
-			pro.setString(18, prop.getRail());
-			pro.setString(19, prop.getUnits());
-			pro.setString(20, prop.getFloor());
-			pro.setString(21, prop.getTotalFloors());
+			pro.setInt(16, prop.getHospital());
+			pro.setInt(17, prop.getSchool());
+			pro.setInt(18, prop.getRail());
+			pro.setInt(19, prop.getUnits());
+			pro.setInt(20, prop.getFloor());
+			pro.setInt(21, prop.getTotalFloors());
 			pro.executeUpdate();
 			rs = pro.getGeneratedKeys();
 			rs.next();
@@ -176,7 +184,7 @@ public class ClientModel {
 		}
 	}
 
-	public ArrayList<PropBean> getProps(String uid, String type) {
+	public ArrayList<PropBean> getProps(int uid, String type) {
 		try {
 			PreparedStatement gpd;
 			if (type == "BUY") {
@@ -187,42 +195,40 @@ public class ClientModel {
 				gpd = gpg;
 			}
 			if (type != "ALL")
-				gpd.setString(1, uid);
+				gpd.setInt(1, uid);
 			ResultSet rs = gpd.executeQuery();
 			ArrayList<PropBean> al = new ArrayList<PropBean>();
 			while (rs.next()) {
-				String pid = rs.getString("properties.pid");
-				gpa.setString(1, pid);
+				int pid = rs.getInt("properties.pid");
+				gpa.setInt(1, pid);
 				rs_temp = gpa.executeQuery();
 				List<String> amens = new ArrayList<String>();
 				while (rs_temp.next()) {
 					amens.add(rs_temp.getString("amenity"));
 				}
-				gpi.setString(1, pid);
+				gpi.setInt(1, pid);
 				rs_temp = gpi.executeQuery();
 				List<String> images = new ArrayList<String>();
 				while (rs_temp.next()) {
 					images.add(rs_temp.getString("src"));
 				}
-				UserBean seller = new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
+				UserBean seller = new UserBean(rs.getInt("users.user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), null, rs.getString("users.gender"),
-						rs.getString("users.contact"), rs.getString("users.auth"), rs.getString("users.src"),
+						rs.getString("users.contact"), rs.getInt("users.auth"), rs.getString("users.src"),
 						rs.getDate("users.time"), null);
-				AddressBean address = new AddressBean(rs.getString("addresses.add_id"),
+				AddressBean address = new AddressBean(rs.getInt("addresses.add_id"),
 						rs.getString("addresses.street_no"), rs.getString("addresses.town"),
 						rs.getString("addresses.city"), rs.getString("addresses.state"));
 				PropBean prop = new PropBean(seller, pid, rs.getString("properties.type"),
 						rs.getString("properties.t_type"), rs.getString("properties.title"),
-						rs.getString("properties.bhk"), rs.getString("properties.bathrooms"),
-						rs.getString("properties.age"), rs.getString("properties.furnished"),
-						rs.getString("properties.area"), rs.getString("properties.l_area"),
-						rs.getString("properties.price"), rs.getString("properties.d_price"),
-						rs.getString("properties.availability"), amens, rs.getString("properties.hospital"),
-						rs.getString("properties.school"), rs.getString("properties.rail"),
-						rs.getString("properties.units"), rs.getString("properties.floor"),
-						rs.getString("properties.t_floors"), rs.getString("properties.b_desc"),
-						rs.getString("properties.tnc"), address, rs.getTimestamp("properties.time"),
-						rs.getTimestamp("properties.edit"), images);
+						rs.getInt("properties.bhk"), rs.getInt("properties.bathrooms"), rs.getInt("properties.age"),
+						rs.getInt("properties.furnished"), rs.getInt("properties.area"), rs.getInt("properties.l_area"),
+						rs.getInt("properties.price"), rs.getInt("properties.d_price"),
+						rs.getInt("properties.availability"), amens, images, rs.getInt("properties.hospital"),
+						rs.getInt("properties.school"), rs.getInt("properties.rail"), rs.getInt("properties.units"),
+						rs.getInt("properties.floor"), rs.getInt("properties.t_floors"),
+						rs.getString("properties.b_desc"), rs.getString("properties.tnc"),
+						rs.getTimestamp("properties.time"), rs.getTimestamp("properties.edit"), address);
 				al.add(prop);
 			}
 			return al;
@@ -243,6 +249,49 @@ public class ClientModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return "User";
+		}
+	}
+
+	public ResponseBean like(String pid, String uid) {
+		try {
+			prl.setString(1, pid);
+			prl.setString(2, uid);
+			prl.executeUpdate();
+			return new SuccessBean("C-P-L-1", "Property Added to Wishlist", "prop-like", "success");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ErrorBean("C-P-L-1", e.getMessage(), this.getClass().toGenericString());
+		}
+	}
+
+	public ResponseBean like(String wid) {
+		try {
+			pru.setString(1, wid);
+			pru.executeUpdate();
+
+			return new SuccessBean("C-P-U-1", "Property Removed from Wishlist", "prop-unlike", "success");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ErrorBean("C-P-U-1", e.getMessage(), this.getClass().toGenericString());
+		}
+	}
+
+	public ResponseBean postRequirement(ReqProp prop) {
+		try {
+			prr.setInt(1, prop.getCid());
+			prr.setString(2, prop.getType());
+			prr.setString(3, prop.getCity());
+			prr.setString(4, prop.getState());
+			prr.setInt(5, prop.getBhk());
+			prr.setInt(6, prop.getBath());
+			prr.setString(7, prop.getArea());
+			prr.setString(8, prop.getBudget());
+			prr.executeUpdate();
+
+			return new SuccessBean("C-P-U-1", "Property Removed from Wishlist", "prop-unlike", "success");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ErrorBean("C-P-U-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
 }

@@ -35,10 +35,9 @@ public class AddressChange extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sess = request.getSession(true);
 
-		AddressBean address = new AddressBean(request.getParameter("add_id"), request.getParameter("street"),
-				request.getParameter("town"), request.getParameter("city"), request.getParameter("state"));
-
-		ResponseBean bean = (new CommonModel()).change(address);
+		ResponseBean bean = (new CommonModel()).changeAddress(
+				new AddressBean(Integer.parseInt(request.getParameter("add_id")), request.getParameter("street"),
+						request.getParameter("town"), request.getParameter("city"), request.getParameter("state")));
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
 		} else {

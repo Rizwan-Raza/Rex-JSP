@@ -23,11 +23,11 @@ public class ProfilePicUpdateModel {
 		}
 	}
 
-	public ResponseBean update(String src, String id, SuccessBean process) {
+	public ResponseBean update(String src, int i, SuccessBean process) {
 		try {
 			src = src.replaceAll("\\\\", "/");
 			stmt.setString(1, src);
-			stmt.setString(2, id);
+			stmt.setInt(2, i);
 			stmt.execute();
 			process.setQuery("true");
 			return process;

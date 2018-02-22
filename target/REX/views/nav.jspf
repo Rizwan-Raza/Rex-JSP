@@ -1,0 +1,50 @@
+<nav
+	class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<a class="navbar-brand" href="./"><i class="fa fa-fw fa-university"></i>
+		REX</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="myNavbar">
+		<ul class="navbar-nav mr-auto mt-lg-0">
+			<li class="nav-item active"><a class="nav-link" href="./">Home
+					<span class="sr-only">(current)</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+			<c:if test="${log eq null }">
+				<li class="nav-item"><a class="nav-link" href="#">Gallery</a></li>
+			</c:if>
+			<li class="nav-item"><a class="nav-link disabled" href="#">Contact
+					Us</a></li>
+		</ul>
+		<c:choose>
+			<c:when test="${log eq null}">
+				<ul class="navbar-nav ml-auto my-lg-0">
+					<li class="nav-item"><a class="nav-link" data-toggle="modal"
+						data-target="#signupModal"><i class="fa fa-fw fa-user"></i>
+							Sign Up</a></li>
+					<li class="dropdown">
+						<button class="btn btn-success dropdown-toggle" type="button"
+							id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Login</button>
+						<div class="dropdown-menu dropdown-menu-right"
+							aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" data-toggle="modal"
+								data-target="#clientLoginModal"><i class="fa fa-fw fa-user"></i>
+								Client Login</a> <a class="dropdown-item" data-toggle="modal"
+								data-target="#adminLoginModal"><i
+								class="fa fa-fw fa-user-secret"></i> Admin Login</a>
+						</div>
+					</li>
+				</ul>
+			</c:when>
+			<c:otherwise>
+				<jsp:directive.include file="../views/user-info.jspf" />
+			</c:otherwise>
+		</c:choose>
+	</div>
+</nav>
+<div class="seperator"></div>

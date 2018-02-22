@@ -23,6 +23,7 @@ public class AdminModel {
 	private PreparedStatement cap;
 	private PreparedStatement ck;
 	private PreparedStatement cu;
+	private PreparedStatement ccp;
 
 	public AdminModel() {
 		conn = (new DBConnector()).getConnection();
@@ -35,6 +36,9 @@ public class AdminModel {
 			cap = conn.prepareStatement("UPDATE users SET users.auth=? WHERE users.user_id=?");
 			cu = conn.prepareStatement(
 					"UPDATE users SET users.firstname=?, users.lastname=?, users.gender=?, users.email=?, users.contact=? WHERE users.user_id=?");
+			ccp = conn.prepareStatement("UPDATE users SET users.password=? WHERE users.user_id=?");
+			ck = conn.prepareStatement(
+					"DELETE users, addresses FROM users LEFT JOIN addresses ON addresses.add_id= users.add_id WHERE users.user_id=?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,11 +64,11 @@ public class AdminModel {
 					return new ErrorBean("A-L-A-4", "Are you an Admin ? Try to Login as a Client",
 							this.getClass().toGenericString());
 				}
-				return new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
+				return new UserBean(rs.getInt("users.user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
-						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
+						rs.getString("users.gender"), rs.getString("users.contact"), rs.getInt("users.auth"),
 						rs.getString("users.src"), rs.getDate("users.time"),
-						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"),
+						new AddressBean(rs.getInt("addresses.add_id"), rs.getString("addresses.street_no"),
 								rs.getString("addresses.town"), rs.getString("addresses.city"),
 								rs.getString("addresses.state")));
 			} else {
@@ -80,11 +84,11 @@ public class AdminModel {
 			ResultSet rs = gcl.executeQuery();
 			ArrayList<UserBean> al = new ArrayList<UserBean>();
 			while (rs.next()) {
-				al.add(new UserBean(rs.getString("users.user_id"), rs.getString("users.firstname"),
+				al.add(new UserBean(rs.getInt("users.user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), rs.getString("users.password"),
-						rs.getString("users.gender"), rs.getString("users.contact"), rs.getString("users.auth"),
+						rs.getString("users.gender"), rs.getString("users.contact"), rs.getInt("users.auth"),
 						rs.getString("users.src"), rs.getDate("users.time"),
-						new AddressBean(rs.getString("addresses.add_id"), rs.getString("addresses.street_no"),
+						new AddressBean(rs.getInt("addresses.add_id"), rs.getString("addresses.street_no"),
 								rs.getString("addresses.city"), rs.getString("addresses.town"),
 								rs.getString("addresses.state"))));
 			}
@@ -106,7 +110,7 @@ public class AdminModel {
 			upd.setString(6, mem.getAddress().getTown());
 			upd.setString(7, mem.getAddress().getCity());
 			upd.setString(8, mem.getAddress().getState());
-			upd.setString(9, mem.getUid());
+			upd.setInt(9, mem.getUid());
 
 			if (upd.executeUpdate() == 2) {
 				return new SuccessBean("A-D-U-1", "Profile Updated Successfully", "admin-update", "success");
@@ -119,14 +123,13 @@ public class AdminModel {
 		}
 	}
 
-	public ResponseBean activate(String act, String id) {
+	public ResponseBean activate(int act, int id) {
 		try {
-			cap.setString(1, act);
-			cap.setString(2, id);
+			cap.setInt(1, act);
+			cap.setInt(2, id);
 			if (cap.executeUpdate() == 1) {
-				return new SuccessBean("A-C-A-1",
-						"Client " + ((act.equals("1")) ? "A" : "Dea") + "ctivated Successfully!", "client-active",
-						"success");
+				return new SuccessBean("A-C-A-1", "Client " + ((act == 1) ? "A" : "Dea") + "ctivated Successfully!",
+						"client-active", "success");
 			} else {
 				return new ErrorBean("A-C-A-2", "User Existance not Found", this.getClass().toGenericString());
 			}
@@ -135,11 +138,9 @@ public class AdminModel {
 		}
 	}
 
-	public ResponseBean delete(String id) {
+	public ResponseBean delete(int id) {
 		try {
-			ck = conn
-					.prepareStatement("DELETE FROM users, addresses WHERE user_id=? AND users.add_id=addresses.add_id");
-			ck.setString(1, id);
+			ck.setInt(1, id);
 			if (ck.executeUpdate() == 1) {
 				return new SuccessBean("A-C-K-1", "Client Kicked out Successfully!", "client-delete", "success");
 			} else {
@@ -150,17 +151,15 @@ public class AdminModel {
 		}
 	}
 
-	public ResponseBean promote(String act, String id) {
+	public ResponseBean promote(int act, int id) {
 		try {
-			cap.setString(1, act);
-			cap.setString(2, id);
+			cap.setInt(1, act);
+			cap.setInt(2, id);
 			if (cap.executeUpdate() == 1) {
-				if (act.equals("2"))
-					return new SuccessBean("A-C-P-1", "Client is now an Admin, Login with Client Data as Admin also.",
-							"client-delete", "success");
+				if (act == 2)
+					return new SuccessBean("A-C-P-1", "Client is now an Admin also.", "client-delete", "success");
 				else
-					return new SuccessBean("A-C-P-1", "Admin is no longer an Admin, Login with Admin Data as a Client.",
-							"client-delete", "success");
+					return new SuccessBean("A-C-P-1", "Admin is no longer an Admin.", "client-delete", "success");
 			} else {
 				return new ErrorBean("A-C-P-2", "User Existance not Found", this.getClass().toGenericString());
 			}
@@ -176,7 +175,7 @@ public class AdminModel {
 			cu.setString(3, user.getGender());
 			cu.setString(4, user.getEmail());
 			cu.setString(5, user.getContact());
-			cu.setString(6, user.getUid());
+			cu.setInt(6, user.getUid());
 
 			if (cu.executeUpdate() == 1) {
 				return new SuccessBean("A-C-U-2", "Client Updated Successfully", "admin-client-update", "success");
@@ -186,6 +185,23 @@ public class AdminModel {
 			}
 		} catch (SQLException e) {
 			return new ErrorBean("A-C-U-1", e.toString(), this.getClass().toGenericString());
+		}
+	}
+
+	public ResponseBean clientPassword(String password, int uid) {
+		try {
+			ccp.setString(1, password);
+			ccp.setInt(2, uid);
+
+			if (ccp.executeUpdate() == 1) {
+				return new SuccessBean("A-C-P-2", "Client's Password Changed Successfully", "admin-client-password",
+						"success");
+			} else {
+				return new SuccessBean("A-C-P-1", "User Existance not Found (" + uid + ")", "admin-client-update",
+						"failed");
+			}
+		} catch (SQLException e) {
+			return new ErrorBean("A-C-P-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
 }

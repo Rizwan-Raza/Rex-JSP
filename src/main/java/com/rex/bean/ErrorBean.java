@@ -12,10 +12,6 @@ public class ErrorBean implements Serializable, ResponseBean {
 
 	private String message;
 
-	public ErrorBean() {
-		message = null;
-	}
-
 	public ErrorBean(String code, String message, String occurAt) {
 		setCode(code);
 		setMessage(message);

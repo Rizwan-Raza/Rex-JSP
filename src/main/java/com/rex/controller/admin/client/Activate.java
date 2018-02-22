@@ -34,8 +34,8 @@ public class Activate extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		ResponseBean obj = (new AdminModel()).activate(request.getParameter("activate").equals("true") ? "1" : "0",
-				request.getParameter("id"));
+		ResponseBean obj = (new AdminModel()).activate(request.getParameter("activate").equals("true") ? 1 : 0,
+				Integer.parseInt(request.getParameter("id")));
 		if (obj instanceof SuccessBean) {
 			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + ((SuccessBean) obj).getMessage()
 					+ "\", \"user_id\": \"" + request.getParameter("id") + "\"}");

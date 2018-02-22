@@ -1,0 +1,42 @@
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="addressModal"
+	role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="addressModalLabel">
+					<i class="fa fa-fw fa-map-marker"></i> <span>Client</span>'s Address
+				</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table table-bordered table-responsive-sm">
+					<thead class="bg-secondary text-light">
+						<tr>
+							<th scope="col">Street Number</th>
+							<th scope="col">Town</th>
+							<th scope="col">City</th>
+							<th scope="col">State</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default mr-auto"
+					data-dismiss="modal">
+					<i class="fa fa-fw fa-remove"></i> Cancel
+				</button>
+				<p>
+					Change <a id="change-address" data-dismiss="modal">Address?</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

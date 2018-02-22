@@ -34,7 +34,7 @@ public class Delete extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		ResponseBean obj = (new AdminModel()).delete(request.getParameter("id"));
+		ResponseBean obj = (new AdminModel()).delete(Integer.parseInt(request.getParameter("id")));
 		if (obj instanceof SuccessBean) {
 			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + ((SuccessBean) obj).getMessage()
 					+ "\", \"user_id\": \"" + request.getParameter("id") + "\"}");

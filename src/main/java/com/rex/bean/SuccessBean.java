@@ -15,10 +15,6 @@ public class SuccessBean implements Serializable, ResponseBean {
 	private String session;
 	private String cleanUp;
 
-	public SuccessBean() {
-		code = message = process = completion = query = session = cleanUp = null;
-	}
-
 	public SuccessBean(String code, String message) {
 		setCode(code);
 		setMessage(message);

@@ -22,11 +22,8 @@ function readURLs(input) {
 			reader.readAsDataURL(files[i]);
 			reader.onloadend = function() {
 				$(".insert-here").append(
-						"<div class='col-3 prop-image' id='image" + x
-								+ "'></div>");
-				$(".insert-here #image" + x).css("background-image",
-						"url(" + this.result + ")");
-				x++;
+						"<div class='col-3 prop-image' style='background-image: url("
+								+ this.result + ")'></div>");
 			}
 		}
 	}
@@ -55,7 +52,7 @@ function editPropFeatures(bhk, bath, age, furn, hosp, school, rail, area,
 	elem.p_area.value = area;
 	elem.land.value = l_area;
 	$("#changeFeaturesModal #changeFeatForm").attr("action",
-			"actions/props/change-features.php?pid=" + pid);
+			"Prop-Change-Features?pid=" + pid);
 	$("#changeFeaturesModal").modal("show");
 }
 function editPropInfo(amens, units, floor, t_floors, desc, tnc, pid) {
@@ -63,7 +60,7 @@ function editPropInfo(amens, units, floor, t_floors, desc, tnc, pid) {
 	var elem = document.getElementById("changeInfoForm");
 	$("#changeInfoForm input[checked]").removeAttr("checked");
 	elem.reset();
-	if (amens != "'NULL") {
+	if (amens != "NULL") {
 		var amenities = amens.split(",");
 		for (var i = 0; i < amenities.length; i++) {
 			switch (amenities[i]) {
@@ -103,11 +100,12 @@ function editPropInfo(amens, units, floor, t_floors, desc, tnc, pid) {
 		elem.tnc.value = tnc;
 	}
 	$("#changeInfoModal #changeInfoForm").attr("action",
-			"actions/props/change-info.php?pid=" + pid);
+			"Prop-Change-Informations?pid=" + pid);
 	$("#changeInfoModal").modal("show");
 }
 function showPropImages(srcs, title, pid) {
-	var src_arr = srcs.split("-*-");
+	srcs = srcs.slice(1, -1);
+	var src_arr = srcs.split(", ");
 	var str = "";
 	var num = src_arr.length;
 	var div = 12 / num;
@@ -145,9 +143,7 @@ function showPropImages(srcs, title, pid) {
 		break;
 	}
 	for (i = 0; i < num; i++) {
-		str += "<div class='col-md-"
-				+ div
-				+ " col-sm-"
+		str += "<div class='col-"
 				+ div
 				+ "'> <div class='buy-prop-image image-triggerer' style=\"background-image: url('"
 				+ src_arr[i]
@@ -158,32 +154,34 @@ function showPropImages(srcs, title, pid) {
 				+ "');\"><div class='remove-image diggle'><i class='fa fa-remove fa-fw'></i></div></div></div>";
 	}
 	$("#propImagesModal .row#prop-img-holder").html(str);
-	$("#propImagesModal .modal-footer .pull-right p").html(
-			'<p>Change <a id="change-prop-images" onclick="addOrRemoveImages(\''
+	$("#propImagesModal .modal-footer p").html(
+			'<p>Change <a id="change-prop-images" href="javascript:addOrRemoveImages(\''
 					+ srcs + '\', \'' + title + '\', ' + pid
 					+ ')">Images?</a></p>');
 	$("#propImagesModal").modal('show');
 }
 function addOrRemoveImages(srcs, title, pid) {
-	var src_arr = srcs.split("-*-");
+	var src_arr = srcs.split(", ");
 	var str = "";
 	var num = src_arr.length;
 	for (i = 0; i < num; i++) {
 		$(
-				"div[class*='col-md-']:nth-child(" + (i + 1)
-						+ ") .buy-prop-image .remove-image").attr("onclick",
-				"removeImage('" + src_arr[i] + "', '" + title + "')");
+				"div[class*='col-']:nth-child(" + (i + 1)
+						+ ") .buy-prop-image .remove-image").attr(
+				"onclick",
+				"removeImage('" + src_arr[i] + "', '" + title + "', " + pid
+						+ ")");
 	}
 	$(".buy-prop-image").removeClass("image-triggerer");
 	$(".buy-prop-image").removeAttr("onclick");
 	$(".buy-prop-image .remove-image").show();
-	$("#propImagesModal .modal-footer .pull-right p").html(
-			'<p>Add <a id="change-prop-images" onclick="addImage(' + pid
-					+ ')">Image?</a></p>');
+	$("#propImagesModal .modal-footer p").html(
+			'<p>Add <a id="change-prop-images" href="javascript:addImage('
+					+ pid + ')">Image?</a></p>');
 	// $("#propImagesModal .modal-footer .pull-right p").html('<input
 	// type="file">');
 }
-function removeImage(src, title) {
+function removeImage(src, title, pid) {
 	// alert(src);
 	$("#removePropImageModal .modal-body p span").html("<b>" + title + "</b>");
 	$("#removePropImageModal .modal-body .image-triggerer").removeAttr("style");
@@ -193,20 +191,27 @@ function removeImage(src, title) {
 			"showImageModal('" + title + "', '" + src + "')");
 	$("#removePropImageModal .modal-footer .btn").attr(
 			"onclick",
-			"asyncProcess('actions/props/remove-image.php', '" + src
+			"asyncProcess('Prop-Remove-Image?pid=" + pid + "', '" + src.trim()
 					+ "', removeImageSuccess)");
 	$("#removePropImageModal").modal("show");
 }
+
 function removeImageSuccess(data, status) {
 	var obj = JSON.parse(data);
 	$("#removePropImageModal").modal("hide");
-	var a = $("a[onclick*=\"" + obj.src + "\"");
-	var srcs = a.attr("onclick");
-	var new_srcs = srcs.replace("-*-" + obj.src, "");
-	if (new_srcs.length > srcs.length) {
-		new_srcs = srcs.replace(obj.src + "-*-", "");
+	if (obj.response != "OK") {
+		snackbar(obj.message);
+		return;
 	}
-	a.attr("onclick", new_srcs);
+	var a = $("a[href*=\"" + obj.src + "\"");
+	var srcs = a.attr("href");
+	var new_srcs = srcs.replace(", " + obj.src, "");
+	if (new_srcs.length > srcs.length) {
+		new_srcs = srcs.replace(obj.src + ",", "");
+	}
+	a.attr("href", new_srcs);
+	var num = $(".buy-prop-image[style*='" + obj.src + "'").parent().parent()
+			.children().length;
 	$(
 			"#propImagesModal .buy-prop-image[style*=\"background-image: url('"
 					+ obj.src + "')\"]").parent().hide(
@@ -225,10 +230,7 @@ function removeImageSuccess(data, status) {
 						"#my-property .buy-prop-image[style*=\"background-image: url('"
 								+ obj.src + "')\"]").parent().remove();
 			});
-	var num = $(
-			".buy-prop-image[style*=\"background-image: url('" + obj.src
-					+ "')\"").parent().parent().children().length;
-	num /= 2;
+	num -= 1;
 	var div = 12 / num;
 	switch (num) {
 	case 1:
@@ -264,13 +266,11 @@ function removeImageSuccess(data, status) {
 		break;
 	}
 	$(".buy-prop-image[style*=\"background-image: url('" + obj.src + "')\"")
-			.parent().parent().children().attr("class",
-					"col-md-" + div + " col-sm" + div);
-	showSnackbar("propImageRemovedSnackbar");
+			.parent().parent().children().attr("class", "bsdk col-" + div);
+	snackbar(obj.message);
 }
 function addImage(pid) {
-	$("#addPropImageModal form").attr("action",
-			"actions/props/add-image.php?pid=" + pid);
+	$("#addPropImageModal form").attr("action", "Prop-Add-Image?pid=" + pid);
 	$("#addPropImageModal").modal("show");
 }
 function addImageAsync(pid) {
@@ -322,24 +322,26 @@ function deleteProp(name, pid) {
 	$("#deletePropModal .modal-info > b > span").text(name);
 	// $("#deletePropModal .modal-footer > .btn-danger").attr("onclick",
 	// "window.location.href='actions/props/delete-prop.php?pid="+pid+"'");
-	$("#deletePropModal .modal-footer > .btn-danger").attr("onclick",
+	$("#deletePropModal .modal-footer > .btn-success").attr("onclick",
 			"asyncProcess('Prop-Delete'," + pid + ", deletePropSuccess)");
 	$("#deletePropModal").modal('show');
 }
 function deletePropSuccess(data, status) {
 	var obj = JSON.parse(data);
-	if (obj.log == "admin") {
-		$("#posts b#post-num").text((+$("#posts b#post-num").text()) - 1);
-		$("#deletePropModal").modal("hide");
-		$("tr#for-prop-" + obj.pid).hide("slow", function() {
-			$("tr#for-prop-" + obj.pid).remove();
-		});
-	} else {
-		$("#my-property #prop-" + obj.pid).hide("slow", function() {
-			$("#my-property #prop-" + obj.pid).remove();
-		});
+	if (obj.response == "OK") {
+		if (obj.type == "ADMIN") {
+			$("#posts b#post-num").text((+$("#posts b#post-num").text()) - 1);
+			$("#deletePropModal").modal("hide");
+			$("tr#for-" + obj.pid).hide("slow", function() {
+				$("tr#for-" + obj.pid).remove();
+			});
+		} else {
+			$("#my-property #prop-" + obj.pid).hide("slow", function() {
+				$("#my-property #prop-" + obj.pid).remove();
+			});
+		}
 	}
-	showSnackbar("propDeletedSnackbar");
+	snackbar(obj.message);
 }
 function editRequest(type, city, state, bhk, bath, a_from, a_to, p_from, p_to,
 		pr_id, by) {

@@ -33,7 +33,7 @@ public class ActivateMe extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ResponseBean obj = (new AdminModel()).activate("1", request.getParameter("uid"));
+		ResponseBean obj = (new AdminModel()).activate(1, Integer.parseInt(request.getParameter("uid")));
 		HttpSession sess = request.getSession(false);
 		if (obj instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
