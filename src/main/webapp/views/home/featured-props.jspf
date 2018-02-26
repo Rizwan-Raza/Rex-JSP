@@ -1,0 +1,77 @@
+
+<%
+	request.setAttribute("props", new ClientModel().getProps());
+%>
+<c:choose>
+	<c:when test="${props.size() eq '0' }">
+		<div class=" alert alert-danger">
+			<i class="fa fa-5x fa-shopping-cart text-center d-block"></i>
+			<h4 class="alert-heading text-center">
+				Sorry, no one posted any property
+				</h5>
+				<p class="text-center">
+					Want to post property? then <a
+						href="javascript:navTo('sell-property')" class="alert-link">Post
+						Now</a>.
+				</p>
+		</div>
+	</c:when>
+	<c:when test="${empty props }">
+		<div class=" alert alert-danger">
+			<i class="fa fa-5x fa-warning text-center d-block"></i>
+			<h4 class="alert-heading text-center">Sorry, Something went
+				wrong</h4>
+			<p class="text-center">
+				Try to reload? <a href="javascript:window.location.reload()"
+					class="alert-link">Reload Now</a>.
+			</p>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<c:forEach var="prop" varStatus="propStatus" items="${props}">
+			<div class="col-md-3 col-sm-6 col-12">
+
+				<div id="propCarousel-${prop.propID}"
+					class="card-img-top carousel slide img-gallery"
+					data-ride="carousel">
+					<ol class="carousel-indicators">
+						<c:forEach begin="0" end="${prop.images.size() }" varStatus="loop">
+							<c:if test="${loop.index < prop.images.size() }">
+								<li data-target="
+								#propCarousel-${prop.propID}"
+									data-slide-to="${loop.index}"
+									${loop.index eq 0 ? 'class=\"active\"' : ''}></li>
+							</c:if>
+						</c:forEach>
+					</ol>
+					<div class="carousel-inner">
+						<c:forEach var="image" varStatus="imageStatus"
+							items="${prop.images}">
+							<jsp:text>
+								<![CDATA[<div class="carousel-item]]>
+							</jsp:text>
+							<c:if test="${imageStatus.first }"> active</c:if>"
+									<jsp:text>
+								<![CDATA[ style="background-image: url(']]>${image}<![CDATA[');"></div>]]>
+							</jsp:text>
+						</c:forEach>
+					</div>
+
+					<div class="ui-in-text">
+						<h4>${prop.title}</h4>
+						<h5>${prop.bhk}&nbsp;BHK&nbsp;FLAT</h5>
+						<h6>at ${prop.price/100000 } Lacs/flat</h6>
+						<center>
+							<button class="btn btn-primary"
+								onclick="asyncProcess('actions/props/view.php', '${prop.title}', viewPropSuccess)">
+								<i class="fa fa-fw fa-eye"></i> View Property
+							</button>
+						</center>
+					</div>
+				</div>
+
+				<br>
+			</div>
+		</c:forEach>
+	</c:otherwise>
+</c:choose>

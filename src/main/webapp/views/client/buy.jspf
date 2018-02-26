@@ -8,10 +8,9 @@
 			data-target="#postRequirementModal">Post Requirement</button>
 	</h4>
 	<br>
-	<c:set var="fetcherType" scope="request" value="BUY" />
 	<%
-		request.setAttribute("props", new ClientModel().getProps(((UserBean) session.getAttribute("user")).getUid(),
-				(String) request.getAttribute("fetcherType")));
+		request.setAttribute("props",
+				new ClientModel().getProps(((UserBean) session.getAttribute("user")).getUid(), "BUY"));
 	%>
 	<jsp:directive.include file="propFetcher.jspf" />
 </div>

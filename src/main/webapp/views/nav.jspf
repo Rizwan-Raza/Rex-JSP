@@ -13,9 +13,9 @@
 			<li class="nav-item active"><a class="nav-link" href="./">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+			<li class="nav-item"><a class="nav-link" href="about.jsp">About Us</a></li>
 			<c:if test="${log eq null }">
-				<li class="nav-item"><a class="nav-link" href="#">Gallery</a></li>
+				<li class="nav-item"><a class="nav-link" href="gallery.jsp">Gallery</a></li>
 			</c:if>
 			<li class="nav-item"><a class="nav-link disabled" href="#">Contact
 					Us</a></li>

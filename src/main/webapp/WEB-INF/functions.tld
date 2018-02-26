@@ -6,7 +6,7 @@
 	<display-name>Custom EL Functions</display-name>
 	<tlib-version>1.0</tlib-version>
 	<short-name>cf</short-name>
-	<uri>>/WEB-INF/functions</uri>
+	<uri>/WEB-INF/functions</uri>
 
 	<function>
 		<name>daysUntilToday</name>

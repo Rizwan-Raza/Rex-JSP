@@ -79,7 +79,7 @@
 				<div class="form-group">
 					<label class="col-form-label" for="db-host">Host</label> <input
 						type="text" class="form-control" id="db-host" placeholder="Host"
-						name="host" value="mysql">
+						name="host" value="mysql-service">
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="db-port">Port</label> <input
