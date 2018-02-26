@@ -68,11 +68,17 @@
 						<h5 class="card-title">Rizwan Raza</h5>
 						<p class="card-text">Designer and Developer</p>
 						<a href="https://www.facebook.com/RexTerminous"
-							class="btn btn-primary"><i class="fa fa-fw fa-facebook"></i></a>
-						<a href="https://twitter.com/rex.terminous"
-							class="btn btn-primary"><i class="fa fa-fw fa-twitter"></i></a> <a
-							href="https://www.linkedin.com/in/rraza/" class="btn btn-primary"><i
-							class="fa fa-fw fa-linkedin"></i></a>
+							class="btn bg-facebook px-2 hoverable"><i
+							class="fa fa-fw fa-facebook"></i></a> <a
+							href="https://twitter.com/RexTerminous"
+							class="btn bg-twitter px-2 hoverable"><i
+							class="fa fa-fw fa-twitter"></i></a> <a
+							href="https://www.linkedin.com/in/rex-terminous/"
+							class="btn bg-linkedin px-2 hoverable"><i
+							class="fa fa-fw fa-linkedin"></i></a> <a
+							href="google.com/+RizwanRaza365"
+							class="btn bg-google-plus px-2 hoverable"><i
+							class="fa fa-fw fa-google-plus"></i></a>
 					</div>
 				</div>
 			</div>
@@ -84,11 +90,17 @@
 						<h5 class="card-title">Mohd Tausif Raza</h5>
 						<p class="card-text">Guide</p>
 						<a href="https://www.facebook.com/tausifraza91"
-							class="btn btn-primary"><i class="fa fa-fw fa-facebook"></i></a>
-						<a href="https://twitter.com/rex.terminous"
-							class="btn btn-primary"><i class="fa fa-fw fa-twitter"></i></a> <a
-							href="https://www.linkedin.com/in/rraza/" class="btn btn-primary"><i
-							class="fa fa-fw fa-linkedin"></i></a>
+							class="btn bg-facebook px-2 hoverable"><i
+							class="fa fa-fw fa-facebook"></i></a> <a
+							href="https://twitter.com/tausifraza76"
+							class="btn bg-twitter px-2 hoverable"><i
+							class="fa fa-fw fa-twitter"></i></a> <a
+							href="https://www.linkedin.com/in/mohd-tausif-raza-a7812256/"
+							class="btn bg-linkedin px-2 hoverable"><i
+							class="fa fa-fw fa-linkedin"></i></a> <a
+							href="https://plus.google.com/u/0/111293866098336955004"
+							class="btn bg-google-plus px-2 hoverable"><i
+							class="fa fa-fw fa-google-plus"></i></a>
 					</div>
 				</div>
 			</div>
@@ -96,7 +108,8 @@
 		<hr>
 		<h2 class="text-center my-4">Technologies Used</h2>
 		<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
+		<div class="text-center">The above data is based on GitHub
+			Repository.</div>
 		<!-- <div id="accordionTech">
 			<div class="card mb-2">
 				<div class="card-header p-0" id="headingTechOne">
@@ -145,67 +158,130 @@
 				<tbody>
 					<tr>
 						<td>HTML</td>
-						<td>85</td>
-						<td>33.07</td>
+						<td>45</td>
+						<td>29.22</td>
 						<td>.html, .htm</td>
-					</tr>
-					<tr>
-						<td>Java Server Pages</td>
-						<td>46</td>
-						<td>17.89</td>
-						<td>.jsp, jspf</td>
 					</tr>
 					<tr>
 						<td>Java</td>
 						<td>41</td>
-						<td>15.95</td>
+						<td>26.62</td>
 						<td>.java</td>
 					</tr>
 					<tr>
+						<td>Java Server Pages</td>
+						<td>25</td>
+						<td>16.23</td>
+						<td>.jsp</td>
+					</tr>
+					<tr>
+						<td>Java Server Pages Fragments</td>
+						<td>19</td>
+						<td>12.34</td>
+						<td>jspf</td>
+					</tr>
+					<tr>
 						<td>JavaScript</td>
-						<td>28</td>
-						<td>10.89</td>
+						<td>11</td>
+						<td>7.14</td>
 						<td>.js</td>
 					</tr>
 					<tr>
 						<td>CSS</td>
-						<td>22</td>
-						<td>8.56</td>
+						<td>5</td>
+						<td>3.27</td>
 						<td>.css</td>
 					</tr>
 					<tr>
 						<td>INI</td>
-						<td>17</td>
-						<td>6.61</td>
-						<td>.prefs, .properties, .tld</td>
+						<td>2</td>
+						<td>1.30</td>
+						<td>.properties</td>
 					</tr>
 					<tr>
 						<td>XML</td>
-						<td>13</td>
-						<td>5.05</td>
+						<td>2</td>
+						<td>1.30</td>
 						<td>.xml</td>
 					</tr>
 					<tr>
 						<td>Markdown</td>
-						<td>3</td>
-						<td>1.16</td>
+						<td>2</td>
+						<td>1.30</td>
 						<td>.md</td>
 					</tr>
 					<tr>
+						<td>Tag Library Descriptor</td>
+						<td>1</td>
+						<td>0.65</td>
+						<td>.tld</td>
+					</tr>
+					<tr>
 						<td>Maven POM</td>
-						<td>2</td>
-						<td>0.77</td>
+						<td>1</td>
+						<td>0.65</td>
 						<td>pom.xml</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="4" class="text-center">The above data is based
-							on GitHub.</td>
+							on GitHub Repository and Server File System.</td>
 					</tr>
 				</tfoot>
 			</table>
 		</div>
+		<dl class="row">
+			<dt class="col-sm-3">Java Technologies</dt>
+			<dd class="col-sm-9">
+				<p>
+					JavaSE (including Collections, Serialization and Beans)<br>Java
+					Servlets<br>Java Server Pages (JSP)<br>Java Server Pages
+					Fragments (JSPF)<br>Java Database Connectivity (JDBC )<br>JavaServer
+					Pages Standard Tag Library (JSTL)<br>Expression Language (EL)<br>JavaMail
+					API
+				</p>
+			</dd>
+
+			<dt class="col-sm-3">JavaScript Technologies</dt>
+			<dd class="col-sm-9">
+				<p>
+					JavaScript Document Object Model (DOM)<br>JavaScript Browser
+					Object Model (BOM)<br>Asynchronous JavaSript and XML (AJAX)<br>jQuery
+					and jQuery UI<br>JavaScript Object Notation (JSON)
+				</p>
+			</dd>
+
+			<dt class="col-sm-3">Web Technologies</dt>
+			<dd class="col-sm-9">
+				<p>
+					HTML5 with Canvas and Semantics Tags<br>CSS3 with Animations
+					and Media Query<br>Bootstrap 4<br>Font Awesome 4
+				</p>
+			</dd>
+
+			<dt class="col-sm-3 text-truncate">Persistence and Hosting</dt>
+			<dd class="col-sm-9">
+				<p>
+					eXtensible Markup Language (XML)<br>OpenShift Hosting Server
+					Starter 3 Pro<br>MySQL Database 5.7<br>JSPMyAdmin (Self
+					Made from GitHub's OpenSource Code)<br>Properties Files for
+					Credentials and Initializers<br>MailGun
+				</p>
+			</dd>
+			<dt class="col-sm-3 text-truncate">Dev. and Build Tools</dt>
+			<dd class="col-sm-9">
+				<p>
+					Java Development Kit 9 (JDK 9)<br>Maven Build Tool<br>Eclipse
+					Oxygen IDE<br>MySQL WorkBench<br>GitHub Repository<br>Apache
+					Tomcat Server 9
+				</p>
+			</dd>
+			<dt class="col-sm-3 text-truncate">GitHub Source Code</dt>
+			<dd class="col-sm-9">
+				<a href="https://github.com/Rizwan-Raza/Rex-JSP">https://github.com/Rizwan-Raza/Rex-JSP</a>
+			</dd>
+		</dl>
 	</div>
 	<jsp:directive.include file="views/footer.inc.html" />
 
@@ -226,17 +302,17 @@
 					toolTipContent : "{name}: <strong>{y}%</strong>",
 					indexLabel : "{name} - {y}%",
 					dataPoints : [ {
-						y : 54.5,
-						name : "JavaScript"
-					}, {
-						y : 22.2,
+						y : 50.8,
 						name : "Java",
 						exploded : true
 					}, {
-						y : 19.2,
+						y : 28.4,
 						name : "HTML"
 					}, {
-						y : 4.1,
+						y : 15.0,
+						name : "JavaScript"
+					}, {
+						y : 5.8,
 						name : "CSS"
 					} ]
 				} ]

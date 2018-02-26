@@ -10,6 +10,26 @@
 	border-radius: 0px;
 }
 
+.bg-facebook {
+	background-color: #3B5998 !important;
+	color: #ffffff !important;
+}
+
+.bg-twitter {
+	background-color: #1DA1F2 !important;
+	color: #ffffff !important;
+}
+
+.bg-linkedin {
+	background-color: #0077B5 !important;
+	color: #ffffff !important;
+}
+
+.bg-google-plus {
+	background-color: #DB4437 !important;
+	color: #ffffff !important;
+}
+
 a {
 	cursor: pointer;
 }
@@ -317,7 +337,7 @@ div.dropdown-menu.user-info h4 {
 	}
 
 	25% {
-		transform :rotate(-10deg);
+		transform:rotate(-10deg);
 	}
 	50% {
 		transform:rotate(0deg);
@@ -329,7 +349,7 @@ div.dropdown-menu.user-info h4 {
 		transform:rotate(0deg);
 	}
 }
-@keyframes diggle { 
+@keyframes diggle {
 	0% {
 		transform: rotate(0deg);
 	}
@@ -563,7 +583,7 @@ table .fa.fa-rupee {
 }
 
 .card button[data-toggle='collapse']:hover {
-/* 	background-color: #c9dde7;
+	/* 	background-color: #c9dde7;
 	color: #11506f; */
 	cursor: pointer;
 }
@@ -579,19 +599,25 @@ table .fa.fa-rupee {
 .panel-heading .dropdown-toggle .fa {
 	
 }
+
 .hoverable:hover {
-    -webkit-transition: box-shadow .45s;
-    transition: box-shadow .45s;
-    box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+	-webkit-transition: box-shadow .45s;
+	transition: box-shadow .45s;
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0
+		rgba(0, 0, 0, .19);
 }
+
 .depth {
-    -webkit-transition: box-shadow .45s;
-    transition: box-shadow .45s;
-    box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+	-webkit-transition: box-shadow .45s;
+	transition: box-shadow .45s;
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0
+		rgba(0, 0, 0, .19);
 }
+
 .card .dropdown-toggle::after {
-    display:none
+	display: none
 }
+
 hr.slim {
 	margin: 5px -15px;
 	border-color: #ccc;
@@ -799,11 +825,10 @@ However, delay the fade out process for 2.5 seconds */
 
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
-	from { 
+	from {
 		bottom:0;
 		opacity: 0;
 	}
-
 	to {
 		bottom: 30px;
 		opacity: 1;
@@ -819,6 +844,7 @@ However, delay the fade out process for 2.5 seconds */
 		bottom: 30px;
 		opacity: 1;
 	}
+
 }
 @-webkit-keyframes fadeout {
 	from { 
@@ -830,17 +856,19 @@ However, delay the fade out process for 2.5 seconds */
 		bottom: 0;
 		opacity: 0;
 	}
+
 }
 @keyframes fadeout {
 	from { 
 		bottom:30px;
 		opacity: 1;
 	}
-
+	
 	to {
 		bottom: 0;
 		opacity: 0;
 	}
+
 }
 @-webkit-keyframes zoomin {
 	from { 
@@ -848,62 +876,55 @@ However, delay the fade out process for 2.5 seconds */
 		width: 35px;
 		height: 35px;
 	}
-
+	
 	to {
 		margin: -63px -57px;
 		width: 150px;
 		height: 150px;
 	}
+
 }
 @keyframes zoomin {
-	from {
-		margin: -5px auto;
+	from { 
+		margin:-5pxauto;
 		width: 35px;
 		height: 35px;
 	}
-
+	
 	to {
 		margin: -63px -57px;
 		width: 150px;
 		height: 150px;
 	}
+
 }
 @-webkit-keyframes zoomout {
-	from {
-		margin: -63px -57px;
+	from { 
+		margin:-63px-57px;
 		width: 150px;
 		height: 150px
 	}
-
+	
 	to {
 		margin: -5px auto;
 		width: 35px;
 		height: 150px
 	}
+
 }
 @keyframes zoomout {
-	from {
-		margin: -63px -57px;
+	from { 
+		margin:-63px-57px;
 		width: 150px;
 		height: 150px
 	}
-
+	
 	to {
 		margin: -5px auto;
 		width: 35px;
 		height: 150px
 	}
-}
-footer {
-	/* 	background-color: #222; */
-	/* 	color: #fff; */
-	/* 	box-sizing: border-box; */
-	
-}
 
-footer h3 {
-	/* 	margin: 15px 0px; */
-	
 }
 
 footer img {
@@ -977,11 +998,11 @@ footer img {
 
 @-webkit-keyframes sk-bounce { 
 	0%, 100% {
-		-webkit-transform: scale(0.0)
+		-webkit-transform: scale(0.0);
 	}
-
+	
 	50% {
-		-webkit-transform: scale(1.0)
+		-webkit-transform : scale (1.0);
 	}
 }
 @keyframes sk-bounce { 
@@ -990,7 +1011,7 @@ footer img {
 		-webkit-transform: scale(0.0);
 	}
 	50% {
-		transform: scale(1.0);
-		-webkit-transform:scale(1.0);
+		transform : scale (1.0);
+		-webkit-transform : scale (1.0);
 	}
 }
