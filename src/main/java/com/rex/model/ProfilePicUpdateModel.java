@@ -17,8 +17,7 @@ public class ProfilePicUpdateModel {
 		conn = (new DBConnector()).getConnection();
 		try {
 			stmt = conn.prepareStatement("UPDATE users SET users.src=? WHERE users.user_id=?");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -31,7 +30,8 @@ public class ProfilePicUpdateModel {
 			stmt.execute();
 			process.setQuery("true");
 			return process;
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("G-P-U-1", e.toString(), this.getClass().toGenericString());
 		}
 	}

@@ -39,11 +39,7 @@ public class AdminModel {
 			ccp = conn.prepareStatement("UPDATE users SET users.password=? WHERE users.user_id=?");
 			ck = conn.prepareStatement(
 					"DELETE users, addresses FROM users LEFT JOIN addresses ON addresses.add_id= users.add_id WHERE users.user_id=?");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -74,7 +70,8 @@ public class AdminModel {
 			} else {
 				return new ErrorBean("A-L-A-1", "Incorrect Password!", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("A-L-A-3", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -93,8 +90,7 @@ public class AdminModel {
 								rs.getString("addresses.state"))));
 			}
 			return al;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -118,7 +114,8 @@ public class AdminModel {
 				return new SuccessBean("A-D-U-2", "User Existance not Found (" + mem.getUid() + ")", "admin-update",
 						"failed");
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("A-D-U-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
@@ -133,7 +130,8 @@ public class AdminModel {
 			} else {
 				return new ErrorBean("A-C-A-2", "User Existance not Found", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("A-C-A-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
@@ -146,7 +144,8 @@ public class AdminModel {
 			} else {
 				return new ErrorBean("A-C-K-2", "User Existance not Found", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("A-C-K-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
@@ -163,7 +162,8 @@ public class AdminModel {
 			} else {
 				return new ErrorBean("A-C-P-2", "User Existance not Found", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("A-C-P-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
@@ -183,7 +183,8 @@ public class AdminModel {
 				return new SuccessBean("A-C-U-1", "User Existance not Found (" + user.getUid() + ")",
 						"admin-client-update", "failed");
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("A-C-U-1", e.toString(), this.getClass().toGenericString());
 		}
 	}
@@ -200,7 +201,8 @@ public class AdminModel {
 				return new SuccessBean("A-C-P-1", "User Existance not Found (" + uid + ")", "admin-client-update",
 						"failed");
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("A-C-P-1", e.toString(), this.getClass().toGenericString());
 		}
 	}

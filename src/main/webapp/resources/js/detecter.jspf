@@ -31,13 +31,13 @@ $(document).ready(function() {
 	</c:when>
 	<c:when test="${process eq 'failed' }">
 		<c:choose>
-			<c:when test="${bean.code eq 'C-A-1' }">
+			<c:when test="${bean.code eq 'C-L-A-1' }">
 				$("#clientAuthErrorModal").modal('show');
 			</c:when>
-			<c:when test="${bean.code eq 'C-A-2' }">
+			<c:when test="${bean.code eq 'C-L-A-2' }">
 				$("#clientActiveErrorModal").modal('show');
 			</c:when>
-			<c:when test="${bean.code eq 'A-A-1' }">
+			<c:when test="${bean.code eq 'A-L-A-1' }">
 				$("#authErrorModal").modal('show');
 			</c:when>
 			<c:otherwise>

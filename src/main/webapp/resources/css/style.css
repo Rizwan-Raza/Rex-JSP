@@ -1,6 +1,10 @@
 @font-face {
 	font-family: 'LeckerliOne';
-	src: url('../fonts/LeckerliOne-Regular.otf');
+	src: url('../webfonts/LeckerliOne-Regular.otf');
+}
+
+button, a {
+	cursor: pointer;
 }
 
 .btn, .dropdown-menu, .form-control, .modal-header, .modal-content,
@@ -27,6 +31,46 @@
 
 .bg-google-plus {
 	background-color: #DB4437 !important;
+	color: #ffffff !important;
+}
+
+.bg-instagram {
+	background-color: #517fa4 !important;
+	color: #ffffff !important;
+}
+
+.bg-pinterest {
+	background-color: #cb2027 !important;
+	color: #ffffff !important;
+}
+
+.bg-tumblr {
+	background-color: #32506d !important;
+	color: #ffffff !important;
+}
+
+.bg-github {
+	background-color: #171516 !important;
+	color: #ffffff !important;
+}
+
+.bg-stack-overflow {
+	background-color: #f48024 !important;
+	color: #ffffff !important;
+}
+
+.bg-free-code-camp {
+	background-color: #006400 !important;
+	color: #ffffff !important;
+}
+
+.bg-devientart {
+	background-color: #05cc47 !important;
+	color: #ffffff !important;
+}
+
+.bg-blogger {
+	background-color: #f57d00 !important;
 	color: #ffffff !important;
 }
 
@@ -152,7 +196,7 @@ div.overlays>div {
 	/*top: 10%;*/
 	bottom: 15%;
 	width: 75%;
-	margin-left: -37.5%;
+	margin-left: -36%;
 	background-color: rgba(0, 0, 0, 0.75);
 	left: 50%;
 	/*background-color: red;*/
@@ -331,41 +375,81 @@ div.dropdown-menu.user-info h4 {
 	animation: diggle 0.4s infinite;
 }
 
-@-webkit-keyframes diggle { 
-	0% {
-		transform: rotate(0deg);
-	}
-
-	25% {
-		transform:rotate(-10deg);
-	}
-	50% {
-		transform:rotate(0deg);
-	}
-	75% {
-		transform:rotate(10deg);
-	}
-	100% {
-		transform:rotate(0deg);
-	}
+@
+-webkit-keyframes diggle { 0% {
+	transform: rotate(0deg);
 }
-@keyframes diggle {
-	0% {
-		transform: rotate(0deg);
-	}
 
-	25% {
-		transform:rotate(-10deg);
-	}
-	50% {
-		transform:rotate(0deg);
-	}
-	75% {
-		transform:rotate(10deg);
-	}
-	100% {
-		transform:rotate(0deg);
-	}
+25%
+{
+transform
+:rotate(-10deg)
+;
+
+	
+}
+50%
+{
+transform
+:rotate(0deg)
+;
+
+	
+}
+75%
+{
+transform
+:rotate(10deg)
+;
+
+	
+}
+100%
+{
+transform
+:rotate(0deg)
+;
+
+	
+}
+}
+@
+keyframes diggle { 0% {
+	transform: rotate(0deg);
+}
+
+25%
+{
+transform
+:rotate(-10deg)
+;
+
+	
+}
+50%
+{
+transform
+:rotate(0deg)
+;
+
+	
+}
+75%
+{
+transform
+:rotate(10deg)
+;
+
+	
+}
+100%
+{
+transform
+:rotate(0deg)
+;
+
+	
+}
 }
 table td .fa-td {
 	font-size: 24px;
@@ -614,6 +698,10 @@ table .fa.fa-rupee {
 		rgba(0, 0, 0, .19);
 }
 
+.bg-default {
+	background-color: #d0dce0 !important;
+}
+
 .card .dropdown-toggle::after {
 	display: none
 }
@@ -824,109 +912,102 @@ However, delay the fade out process for 2.5 seconds */
 }
 
 /* Animations to fade the snackbar in and out */
-@-webkit-keyframes fadein {
-	from {
-		bottom:0;
-		opacity: 0;
-	}
-	to {
-		bottom: 30px;
-		opacity: 1;
-	}
-}
-@keyframes fadein {
-	from { 
-		bottom:0;
-		opacity: 0;
-	}
-
-	to {
-		bottom: 30px;
-		opacity: 1;
-	}
-
-}
-@-webkit-keyframes fadeout {
-	from { 
-		bottom:30px;
-		opacity: 1;
-	}
-
-	to {
-		bottom: 0;
-		opacity: 0;
-	}
-
-}
-@keyframes fadeout {
-	from { 
-		bottom:30px;
-		opacity: 1;
-	}
-	
-	to {
-		bottom: 0;
-		opacity: 0;
-	}
-
-}
-@-webkit-keyframes zoomin {
-	from { 
-		margin:-5pxauto;
-		width: 35px;
-		height: 35px;
-	}
-	
-	to {
-		margin: -63px -57px;
-		width: 150px;
-		height: 150px;
-	}
-
-}
-@keyframes zoomin {
-	from { 
-		margin:-5pxauto;
-		width: 35px;
-		height: 35px;
-	}
-	
-	to {
-		margin: -63px -57px;
-		width: 150px;
-		height: 150px;
-	}
-
-}
-@-webkit-keyframes zoomout {
-	from { 
-		margin:-63px-57px;
-		width: 150px;
-		height: 150px
-	}
-	
-	to {
-		margin: -5px auto;
-		width: 35px;
-		height: 150px
-	}
-
-}
-@keyframes zoomout {
-	from { 
-		margin:-63px-57px;
-		width: 150px;
-		height: 150px
-	}
-	
-	to {
-		margin: -5px auto;
-		width: 35px;
-		height: 150px
-	}
-
+@
+-webkit-keyframes fadein {from { bottom:0;
+	opacity: 0;
 }
 
+to {
+	bottom: 30px;
+	opacity: 1;
+}
+
+}
+@
+keyframes fadein {from { bottom:0;
+	opacity: 0;
+}
+
+to {
+	bottom: 30px;
+	opacity: 1;
+}
+
+}
+@
+-webkit-keyframes fadeout {from { bottom:30px;
+	opacity: 1;
+}
+
+to {
+	bottom: 0;
+	opacity: 0;
+}
+
+}
+@
+keyframes fadeout {from { bottom:30px;
+	opacity: 1;
+}
+
+to {
+	bottom: 0;
+	opacity: 0;
+}
+
+}
+@
+-webkit-keyframes zoomin {from { margin:-5pxauto;
+	width: 35px;
+	height: 35px;
+}
+
+to {
+	margin: -63px -57px;
+	width: 150px;
+	height: 150px;
+}
+
+}
+@
+keyframes zoomin {from { margin:-5pxauto;
+	width: 35px;
+	height: 35px;
+}
+
+to {
+	margin: -63px -57px;
+	width: 150px;
+	height: 150px;
+}
+
+}
+@
+-webkit-keyframes zoomout {from { margin:-63px-57px;
+	width: 150px;
+	height: 150px
+}
+
+to {
+	margin: -5px auto;
+	width: 35px;
+	height: 150px
+}
+
+}
+@
+keyframes zoomout {from { margin:-63px-57px;
+	width: 150px;
+	height: 150px
+}
+
+to {
+	margin: -5px auto;
+	width: 35px;
+	height: 150px
+}
+
+}
 footer img {
 	width: 25px;
 	margin-top: -10px;
@@ -996,22 +1077,51 @@ footer img {
 	animation-delay: -1.0s;
 }
 
-@-webkit-keyframes sk-bounce { 
-	0%, 100% {
-		-webkit-transform: scale(0.0);
-	}
-	
-	50% {
-		-webkit-transform : scale (1.0);
-	}
+@
+-webkit-keyframes sk-bounce { 0%, 100% {
+	-webkit-transform: scale(0.0);
 }
-@keyframes sk-bounce { 
-	0%, 100% {
-		transform: scale(0.0);
-		-webkit-transform: scale(0.0);
-	}
-	50% {
-		transform : scale (1.0);
-		-webkit-transform : scale (1.0);
-	}
+
+50%
+{
+-webkit-transform
+ 
+:
+ 
+scale
+(1
+.0
+);
+
+	
+}
+}
+@
+keyframes sk-bounce { 0%, 100% {
+	transform: scale(0.0);
+	-webkit-transform: scale(0.0);
+}
+50%
+{
+transform
+ 
+:
+ 
+scale
+(1
+.0
+);
+
+		
+-webkit-transform
+ 
+:
+ 
+scale
+(1
+.0
+);
+
+	
+}
 }

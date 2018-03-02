@@ -1,6 +1,16 @@
 /** ** Common start */
 var valid_url = true;
 $(function() {
+	var current = location.pathname;
+	$('nav .navbar-nav li a').each(function() {
+		var $this = $(this);
+		// if the current path is like this link, make it active
+		if (current.indexOf($this.attr('href')) !== -1) {
+			$("nav .navbar-nav li").first().removeClass("active");
+			$this.addClass('active');
+		}
+	})
+
 	$("input[autofocus]").first().focus();
 	$(".modal").on('shown.bs.modal', function() {
 		$("#" + this.id + " input[autofocus]").first().focus();

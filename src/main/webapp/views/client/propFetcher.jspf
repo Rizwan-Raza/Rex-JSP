@@ -9,7 +9,10 @@
 				</h5>
 						<p class="text-center">
 							Want to post property? then <a
-								href="javascript:navTo('sell-property')" class="alert-link">Post
+								href="javascript:${fetcherType eq 'BUY' ? 'navTo(\'sell-property\')' : ';'}"
+								class="alert-link"
+								${fetcherType eq 'ALL' ? 'data-toggle=\"modal\"
+					data-target=\"#clientLoginModal\"' : ''}>Post
 								Now</a>.
 						</p>
 					</c:when>
@@ -27,7 +30,7 @@
 	</c:when>
 	<c:when test="${empty props }">
 		<div class=" alert alert-danger">
-			<i class="fa fa-5x fa-warning text-center d-block"></i>
+			<i class="fa fa-5x fa-exclamation-triangle text-center d-block"></i>
 			<h4 class="alert-heading text-center">Sorry, Something went
 				wrong</h4>
 			<p class="text-center">
@@ -99,7 +102,7 @@
 												class='fa fa-fw fa-info-circle'></i> Informations</a></li>
 										<li><a class="dropdown-item"
 											href="javascript:showPropImages('${prop.images }', '${prop.title }', ${prop.propID });"><i
-												class='fa fa-fw fa-picture-o'></i> Images</a></li>
+												class='fa fa-fw fa-image'></i> Images</a></li>
 										<li class="dropdown-divider"></li>
 										<h6 class='dropdown-header'>Delete Posted Property</h6>
 										<li><a class="dropdown-item"
@@ -115,7 +118,8 @@
 										<li data-target="
 								#propCarousel-${prop.propID}"
 											data-slide-to="${loop.index}"
-											${loop.index eq 0 ? 'class=\"active\"' : ''}></li></c:if>
+											${loop.index eq 0 ? 'class=\"active\"' : ''}></li>
+									</c:if>
 								</c:forEach>
 							</ol>
 							<div class="carousel-inner">
@@ -235,33 +239,33 @@
 													<tr>
 														<td><h6 class="mb-0 pl-2">Internet / Wi-Fi:</h6></td>
 														<td><i
-															class="fa fa-fw fa-${prop.amens.contains('net') ? 'check text-success': 'remove text-danger'}"></i></td>
+															class="fa fa-fw fa-${prop.amens.contains('net') ? 'check text-success': 'times text-danger'}"></i></td>
 													</tr>
 													<tr>
 														<td><h6 class="mb-0 pl-2">Air-Conditioned:</h6></td>
 														<td><i
-															class="fa fa-fw fa-${prop.amens.contains('air') ? 'check text-success': 'remove text-danger'}"></i></td>
+															class="fa fa-fw fa-${prop.amens.contains('air') ? 'check text-success': 'times text-danger'}"></i></td>
 													</tr>
 													<tr>
 														<td><h6 class="mb-0 pl-2">RO Water System:</h6></td>
 														<td><i
-															class="fa fa-fw fa-${prop.amens.contains('ro') ? 'check text-success': 'remove text-danger'}"></i></td>
+															class="fa fa-fw fa-${prop.amens.contains('ro') ? 'check text-success': 'times text-danger'}"></i></td>
 													</tr>
 													<tr>
 														<td><h6 class="mb-0 pl-2">Gas Supply:</h6></td>
 														<td><i
-															class="fa fa-fw fa-${prop.amens.contains('gas') ? 'check text-success': 'remove text-danger'}"></i></td>
+															class="fa fa-fw fa-${prop.amens.contains('gas') ? 'check text-success': 'times text-danger'}"></i></td>
 													</tr>
 													<tr>
 														<td><h6 class="mb-0 pl-2">Water Supply and
 																Pipeling:</h6></td>
 														<td><i
-															class="fa fa-fw fa-${prop.amens.contains('water') ? 'check text-success': 'remove text-danger'}"></i></td>
+															class="fa fa-fw fa-${prop.amens.contains('water') ? 'check text-success': 'times text-danger'}"></i></td>
 													</tr>
 													<tr>
 														<td><h6 class="mb-0 pl-2">Ready to move:</h6></td>
 														<td><i
-															class="fa fa-fw fa-${prop.available eq '1' ? 'check text-success': 'remove text-danger'}"></i></td>
+															class="fa fa-fw fa-${prop.available eq '1' ? 'check text-success': 'times text-danger'}"></i></td>
 													</tr>
 												</tbody>
 											</table>
@@ -344,24 +348,25 @@
 								</div>
 							</div>
 							<div class="row no-gutters">
+								<c:if test="${fetcherType ne 'MY' }">
+									<div class="col-6">
+										<button class="btn btn-light btn-block"
+											onclick="showSeller('${prop.seller.fname }','${prop.seller.lname }', '${prop.seller.email }', '${prop.seller.gender }', '${prop.seller.contact }', '${prop.seller.src }', 'Seller')">
+											<i class="fa fa-fw fa-envelope"></i> Mail Seller
+										</button>
+									</div>
+								</c:if>
 								<div class="col-6">
 									<button class="btn btn-light btn-block"
-										onclick="showSeller('${prop.seller.fname }','${prop.seller.lname }', '${prop.seller.email }', '${prop.seller.gender }', '${prop.seller.contact }', '${prop.seller.src }', 'Seller')">
-										<i class="fa fa-fw fa-send"></i> Mail Seller
+										onclick="window.location.href='PropertyDetails/${prop.propID}'">
+										<i class="fa fa-fw fa-external-link-alt"></i> See more
 									</button>
 								</div>
-								<div class="col-6">
-									<button class="btn btn-light btn-block">
-										<i class="fa fa-fw fa-external-link"></i> See more
-									</button>
-								</div>
-							</div>
-							<div class="row no-gutters">
 								<div class="col-6">
 									<button
 										class="btn btn-success btn-block ${prop.available eq '0' ? 'disabled' : ''}"
 										${prop.available eq '0' ? 'data-toggle=\"tooltip\" title=\"Not Available\"' : ''}>
-										<i class="fa fa-fw fa-inr"></i>
+										<i class="fa fa-fw fa-rupee-sign"></i>
 										<c:choose>
 											<c:when test="${prop.priceDisplay eq '1' }">
 												<c:choose>
@@ -376,11 +381,13 @@
 										</c:choose>
 									</button>
 								</div>
-								<div class="col-6">
-									<button class="btn btn-outline-danger btn-block">
-										<i class="fa fa-fw fa-heart-o"></i> Like
-									</button>
-								</div>
+								<c:if test="${fetcherType ne 'MY' }">
+									<div class="col-6">
+										<button class="btn btn-outline-danger btn-block">
+											<i class="far fa-fw fa-heart"></i> Like
+										</button>
+									</div>
+								</c:if>
 							</div>
 						</div>
 						<div class="card-footer">

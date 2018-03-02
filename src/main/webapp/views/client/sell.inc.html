@@ -125,7 +125,9 @@
 								<input type="number" name="p-area" class="form-control"
 									placeholder="Enter Area Covered by Property" required
 									step="100" max="1000000" min="100">
-								<div class="input-group-addon border-left-0">ft<sup>2</sup></div>
+								<div class="input-group-addon border-left-0">
+									ft<sup>2</sup>
+								</div>
 							</div>
 						</div>
 						<div class="col-md-6 form-group">
@@ -135,17 +137,19 @@
 								<input type="number" name="land" class="form-control"
 									placeholder="Enter Land Area" required step="100" max="1000000"
 									min="100">
-								<div class="input-group-addon border-left-0">ft<sup>2</sup></div>
+								<div class="input-group-addon border-left-0">
+									ft<sup>2</sup>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6 form-group">
 							<label class="control-label" for="price"><i
-								class="fa fa-fw fa-money"></i> Total Price</label>
+								class="far fa-fw fa-money-bill-alt"></i> Total Price</label>
 							<div class="input-group">
 								<div class="input-group-addon border-right-0">
-									<i class="fa fa-fw fa-rupee"></i>
+									<i class="fa fa-fw fa-rupee-sign"></i>
 								</div>
 								<input type="number" name="price" class="form-control"
 									placeholder="Enter Price in Rupees" required step="100000"
@@ -232,7 +236,7 @@
 						</div>
 						<div class="col-md-4 form-group">
 							<label class="control-label" for="s-dis"><i
-								class="fa fa-fw fa-mortar-board"></i> School</label>
+								class="fa fa-fw fa-graduation-cap"></i> School</label>
 							<div class="input-group">
 								<input type="number" class="form-control" name="s-dis"
 									placeholder="Distance from nearest School in KMS" max="1000"
@@ -256,7 +260,7 @@
 					<div class="row">
 						<div class="col-md-4 form-group">
 							<label class="control-label" for="units"><i
-								class="fa fa-fw fa-building-o"></i> Available Units</label>
+								class="fa fa-fw fa-building"></i> Available Units</label>
 							<div class="input-group">
 								<input type="number" name="units" class="form-control"
 									placeholder="Enter Available Units" required max="1000" min="1">
@@ -265,13 +269,13 @@
 						</div>
 						<div class="col-md-4 form-group">
 							<label class="control-label" for="floor"><i
-								class="fa fa-fw fa-building-o"></i> Floor Number (0 for Ground,
+								class="fa fa-fw fa-building"></i> Floor Number (0 for Ground,
 								Optional)</label> <input type="number" name="floor" class="form-control"
 								placeholder="Enter Floor Number" max="100" min="-3">
 						</div>
 						<div class="col-md-4 form-group">
 							<label class="control-label" for="t-floor"><i
-								class="fa fa-fw fa-building-o"></i> Total Floors</label> <input
+								class="fa fa-fw fa-building"></i> Total Floors</label> <input
 								type="number" name="t-floors" class="form-control"
 								placeholder="Enter Total Number of Floors" required max="100"
 								min="1">
@@ -294,9 +298,9 @@
 						</div>
 						<div class="col-md-4 form-group">
 							<label class="control-label" for="image"><i
-								class="fa fa-fw fa-picture-o"></i> Property Images (at least 1)
-							</label> <label class="custom-file"> <input type="file"
-								name="images" accept="image/*" multiple id="s-p-images"
+								class="fa fa-fw fa-image"></i> Property Images (at least 1) </label> <label
+								class="custom-file"> <input type="file" name="images"
+								accept="image/*" multiple id="s-p-images"
 								onchange="readURLs(this)" required min="1" max="20"
 								class="custom-file-input"> <span
 								class="custom-file-control"></span>

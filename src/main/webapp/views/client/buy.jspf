@@ -1,5 +1,5 @@
 <%@page import="com.rex.bean.UserBean"%>
-<%@page import="com.rex.model.ClientModel"%>
+<%@page import="com.rex.model.CommonModel"%>
 <div id="buy-property" class="tab-pane fade show active">
 	<br>
 	<h4>
@@ -10,7 +10,8 @@
 	<br>
 	<%
 		request.setAttribute("props",
-				new ClientModel().getProps(((UserBean) session.getAttribute("user")).getUid(), "BUY"));
+				new CommonModel().getProps(((UserBean) session.getAttribute("user")).getUid(), "BUY"));
 	%>
+	<c:set var="fetcherType" value="BUY" />
 	<jsp:directive.include file="propFetcher.jspf" />
 </div>

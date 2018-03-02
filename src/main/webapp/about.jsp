@@ -8,6 +8,12 @@
 <meta charset="UTF-8">
 <title>About Us | R.E.X</title>
 <jsp:directive.include file="views/head.inc.html" />
+<style>
+dd a span {
+	width: 135px;
+	display: inline-block
+}
+</style>
 </head>
 <body>
 	<jsp:directive.include file="resources/js/detecter.jspf" />
@@ -63,44 +69,46 @@
 			<div class="col-sm-6 col-md-6 col-lg-3">
 				<div class="card text-center hoverable">
 					<img class="card-img-top" src="resources/img/Raza2.jpg"
-						alt="Rizwan Raza">
+						alt="Rizwan Raza"
+						onclick="showImageModal('Rizwan Raza', 'resources/img/Raza2.jpg')">
 					<div class="card-body">
 						<h5 class="card-title">Rizwan Raza</h5>
 						<p class="card-text">Designer and Developer</p>
 						<a href="https://www.facebook.com/RexTerminous"
 							class="btn bg-facebook px-2 hoverable"><i
-							class="fa fa-fw fa-facebook"></i></a> <a
+							class="fab fa-fw fa-facebook-f"></i></a> <a
 							href="https://twitter.com/RexTerminous"
 							class="btn bg-twitter px-2 hoverable"><i
-							class="fa fa-fw fa-twitter"></i></a> <a
+							class="fab fa-fw fa-twitter"></i></a> <a
 							href="https://www.linkedin.com/in/rex-terminous/"
 							class="btn bg-linkedin px-2 hoverable"><i
-							class="fa fa-fw fa-linkedin"></i></a> <a
+							class="fab fa-fw fa-linkedin-in"></i></a> <a
 							href="google.com/+RizwanRaza365"
 							class="btn bg-google-plus px-2 hoverable"><i
-							class="fa fa-fw fa-google-plus"></i></a>
+							class="fab fa-fw fa-google-plus-g"></i></a>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-6 col-md-6 col-lg-3">
 				<div class="card text-center hoverable">
 					<img class="card-img-top" src="resources/img/Tausif2.jpg"
-						alt="Rizwan Raza">
+						alt="Mohd Tausif Raza"
+						onclick="showImageModal('Mohd Tausif Raza', 'resources/img/Tausif2.jpg')">
 					<div class="card-body">
 						<h5 class="card-title">Mohd Tausif Raza</h5>
 						<p class="card-text">Guide</p>
 						<a href="https://www.facebook.com/tausifraza91"
 							class="btn bg-facebook px-2 hoverable"><i
-							class="fa fa-fw fa-facebook"></i></a> <a
+							class="fab fa-fw fa-facebook-f"></i></a> <a
 							href="https://twitter.com/tausifraza76"
 							class="btn bg-twitter px-2 hoverable"><i
-							class="fa fa-fw fa-twitter"></i></a> <a
+							class="fab fa-fw fa-twitter"></i></a> <a
 							href="https://www.linkedin.com/in/mohd-tausif-raza-a7812256/"
 							class="btn bg-linkedin px-2 hoverable"><i
-							class="fa fa-fw fa-linkedin"></i></a> <a
+							class="fab fa-fw fa-linkedin-in"></i></a> <a
 							href="https://plus.google.com/u/0/111293866098336955004"
 							class="btn bg-google-plus px-2 hoverable"><i
-							class="fa fa-fw fa-google-plus"></i></a>
+							class="fab fa-fw fa-google-plus-g"></i></a>
 					</div>
 				</div>
 			</div>
@@ -145,6 +153,7 @@
 				</div>
 			</div>
 		</div> -->
+		<hr />
 		<div class="table-responsive mt-3">
 			<table class="table table-striped">
 				<thead>
@@ -231,6 +240,7 @@
 				</tfoot>
 			</table>
 		</div>
+		<hr />
 		<dl class="row">
 			<dt class="col-sm-3">Java Technologies</dt>
 			<dd class="col-sm-9">
@@ -256,7 +266,7 @@
 			<dd class="col-sm-9">
 				<p>
 					HTML5 with Canvas and Semantics Tags<br>CSS3 with Animations
-					and Media Query<br>Bootstrap 4<br>Font Awesome 4
+					and Media Query<br>Bootstrap 4<br>Font Awesome 5
 				</p>
 			</dd>
 
@@ -264,9 +274,10 @@
 			<dd class="col-sm-9">
 				<p>
 					eXtensible Markup Language (XML)<br>OpenShift Hosting Server
-					Starter 3 Pro<br>MySQL Database 5.7<br>JSPMyAdmin (Self
-					Made from GitHub's OpenSource Code)<br>Properties Files for
-					Credentials and Initializers<br>MailGun
+					Starter 3 Pro<br>MySQL Database 5.7<br> <a href="mysql/">JSPMyAdmin</a>
+					(Self Made from GitHub's OpenSource Code)<br> <a
+						href="props.jsp">Properties Files</a> for Credentials and
+					Initializers<br>MailGun
 				</p>
 			</dd>
 			<dt class="col-sm-3 text-truncate">Dev. and Build Tools</dt>
@@ -275,6 +286,29 @@
 					Java Development Kit 9 (JDK 9)<br>Maven Build Tool<br>Eclipse
 					Oxygen IDE<br>MySQL WorkBench<br>GitHub Repository<br>Apache
 					Tomcat Server 9
+				</p>
+			</dd>
+			<dt class="col-sm-3 text-truncate">References and Helps</dt>
+			<dd class="col-sm-9">
+				<p>
+					<a href="https://stackoverflow.com/"><span>StackOverflow</span>
+						https://stackoverflow.com/</a><br> <a
+						href="https://www.w3schools.com/"><span>W3Schools</span>
+						https://www.w3schools.com/</a><br> <a href="https://github.com/"><span>Github</span>
+						https://github.com/</a><br> <a href="https://codepen.io/"><span>CodePen</span>
+						https://codepen.io/</a><br> <a href="https://bootsnipp.com/"><span>Bootsnipp</span>
+						https://bootsnipp.com/</a><br> <a
+						href="https://docs.oracle.com/en/"><span>Oracle Help
+							Center</span> https://docs.oracle.com/en/</a><br> <a
+						href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"><span>Bootstrap
+							Docs</span> https://getbootstrap.com/docs/4.0/</a><br> <a
+						href="https://www.magicbricks.com/"><span>MagicBricks</span>
+						https://www.magicbricks.com/</a> <br> <a
+						href="https://www.commonfloor.com/"><span>commonfloor</span>
+						https://www.commonfloor.com/ </a> <br> <a
+						href="http://rex.esy.es/"><span>R.E.X</span>
+						http://rex.esy.es/</a> <br> <a href="http://rex.esy.es/pl/"><span>ProLog
+							Academy</span> http://rex.esy.es/pl/</a>
 				</p>
 			</dd>
 			<dt class="col-sm-3 text-truncate">GitHub Source Code</dt>

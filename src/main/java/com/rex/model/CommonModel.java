@@ -2,13 +2,17 @@ package com.rex.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
 import com.rex.bean.PropBean;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
+import com.rex.bean.UserBean;
 import com.rex.util.DBConnector;
 
 public class CommonModel {
@@ -23,6 +27,15 @@ public class CommonModel {
 	private PreparedStatement pdel;
 	private PreparedStatement amni = null;
 	private PreparedStatement amnd = null;
+	private PreparedStatement gpg = null;
+	private PreparedStatement gpb = null;
+	private PreparedStatement gpm = null;
+	private PreparedStatement gph = null;
+	private PreparedStatement gpa = null;
+	private PreparedStatement gpi = null;
+	private PreparedStatement gps = null;
+
+	private ResultSet rs_temp = null;
 
 	public CommonModel() {
 		conn = (new DBConnector()).getConnection();
@@ -41,11 +54,19 @@ public class CommonModel {
 					"DELETE properties, addresses, property_images, property_amenities FROM properties INNER JOIN addresses ON properties.add_id=addresses.add_id INNER JOIN property_images ON properties.pid=property_images.pid INNER JOIN property_amenities ON properties.pid=property_amenities.pid WHERE properties.pid=?");
 			amni = conn.prepareStatement("INSERT INTO property_amenities(pid, amenity) VALUES(?, ?)");
 			amnd = conn.prepareStatement("DELETE FROM property_amenities WHERE pid=?");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
+			gpg = conn.prepareStatement(
+					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id ORDER BY properties.time DESC");
+			gps = conn.prepareStatement(
+					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND properties.pid=?");
+			gpb = conn.prepareStatement(
+					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id!=? ORDER BY properties.time DESC");
+			gpm = conn.prepareStatement(
+					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id=? ORDER BY properties.time DESC");
+			gph = conn.prepareStatement(
+					"SELECT properties.pid, properties.title, properties.bhk, properties.price FROM properties LIMIT 4");
+			gpa = conn.prepareStatement("SELECT * FROM property_amenities WHERE pid=?");
+			gpi = conn.prepareStatement("SELECT * FROM property_images WHERE pid=?");
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -63,7 +84,8 @@ public class CommonModel {
 			} else {
 				return new ErrorBean("U-C-A-1", "Can't Change Address, try again", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("U-C-A-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -86,7 +108,8 @@ public class CommonModel {
 			} else {
 				return new ErrorBean("C-P-F-1", "Can't Change Features, try again", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("C-P-F-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -113,7 +136,8 @@ public class CommonModel {
 				return new ErrorBean("C-P-I-1", "Can't Change Informations, try again",
 						this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("C-P-I-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -128,7 +152,8 @@ public class CommonModel {
 			} else {
 				return new ErrorBean("P-A-I-1", "Can't Add Image, try again", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("P-A-I-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -142,7 +167,8 @@ public class CommonModel {
 			} else {
 				return new ErrorBean("P-R-I-2", "Can't Remove Image, try again", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("P-R-I-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -161,7 +187,8 @@ public class CommonModel {
 			} else {
 				return new ErrorBean("U-P-E-2", "Can't Edit Property, try again", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("U-P-E-1", e.getMessage(), this.getClass().toGenericString());
 		}
 	}
@@ -174,8 +201,89 @@ public class CommonModel {
 			} else {
 				return new ErrorBean("U-P-D-2", "Can't Delet Property, try again", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
 			return new ErrorBean("U-P-D-1", e.getMessage(), this.getClass().toGenericString());
 		}
+	}
+
+	public ArrayList<PropBean> getProps(int uid, String type) {
+		try {
+			PreparedStatement gpd;
+			if (type == "BUY") {
+				gpd = gpb;
+			} else if (type == "MY") {
+				gpd = gpm;
+			} else if (type == "SINGLE") {
+				gpd = gps;
+			} else {
+				gpd = gpg;
+			}
+			if (type != "ALL")
+				gpd.setInt(1, uid);
+			ResultSet rs = gpd.executeQuery();
+			ArrayList<PropBean> al = new ArrayList<PropBean>();
+			while (rs.next()) {
+				int pid = rs.getInt("properties.pid");
+				gpa.setInt(1, pid);
+				rs_temp = gpa.executeQuery();
+				List<String> amens = new ArrayList<String>();
+				while (rs_temp.next()) {
+					amens.add(rs_temp.getString("amenity"));
+				}
+				gpi.setInt(1, pid);
+				rs_temp = gpi.executeQuery();
+				List<String> images = new ArrayList<String>();
+				while (rs_temp.next()) {
+					images.add(rs_temp.getString("src"));
+				}
+				UserBean seller = new UserBean(rs.getInt("users.user_id"), rs.getString("users.firstname"),
+						rs.getString("users.lastname"), rs.getString("users.email"), null, rs.getString("users.gender"),
+						rs.getString("users.contact"), rs.getInt("users.auth"), rs.getString("users.src"),
+						rs.getDate("users.time"), null);
+				AddressBean address = new AddressBean(rs.getInt("addresses.add_id"),
+						rs.getString("addresses.street_no"), rs.getString("addresses.town"),
+						rs.getString("addresses.city"), rs.getString("addresses.state"));
+				PropBean prop = new PropBean(seller, pid, rs.getString("properties.type"),
+						rs.getString("properties.t_type"), rs.getString("properties.title"),
+						rs.getInt("properties.bhk"), rs.getInt("properties.bathrooms"), rs.getInt("properties.age"),
+						rs.getInt("properties.furnished"), rs.getInt("properties.area"), rs.getInt("properties.l_area"),
+						rs.getInt("properties.price"), rs.getInt("properties.d_price"),
+						rs.getInt("properties.availability"), amens, images, rs.getInt("properties.hospital"),
+						rs.getInt("properties.school"), rs.getInt("properties.rail"), rs.getInt("properties.units"),
+						rs.getInt("properties.floor"), rs.getInt("properties.t_floors"),
+						rs.getString("properties.b_desc"), rs.getString("properties.tnc"),
+						rs.getTimestamp("properties.time"), rs.getTimestamp("properties.edit"), address);
+				al.add(prop);
+			}
+			return al;
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public ArrayList<PropBean> getProps() {
+		try {
+			ResultSet rs = gph.executeQuery();
+			ArrayList<PropBean> al = new ArrayList<PropBean>();
+			while (rs.next()) {
+				int pid = rs.getInt("properties.pid");
+				gpi.setInt(1, pid);
+				rs_temp = gpi.executeQuery();
+				List<String> images = new ArrayList<String>();
+				while (rs_temp.next()) {
+					images.add(rs_temp.getString("src"));
+				}
+				PropBean prop = new PropBean(null, pid, null, null, rs.getString("properties.title"),
+						rs.getInt("properties.bhk"), 0, 0, 0, 0, 0, rs.getInt("properties.price"), 0, 0, null, images,
+						0, 0, 0, 0, 0, 0, null, null, null, null, null);
+				al.add(prop);
+			}
+			return al;
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -21,7 +21,8 @@
 	<div
 		class="alert alert-success text-center alert-dismissible fade show"
 		role="alert">
-		<label>Welcome to Client Panel <strong>${user.fname}</strong>!
+		<label>Welcome <span class="d-none d-sm-inline">to
+				Client Panel</span> <strong>${user.fname}</strong>!
 		</label>
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">
@@ -36,16 +37,15 @@
 				Property</span></a> <a class="nav-item nav-link" href="#sell-property"
 			data-toggle="tab" role="tab" aria-controls="sell-property"
 			aria-selected="false"><span class="d-md-none"><i
-				class="fa fa-fw fa-pencil-square-o"></i></span><span
-			class="d-none d-md-inline">Sell Property</span></a> <a
-			class="nav-item nav-link" href="#my-property" data-toggle="tab"
-			role="tab" aria-controls="my-property" aria-selected="false"><span
-			class="d-md-none"><i class="fa fa-fw fa-user-circle"></i></span><span
-			class="d-none d-md-inline">My Properties</span></a> <a
-			class="nav-item nav-link disabled" href="#wishlist" data-toggle="tab"
-			role="tab" aria-controls="wishlist" aria-selected="false"><span
-			class="d-md-none"><i class="fa fa-fw fa-heart"></i></span><span
-			class="d-none d-md-inline">WishList</span></a>
+				class="fa fa-fw fa-edit"></i></span><span class="d-none d-md-inline">Sell
+				Property</span></a> <a class="nav-item nav-link" href="#my-property"
+			data-toggle="tab" role="tab" aria-controls="my-property"
+			aria-selected="false"><span class="d-md-none"><i
+				class="fa fa-fw fa-user-circle"></i></span><span class="d-none d-md-inline">My
+				Properties</span></a> <a class="nav-item nav-link disabled" href="#wishlist"
+			data-toggle="tab" role="tab" aria-controls="wishlist"
+			aria-selected="false"><span class="d-md-none"><i
+				class="fa fa-fw fa-heart"></i></span><span class="d-none d-md-inline">WishList</span></a>
 	</nav>
 
 	<div class="tab-content">

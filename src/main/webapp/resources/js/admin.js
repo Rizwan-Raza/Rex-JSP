@@ -24,7 +24,7 @@ function activateSuccess(data, status) {
 		var elem = $("tr#for-" + obj.user_id + " .act-link");
 		var action = elem.attr("href");
 		elem.attr("href", "javascript:de" + action.replace("javascript:", ""));
-		elem.html("<i class='fa fa-fw fa-remove'></i> Deactivate");
+		elem.html("<i class='fa fa-fw fa-times'></i> Deactivate");
 	}
 	snackbar(obj.message);
 }
@@ -42,7 +42,7 @@ function deactivateSuccess(data, status) {
 	$("#activationModal").modal("hide");
 	if (obj.response == "OK") {
 		$("tr#for-" + obj.user_id + " .act").html(
-				"<i class='fa fa-td fa-remove text-danger'></i>");
+				"<i class='fa fa-td fa-times text-danger'></i>");
 		var elem = $("tr#for-" + obj.user_id + " .act-link");
 		var action = elem.attr("href");
 		elem.attr("href", "javascript:" + action.substring(13, action.length));

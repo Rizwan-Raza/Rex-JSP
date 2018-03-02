@@ -45,7 +45,7 @@
 					<div class="info" data-toggle="modal"
 						data-target="#profilePictureModal">
 						<h5>
-							<i class="fa fa-fw fa-camera"></i> Change Photo
+							<i class="fa fa-camera text-center d-block"></i> Change Photo
 						</h5>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 					<c:when test="${log eq 'client'}">
 						<button class="btn btn-primary btn-sm" data-toggle="modal"
 							data-target="#clientEditProfileModal">
-							<i class="fa fa-fw fa-pencil"></i> Edit Profile
+							<i class="fa fa-fw fa-edit"></i> Edit Profile
 						</button>
 
 					</c:when>
@@ -66,14 +66,14 @@
 
 						<button class="btn btn-primary btn-sm" data-toggle="modal"
 							data-target="#adminEditProfileModal">
-							<i class="fa fa-fw fa-pencil"></i> Edit Profile
+							<i class="fa fa-fw fa-edit"></i> Edit Profile
 						</button>
 
 					</c:otherwise>
 				</c:choose>
 				<button class="btn btn-danger btn-sm" data-toggle="modal"
 					data-target="#logoutModal">
-					<i class="fa fa-fw fa-sign-out"></i> Logout
+					<i class="fa fa-fw fa-sign-out-alt"></i> Logout
 				</button>
 			</div>
 		</div></li>

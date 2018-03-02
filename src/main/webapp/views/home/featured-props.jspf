@@ -1,30 +1,30 @@
 
 <%
-	request.setAttribute("props", new ClientModel().getProps());
+	request.setAttribute("props", new CommonModel().getProps());
 %>
 <c:choose>
-	<c:when test="${props.size() eq '0' }">
+	<c:when test="${props eq null}">
 		<div class=" alert alert-danger">
-			<i class="fa fa-5x fa-shopping-cart text-center d-block"></i>
-			<h4 class="alert-heading text-center">
-				Sorry, no one posted any property
-				</h5>
-				<p class="text-center">
-					Want to post property? then <a
-						href="javascript:navTo('sell-property')" class="alert-link">Post
-						Now</a>.
-				</p>
-		</div>
-	</c:when>
-	<c:when test="${empty props }">
-		<div class=" alert alert-danger">
-			<i class="fa fa-5x fa-warning text-center d-block"></i>
+			<i class="fa fa-5x fa-exclamation-triangle text-center d-block"></i>
 			<h4 class="alert-heading text-center">Sorry, Something went
 				wrong</h4>
 			<p class="text-center">
 				Try to reload? <a href="javascript:window.location.reload()"
 					class="alert-link">Reload Now</a>.
 			</p>
+		</div>
+	</c:when>
+	<c:when test="${empty props or props.size() eq '0' }">
+		<div class=" alert alert-danger">
+			<i class="fa fa-5x fa-shopping-cart text-center d-block"></i>
+			<h4 class="alert-heading text-center">
+				Sorry, no one posted any property
+				</h5>
+				<p class="text-center">
+					Want to post property? then <a class="alert-link"
+						href="javascript:;" data-toggle="modal"
+						data-target="#clientLoginModal">Post Now</a>.
+				</p>
 		</div>
 	</c:when>
 	<c:otherwise>
@@ -63,7 +63,7 @@
 						<h6>at ${prop.price/100000 } Lacs/flat</h6>
 						<center>
 							<button class="btn btn-primary"
-								onclick="asyncProcess('actions/props/view.php', '${prop.title}', viewPropSuccess)">
+								onclick="window.location.href='PropertyDetails/${prop.propID}'">
 								<i class="fa fa-fw fa-eye"></i> View Property
 							</button>
 						</center>

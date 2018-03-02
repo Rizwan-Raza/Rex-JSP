@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
@@ -26,19 +24,12 @@ public class ClientModel {
 	private PreparedStatement pro = null;
 	private PreparedStatement amn = null;
 	private PreparedStatement img = null;
-	private PreparedStatement gpg = null;
-	private PreparedStatement gpb = null;
-	private PreparedStatement gpm = null;
-	private PreparedStatement gph = null;
-	private PreparedStatement gpa = null;
-	private PreparedStatement gpi = null;
 	private PreparedStatement gvw = null;
 	private PreparedStatement prl = null;
 	private PreparedStatement pru = null;
 	private PreparedStatement prr = null;
 
 	private ResultSet rs = null;
-	private ResultSet rs_temp = null;
 
 	public ClientModel() {
 		conn = (new DBConnector()).getConnection();
@@ -54,30 +45,18 @@ public class ClientModel {
 					Statement.RETURN_GENERATED_KEYS);
 			amn = conn.prepareStatement("INSERT INTO property_amenities(pid, amenity) VALUES(?, ?)");
 			img = conn.prepareStatement("INSERT INTO property_images(pid, src) VALUES(?, ?)");
-			gpg = conn.prepareStatement(
-					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id ORDER BY properties.time DESC");
-			gpb = conn.prepareStatement(
-					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id!=? ORDER BY properties.time DESC");
-			gpm = conn.prepareStatement(
-					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id=? ORDER BY properties.time DESC");
-			gph = conn.prepareStatement(
-					"SELECT properties.pid, properties.title, properties.bhk, properties.price FROM properties LIMIT 4");
-			gpa = conn.prepareStatement("SELECT * FROM property_amenities WHERE pid=?");
-			gpi = conn.prepareStatement("SELECT * FROM property_images WHERE pid=?");
 			gvw = conn.prepareStatement("SELECT firstname FROM users WHERE email=?");
 			prl = conn.prepareStatement("INSERT INTO wishlist(pid, cid) VALUES(?, ?)");
 			pru = conn.prepareStatement("DELETE FROM wishlist WHERE wid=?");
 			prr = conn.prepareStatement(
 					"INSERT INTO post_requirement (cid, type, city, state, bhk, bath, area, budget) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public ResponseBean auth(LoginBean user) {
-		try { // 1
+		try {
 			stmt.setString(1, user.getUsername());
 			stmt.setString(2, user.getPassword());
 
@@ -101,12 +80,9 @@ public class ClientModel {
 			} else {
 				return new ErrorBean("C-L-A-1", "Incorrect Password!", this.getClass().toGenericString());
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 			return new ErrorBean("C-L-A-1", e.toString(), this.getClass().toGenericString());
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return new ErrorBean("C-L-A-3", e.toString(), this.getClass().toGenericString());
 		}
 	}
 
@@ -128,7 +104,7 @@ public class ClientModel {
 				return new SuccessBean("C-D-U-2", "User Existance not Found (" + mem.getUid() + ")", "client-update",
 						"failed");
 			}
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 			return new ErrorBean("C-D-U-1", e.getMessage(), this.getClass().toGenericString());
 		}
@@ -181,90 +157,10 @@ public class ClientModel {
 			}
 
 			return new SuccessBean("C-P-S-1", "Property Added Successfully", "client-prop-sell", "success");
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 			return new ErrorBean("C-P-S-1", e.getMessage(), this.getClass().toGenericString());
 		}
-	}
-
-	public ArrayList<PropBean> getProps(int uid, String type) {
-		try {
-			PreparedStatement gpd;
-			if (type == "BUY") {
-				gpd = gpb;
-			} else if (type == "MY") {
-				gpd = gpm;
-			} else {
-				gpd = gpg;
-			}
-			if (type != "ALL")
-				gpd.setInt(1, uid);
-			ResultSet rs = gpd.executeQuery();
-			ArrayList<PropBean> al = new ArrayList<PropBean>();
-			while (rs.next()) {
-				int pid = rs.getInt("properties.pid");
-				gpa.setInt(1, pid);
-				rs_temp = gpa.executeQuery();
-				List<String> amens = new ArrayList<String>();
-				while (rs_temp.next()) {
-					amens.add(rs_temp.getString("amenity"));
-				}
-				gpi.setInt(1, pid);
-				rs_temp = gpi.executeQuery();
-				List<String> images = new ArrayList<String>();
-				while (rs_temp.next()) {
-					images.add(rs_temp.getString("src"));
-				}
-				UserBean seller = new UserBean(rs.getInt("users.user_id"), rs.getString("users.firstname"),
-						rs.getString("users.lastname"), rs.getString("users.email"), null, rs.getString("users.gender"),
-						rs.getString("users.contact"), rs.getInt("users.auth"), rs.getString("users.src"),
-						rs.getDate("users.time"), null);
-				AddressBean address = new AddressBean(rs.getInt("addresses.add_id"),
-						rs.getString("addresses.street_no"), rs.getString("addresses.town"),
-						rs.getString("addresses.city"), rs.getString("addresses.state"));
-				PropBean prop = new PropBean(seller, pid, rs.getString("properties.type"),
-						rs.getString("properties.t_type"), rs.getString("properties.title"),
-						rs.getInt("properties.bhk"), rs.getInt("properties.bathrooms"), rs.getInt("properties.age"),
-						rs.getInt("properties.furnished"), rs.getInt("properties.area"), rs.getInt("properties.l_area"),
-						rs.getInt("properties.price"), rs.getInt("properties.d_price"),
-						rs.getInt("properties.availability"), amens, images, rs.getInt("properties.hospital"),
-						rs.getInt("properties.school"), rs.getInt("properties.rail"), rs.getInt("properties.units"),
-						rs.getInt("properties.floor"), rs.getInt("properties.t_floors"),
-						rs.getString("properties.b_desc"), rs.getString("properties.tnc"),
-						rs.getTimestamp("properties.time"), rs.getTimestamp("properties.edit"), address);
-				al.add(prop);
-			}
-			return al;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public ArrayList<PropBean> getProps() {
-		try {
-			ResultSet rs = gph.executeQuery();
-			ArrayList<PropBean> al = new ArrayList<PropBean>();
-			while (rs.next()) {
-				int pid = rs.getInt("properties.pid");
-				gpi.setInt(1, pid);
-				rs_temp = gpi.executeQuery();
-				List<String> images = new ArrayList<String>();
-				while (rs_temp.next()) {
-					images.add(rs_temp.getString("src"));
-				}
-				PropBean prop = new PropBean(null, pid, null, null, rs.getString("properties.title"),
-						rs.getInt("properties.bhk"), 0, 0, 0, 0, 0, rs.getInt("properties.price"), 0, 0, null, images,
-						0, 0, 0, 0, 0, 0, null, null, null, null, null);
-				al.add(prop);
-			}
-			return al;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public String getNameViaEmail(String email) {
@@ -274,7 +170,7 @@ public class ClientModel {
 			rs.next();
 
 			return rs.getString(1);
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 			return "User";
 		}
@@ -286,7 +182,7 @@ public class ClientModel {
 			prl.setString(2, uid);
 			prl.executeUpdate();
 			return new SuccessBean("C-P-L-1", "Property Added to Wishlist", "prop-like", "success");
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 			return new ErrorBean("C-P-L-1", e.getMessage(), this.getClass().toGenericString());
 		}
@@ -298,7 +194,7 @@ public class ClientModel {
 			pru.executeUpdate();
 
 			return new SuccessBean("C-P-U-1", "Property Removed from Wishlist", "prop-unlike", "success");
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 			return new ErrorBean("C-P-U-1", e.getMessage(), this.getClass().toGenericString());
 		}
@@ -317,7 +213,7 @@ public class ClientModel {
 			prr.executeUpdate();
 
 			return new SuccessBean("C-P-U-1", "Property Removed from Wishlist", "prop-unlike", "success");
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 			return new ErrorBean("C-P-U-1", e.getMessage(), this.getClass().toGenericString());
 		}

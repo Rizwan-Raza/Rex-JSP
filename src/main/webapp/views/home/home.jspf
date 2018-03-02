@@ -1,8 +1,3 @@
-<!-- <?php 
-
-	include 'components/modals/viewProp.html'; 
-
-?> -->
 <jsp:directive.include file="../client/modals/login.inc.html" />
 <jsp:directive.include file="../client/modals/auth-error.inc.html" />
 <jsp:directive.include file="../client/modals/active-error.inc.html" />

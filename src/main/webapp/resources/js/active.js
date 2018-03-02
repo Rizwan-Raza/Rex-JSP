@@ -151,7 +151,7 @@ function showPropImages(srcs, title, pid) {
 				+ title
 				+ "', '"
 				+ src_arr[i]
-				+ "');\"><div class='remove-image diggle'><i class='fa fa-remove fa-fw'></i></div></div></div>";
+				+ "');\"><div class='remove-image diggle'><i class='fa fa-times fa-fw'></i></div></div></div>";
 	}
 	$("#propImagesModal .row#prop-img-holder").html(str);
 	$("#propImagesModal .modal-footer p").html(

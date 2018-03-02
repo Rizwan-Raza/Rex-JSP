@@ -18,16 +18,13 @@ public class SignUpModel {
 
 	public SignUpModel() {
 		conn = (new DBConnector()).getConnection();
-		if (conn == null)
-			return;
 		try {
 			add = conn.prepareStatement("INSERT INTO addresses (street_no, town, city, state) VALUES (?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			stmt = conn.prepareStatement(
 					"INSERT INTO users (firstname, lastname, email, password, gender, contact, add_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -58,7 +55,6 @@ public class SignUpModel {
 			return rs.getString(1);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return e.getMessage();
 		}

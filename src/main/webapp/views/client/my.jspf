@@ -1,5 +1,5 @@
 <%@page import="com.rex.bean.UserBean"%>
-<%@page import="com.rex.model.ClientModel"%>
+<%@page import="com.rex.model.CommonModel"%>
 <div id="my-property" class="tab-pane fade">
 	<br>
 	<h4>Properties Posted by You.</h4>
@@ -7,7 +7,8 @@
 	<%
 		UserBean user = (UserBean) session.getAttribute("user");
 		request.setAttribute("props",
-				new ClientModel().getProps(((UserBean) session.getAttribute("user")).getUid(), "MY"));
+				new CommonModel().getProps(((UserBean) session.getAttribute("user")).getUid(), "MY"));
 	%>
+	<c:set var="fetcherType" value="MY" />
 	<jsp:directive.include file="propFetcher.jspf" />
 </div>

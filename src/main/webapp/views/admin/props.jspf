@@ -1,4 +1,4 @@
-<%@page import="com.rex.model.ClientModel"%>
+<%@page import="com.rex.model.CommonModel"%>
 <div id="posts" class="tab-pane fade">
 	<br>
 	<h4>Posted Properties of our System</h4>
@@ -14,12 +14,12 @@
 	</div> -->
 	<br>
 	<%
-		request.setAttribute("props", new ClientModel().getProps(0, "ALL"));
+		request.setAttribute("props", new CommonModel().getProps(0, "ALL"));
 	%>
 	<c:choose>
 		<c:when test="${empty props }">
 			<div class=" alert alert-danger">
-				<i class="fa fa-5x fa-warning text-center d-block"></i>
+				<i class="fa fa-5x fa-exclamation-triangle text-center d-block"></i>
 				<h4 class="alert-heading text-center">Sorry, Something went
 					wrong</h4>
 				<p class="text-center">
@@ -43,12 +43,12 @@
 							<th scope="col">Title</th>
 							<th scope="col" class="text-center text-lg-left"><span
 								class="d-lg-none" data-toggle="tooltip" data-placement="top"
-								title="Property Type"><i class="fa fa-fw fa-td fa-hotel"></i></span><span
+								title="Property Type"><i class="fa fa-fw fa-td fa-bed"></i></span><span
 								class="d-none d-lg-inline">Type </span></th>
 							<th scope="col" class="text-center text-lg-left"><span
 								class="d-lg-none" data-toggle="tooltip" data-placement="top"
 								title="Transaction Type"><i
-									class="fa fa-fw fa-td fa-building-o"></i></span><span
+									class="fa fa-fw fa-td fa-building"></i></span><span
 								class="d-none d-lg-inline">T<span class="d-xl-none">.</span><span
 									class="d-none d-xl-inline">ransaction</span>&nbsp;Type
 							</span></th>
@@ -62,7 +62,7 @@
 								class="d-none d-lg-inline">Feat.</span></th>
 							<th scope="col" class="text-center text-lg-left"><span
 								class="d-lg-none" data-toggle="tooltip" data-placement="top"
-								title="Price"><i class="fa fa-fw fa-td fa-money"></i></span><span
+								title="Price"><i class="fa fa-fw fa-td fa-money-bill-alt"></i></span><span
 								class="d-none d-lg-inline">Price</span></th>
 							<th scope="col" class="text-center text-xl-left text-nowrap"><span
 								class="d-xl-none" data-toggle="tooltip" data-placement="top"
@@ -79,7 +79,7 @@
 								class="d-none d-lg-inline">Info</span></th>
 							<th scope="col" class="text-center text-lg-left"><span
 								class="d-lg-none" data-toggle="tooltip" data-placement="top"
-								title="Images"><i class="fa fa-fw fa-td fa-picture-o"></i></span><span
+								title="Images"><i class="fa fa-fw fa-td fa-image"></i></span><span
 								class="d-none d-lg-inline">Images</span></th>
 							<th scope="col" class="text-center text-lg-left"><span
 								class="d-lg-none" data-toggle="tooltip" data-placement="top"
@@ -129,16 +129,16 @@
 								<td scope="col" class="text-nowrap"><span class="d-xl-none"
 									data-toggle="tooltip" data-placement="top"
 									title="${prop.price/100000 } Lac Rs."><i
-										class="fa fa-fw fa-td fa-inr"></i></span><span
-									class="d-none d-xl-inline"><i class="fa fa-fw fa-inr"></i>
-										<c:choose>
+										class="fa fa-fw fa-td fa-rupee-sign"></i></span><span
+									class="d-none d-xl-inline"><i
+										class="fa fa-fw fa-rupee-sign"></i> <c:choose>
 											<c:when test="${prop.price/100000 gt 100}">
 										${prop.price/10000000}&nbsp;Crore</c:when>
 											<c:otherwise>${prop.price/100000}&nbsp;Lac</c:otherwise>
 										</c:choose></span></td>
 								<td scope="col" class="text-center"><c:choose>
 										<c:when test="${prop.priceDisplay eq '0'}">
-											<i class="fa fa-fw fa-td fa-remove text-danger"></i>
+											<i class="fa fa-fw fa-td fa-times text-danger"></i>
 										</c:when>
 										<c:when test="${prop.priceDisplay eq '1'}">
 											<i class="fa fa-fw fa-td fa-check text-success"></i>
@@ -147,7 +147,7 @@
 									</c:choose></td>
 								<td scope="col" class="text-center"><c:choose>
 										<c:when test="${prop.available eq '0'}">
-											<i class="fa fa-fw fa-td fa-remove text-danger"></i>
+											<i class="fa fa-fw fa-td fa-times text-danger"></i>
 										</c:when>
 										<c:when test="${prop.available eq '1'}">
 											<i class="fa fa-fw fa-td fa-check text-success"></i>
@@ -189,7 +189,7 @@
 										class="fa fa-fw fa-td fa-info-circle"></i></a></td>
 								<td scope="col" class="text-center"><a
 									href="javascript:showPropImages('${prop.images }', '${prop.title }', ${prop.propID });"><i
-										class="fa fa-fw fa-td fa-picture-o"></i></a></td>
+										class="fa fa-fw fa-td fa-image"></i></a></td>
 								<td scope="col"><div class="dropdown">
 										<button class="btn btn-primary btn-sm pt-0 dropdown-toggle"
 											data-toggle="dropdown">
@@ -198,7 +198,7 @@
 										<div class="dropdown-menu dropdown-menu-right">
 											<a class="dropdown-item"
 												href="javascript:editProp('${prop.title }', '${prop.propType }', '${prop.tranType }', ${prop.price }, ${prop.priceDisplay }, ${prop.available }, ${prop.propID })"><i
-												class="fa fa-fw fa-pencil"></i> Edit </a> <a
+												class="fa fa-fw fa-edit"></i> Edit </a> <a
 												class="dropdown-item text-danger"
 												href="javascript:deleteProp('${prop.title }', ${prop.propID })">
 												<i class="fa fa-fw fa-trash"></i> Delete
