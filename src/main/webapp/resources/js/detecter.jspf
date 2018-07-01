@@ -9,6 +9,9 @@ $(document).ready(function() {
 				$("#successModalBS p#upper-text").html("${ bean.message.replace('\\', '/')}");
 				$("#successModalBS").modal('show');
 			</c:when>
+			<c:when test="${bean.code eq 'C-L-A-1' }">
+				sessionStorage.setItem("login", "true");
+			</c:when>
 			<%-- <c:when test="${bean.code eq 'P-A-I-1' }">
 				navTo("posts");
 				window.location.href = $("#posts table tr#for-${bean.query } a[href*='showPropImages']").attr("href");
@@ -49,7 +52,13 @@ $(document).ready(function() {
 	</c:when>
 	<c:otherwise></c:otherwise>
 </c:choose>
-});
+if(sessionStorage.getItem("navTo") != null) {
+navTo(sessionStorage.getItem("navTo"));
+sessionStorage.removeItem("navTo");}
+if(sessionStorage.getItem("openModal") != null) {
+openModal(sessionStorage.getItem("openModal"));
+sessionStorage.removeItem("openModal");} });
+
 </script>
 <%
 	session.removeAttribute("process");

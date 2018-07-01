@@ -1,11 +1,4 @@
 /** **** Admin Start ********** */
-$(function() {
-	if ($(window).width() < 768) {
-		$(".admin-section table").addClass("table-sm");
-	} else {
-		$(".admin-section table").removeClass("table-sm");
-	}
-});
 function activate(name, user_id) {
 	$("#activationModal .modal-info > span").text("A");
 	$("#activationModal .modal-info > b > span").text(name);
@@ -240,7 +233,7 @@ function showPropFeatures(bhk, bath, age, furn, area, l_area, hosp, school,
 	if (furn == 1) {
 		furnished += "check text-success";
 	} else {
-		furnished += "remove text-danger";
+		furnished += "times text-danger";
 	}
 	furnished += "'></i>"
 	$("#propFeaturesModal table tbody").html(

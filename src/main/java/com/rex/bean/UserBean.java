@@ -1,13 +1,8 @@
 package com.rex.bean;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class UserBean implements Serializable, ResponseBean {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserBean {
 	private int uid;
 	private String fname;
 	private String lname;

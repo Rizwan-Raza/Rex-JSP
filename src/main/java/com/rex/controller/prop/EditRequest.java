@@ -1,4 +1,4 @@
-package com.rex.controller;
+package com.rex.controller.prop;
 
 import java.io.IOException;
 
@@ -9,24 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.rex.bean.AddressBean;
+import com.rex.bean.ReqProp;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.model.CommonModel;
 
 /**
- * Servlet implementation class AddressChange
+ * Servlet implementation class EditRequest
  */
-@WebServlet("/Change-Address")
-public class AddressChange extends HttpServlet {
+@WebServlet("/Edit-Request")
+public class EditRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddressChange() {
+	public EditRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -37,9 +36,17 @@ public class AddressChange extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession sess = request.getSession(true);
 
-		ResponseBean bean = (new CommonModel()).changeAddress(
-				new AddressBean(Integer.parseInt(request.getParameter("add_id")), request.getParameter("street"),
-						request.getParameter("town"), request.getParameter("city"), request.getParameter("state")));
+		String area = request.getParameter("c_area");
+		String budget = request.getParameter("budget");
+
+		area = area.replace(" Sq-Ft. - ", "-").replace(" Sq-Ft.", "");
+		budget = budget.replaceAll("[^0-9\\-]", "");
+		ReqProp rp = new ReqProp(Integer.parseInt(request.getParameter("pr_id")), null, request.getParameter("p_type"),
+				request.getParameter("city"), request.getParameter("state"),
+				Integer.parseInt(request.getParameter("bhk")), Integer.parseInt(request.getParameter("bath")), area,
+				budget, null, null);
+		ResponseBean bean = new CommonModel().editRequest(rp);
+
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
 		} else {

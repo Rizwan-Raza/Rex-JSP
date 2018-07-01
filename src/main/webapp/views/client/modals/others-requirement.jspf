@@ -1,7 +1,7 @@
 <!-- Modal -->
-<div class="modal fade" tabindex="-1" id="yourRequirementModal"
-	role="dialog">
-	<div class="modal-dialog modal-lg">
+<div class="modal fade modal-full" tabindex="-1"
+	id="yourRequirementModal" role="dialog">
+	<div class="modal-dialog">
 
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -15,30 +15,153 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<table
-					class="table table-responsive table-hover table-bordered table-striped">
-					<thead>
-						<tr>
-							<th rowspan="2" title="Customer">Client</th>
-							<th rowspan="2" title="Looking for | Property Type">Looking
-								For</th>
-							<th rowspan="2">City</th>
-							<th rowspan="2">State</th>
-							<th rowspan="2" title="BHK or Bedrooms">BHK</th>
-							<th rowspan="2" title="Bathrooms">B. R.</th>
-							<th colspan="2" class='compact-col'>Covered Area</th>
-							<th colspan="2" class='compact-col'>Budget</th>
-							<th rowspan="2">Requested On</th>
-						</tr>
-						<tr>
-							<th class='compact-col'>From</th>
-							<th class='compact-col'>To</th>
-							<th class='compact-col'>From</th>
-							<th class='compact-col'>To</th>
-						</tr>
-					</thead>
-					<tbody>
-						<!-- <?php 
+				<%
+					request.setAttribute("proOReq",
+							new ClientModel().getOReqProps(((UserBean) session.getAttribute("user")).getUid()));
+				%>
+				<div class="table-responsive-sm mb-4">
+					<table class="table table-hover table-bordered table-striped mb-0">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col" rowspan="2" class="text-center text-lg-left"><span
+									class="d-lg-none" data-toggle="tooltip" data-placement="top"
+									title="Customer"><i class="fa fa-fw fa-td fa-user"></i></span><span
+									class="d-none d-lg-inline">Client </span></th>
+								<th scope="col" rowspan="2" class="text-center text-lg-left"><span
+									class="d-lg-none" data-toggle="tooltip" data-placement="top"
+									title="Looking for | Property Type"><i
+										class="fa fa-fw fa-td fa-bed"></i></span><span
+									class="d-none d-lg-inline">Looking For </span></th>
+								<th scope="col" rowspan="2" class="text-center text-lg-left"><span
+									class="d-lg-none" data-toggle="tooltip" data-placement="top"
+									title="Desired City and State"><i
+										class="fa fa-fw fa-td fa-map-marker"></i></span><span
+									class="d-none d-lg-inline">City, State</span></th>
+								<th scope="col" rowspan="2" class="text-center text-lg-left"><span
+									class="d-lg-none" data-toggle="tooltip" data-placement="top"
+									title="BHK or Bedrooms"><i class="fa fa-fw fa-td fa-bed"></i></span><span
+									class="d-none d-lg-inline">BHK</span></th>
+								<th scope="col" rowspan="2" class="text-center text-lg-left"><span
+									class="d-lg-none" data-toggle="tooltip" data-placement="top"
+									title="Bathrooms"><i class="fa fa-fw fa-td fa-bath"></i></span><span
+									class="d-none d-lg-inline">B.R.</span></th>
+								<th colspan="2" class='compact-col'><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="Covered Area"><i
+										class="far fa-fw fa-td fa-square"></i></span><span
+									class="d-none d-md-inline">Covered Area</span></th>
+								<th colspan="2" class='compact-col'><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="Budget"><i
+										class="fa fa-fw fa-td fa-rupee-sign"></i></span><span
+									class="d-none d-md-inline">Budget</span></th>
+								<th rowspan="2"><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="Requested On"><i
+										class="fa fa-fw fa-td fa-clock"></i></span><span
+									class="d-none d-md-inline">Requested On</span></th>
+								<th rowspan="2"><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="Edited On"><i
+										class="fa fa-fw fa-td fa-clock"></i></span><span
+									class="d-none d-md-inline">Edited On</span></th>
+							</tr>
+							<tr>
+								<th class='compact-col'><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="From"><i
+										class="fa fa-fw fa-td fa-step-backward"></i></span><span
+									class="d-none d-md-inline">From</span></th>
+								<th class='compact-col'><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="To"><i
+										class="fa fa-fw fa-td fa-step-forward"></i></span><span
+									class="d-none d-md-inline">To</span></th>
+								<th class='compact-col'><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="From"><i
+										class="fa fa-fw fa-td fa-step-backward"></i></span><span
+									class="d-none d-md-inline">From</span></th>
+								<th class='compact-col'><span class="d-md-none"
+									data-toggle="tooltip" data-placement="top" title="To"><i
+										class="fa fa-fw fa-td fa-step-forward"></i></span><span
+									class="d-none d-md-inline">To</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${proOReq.size() eq '0' or empty proOReq }">
+									<tr>
+										<td colspan="11" class="text-center">No records Found,
+											try again</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="opr" varStatus="proReqStatus"
+										items="${proOReq}">
+										<tr id="for-my-req-${opr.pr_id}">
+											<td class="f-o-f-dp">
+												<div class="user-dp user-dp-xs"
+													title="${opr.client.fullname}" data-toggle="popover"
+													data-trigger="hover" data-content="${opr.client.email}"
+													style="background-image:
+												url('${opr.client.src}'); overflow: visible"
+													onclick="showSeller('${opr.client.fname}','${opr.client.lname}', '${opr.client.email}', '${opr.client.gender}', '${opr.client.contact}', '${opr.client.src}', 'Client')"
+													data-dismiss='modal'></div>
+											</td>
+											<td>${opr.type}</td>
+											<td><span class="d-lg-none" data-toggle="tooltip"
+												data-placement="top"
+												title="City: ${opr.city} and State: ${opr.state}."><i
+													class="fa fa-fw fa-td fa-map-signs"></i></span><span
+												class="d-none d-lg-inline">${opr.city}, ${opr.state}</span></td>
+											<td>${opr.bhk}</td>
+											<td>${opr.bath}</td>
+											<td><span class="d-lg-none" data-toggle="tooltip"
+												data-placement="top"
+												title="${opr.area.split('-')[0]} Sq-Ft."><i
+													class="far fa-fw fa-td fa-square"></i></span><span
+												class="d-none d-lg-inline">${opr.area.split('-')[0]}ft<sup>2</sup></span></td>
+											<td><span class="d-lg-none" data-toggle="tooltip"
+												data-placement="top"
+												title="${opr.area.split('-')[1]} Sq-Ft."><i
+													class="far fa-fw fa-td fa-square"></i></span><span
+												class="d-none d-lg-inline">${opr.area.split('-')[1]}ft<sup>2</span></td>
+											<td><span class="d-lg-none" data-toggle="tooltip"
+												data-placement="top"
+												title="&#8377; ${opr.budget.split('-')[0]} Lacs"><i
+													class="fa fa-fw fa-td fa-rupee-sign"></i></span><span
+												class="d-none d-lg-inline">&#8377;
+													${opr.budget.split('-')[0]} L</span></td>
+											<td><span class="d-lg-none" data-toggle="tooltip"
+												data-placement="top"
+												title="&#8377; ${opr.budget.split('-')[1]} Lacs"><i
+													class="fa fa-fw fa-td fa-rupee-sign"></i></span><span
+												class="d-none d-lg-inline">&#8377;
+													${opr.budget.split('-')[	1]} L</span></td>
+											<td><span class="d-md-none" data-toggle="tooltip"
+												data-placement="top"
+												title="<fmt:formatDate
+														value="${opr.time }" pattern="MMM d, y 'at' h:mm a" />"><i
+													class="fa fa-fw fa-td fa-clock"></i></span><span
+												class="d-none d-md-inline" data-toggle='tooltip'
+												title="${cf:daysUntilToday(opr.time)}"><fmt:formatDate
+														value="${opr.time }" pattern="MMM d, y 'at' h:mm a" /></span></td>
+											<c:choose>
+												<c:when test="${opr.edit ne null}">
+													<td><span class="d-md-none" data-toggle="tooltip"
+														data-placement="top"
+														title="<fmt:formatDate
+														value="${opr.edit }" pattern="MMM d, y 'at' h:mm a" />"><i
+															class="fa fa-fw fa-td fa-clock"></i></span><span
+														class="d-none d-md-inline" data-toggle='tooltip'
+														title="${cf:daysUntilToday(opr.edit)}"><fmt:formatDate
+																value="${opr.edit }" pattern="MMM d, y 'at' h:mm a" /></span></td>
+												</c:when>
+												<c:otherwise>
+													<td class="text-center"><i class="fa fa-fw fa-minus"></i>
+													</td>
+												</c:otherwise>
+											</c:choose>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+
+							<!-- <?php 
 	        			// runkit_function_remove("connectDB");
 	        			// include 'components/database.php';
 	        			// print_r($GLOBALS);
@@ -71,8 +194,9 @@
 	        			}
 	        			closeDB($conn);
 	        			?> -->
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

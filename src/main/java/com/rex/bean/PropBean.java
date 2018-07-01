@@ -32,10 +32,13 @@ public class PropBean {
 	private Date edit;
 	private AddressBean address;
 
+	private List<UserBean> likers;
+
 	public PropBean(UserBean seller, int propID, String propType, String tranType, String title, int bhk, int bath,
 			int age, int furnished, int propArea, int land, int price, int priceDisplay, int available,
 			List<String> amens, List<String> images, int hospital, int school, int rail, int units, int floor,
-			int totalFloors, String desc, String tnc, Date time, Date edit, AddressBean address) {
+			int totalFloors, String desc, String tnc, Date time, Date edit, AddressBean address,
+			List<UserBean> likers) {
 		super();
 		this.seller = seller;
 		this.propID = propID;
@@ -64,6 +67,7 @@ public class PropBean {
 		this.time = time;
 		this.edit = edit;
 		this.address = address;
+		this.likers = likers;
 	}
 
 	public UserBean getSeller() {
@@ -172,6 +176,10 @@ public class PropBean {
 
 	public AddressBean getAddress() {
 		return address;
+	}
+
+	public List<UserBean> getLikers() {
+		return likers;
 	}
 
 }

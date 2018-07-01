@@ -1,4 +1,49 @@
 /** **** Login start ********** */
+$(function() {
+	$("#area-slider-range-e").slider(
+			{
+				range : true,
+				min : 100,
+				max : 10000,
+				step : 100,
+				values : [ 1500, 3000 ],
+				slide : function(event, ui) {
+					$("#e_c_area").val(
+							ui.values[0] + " Sq-Ft. - " + ui.values[1]
+									+ " Sq-Ft.");
+				}
+			});
+	$("#e_c_area")
+			.val(
+					$("#area-slider-range-e").slider("values", 0)
+							+ " Sq-Ft. - "
+							+ $("#area-slider-range-e").slider("values", 1)
+							+ " Sq-Ft.");
+	$("#budget-slider-range-e").slider(
+			{
+				range : true,
+				min : 100000,
+				max : 100000000,
+				step : 100000,
+				values : [ 5000000, 10000000 ],
+				slide : function(event, ui) {
+					$("#e_budget").val(
+							"₹ " + ui.values[0] + " - ₹ " + ui.values[1]);
+				}
+			});
+	$("#e_budget").val(
+			"₹ " + $("#budget-slider-range-e").slider("values", 0)
+					+ " - ₹ "
+					+ $("#budget-slider-range-e").slider("values", 1));
+	
+	if ($(window).width() < 768) {
+		$(".table-responsive-sm table").addClass("table-sm");
+	} else {
+		$(".table-responsive-sm table").removeClass("table-sm");
+	}
+});
+
+
 function readURL(input, query) {
 	var files = !!input.files ? input.files : [];
 	if (!files.length || !window.FileReader)
@@ -154,10 +199,10 @@ function showPropImages(srcs, title, pid) {
 				+ "');\"><div class='remove-image diggle'><i class='fa fa-times fa-fw'></i></div></div></div>";
 	}
 	$("#propImagesModal .row#prop-img-holder").html(str);
-	$("#propImagesModal .modal-footer p").html(
-			'<p>Change <a id="change-prop-images" href="javascript:addOrRemoveImages(\''
-					+ srcs + '\', \'' + title + '\', ' + pid
-					+ ')">Images?</a></p>');
+	$("#propImagesModal .modal-footer a").attr(
+			"href",
+			"javascript:addOrRemoveImages('" + srcs + "', '" + title + "', "
+					+ pid + ")");
 	$("#propImagesModal").modal('show');
 }
 function addOrRemoveImages(srcs, title, pid) {
@@ -175,9 +220,9 @@ function addOrRemoveImages(srcs, title, pid) {
 	$(".buy-prop-image").removeClass("image-triggerer");
 	$(".buy-prop-image").removeAttr("onclick");
 	$(".buy-prop-image .remove-image").show();
-	$("#propImagesModal .modal-footer p").html(
-			'<p>Add <a id="change-prop-images" href="javascript:addImage('
-					+ pid + ')">Image?</a></p>');
+	$("#propImagesModal .modal-footer a").attr("href",
+			"javascript:addImage(" + pid + ")");
+	$("#propImagesModal .modal-footer span").text("Add");
 	// $("#propImagesModal .modal-footer .pull-right p").html('<input
 	// type="file">');
 }
@@ -345,9 +390,6 @@ function deletePropSuccess(data, status) {
 }
 function editRequest(type, city, state, bhk, bath, a_from, a_to, p_from, p_to,
 		pr_id, by) {
-	if (by == "client") {
-		$("#myRequirementModal").modal("hide");
-	}
 	var elem = document.getElementById('editRequestForm');
 	elem.p_type.value = type;
 	elem.city.value = city;
@@ -356,6 +398,7 @@ function editRequest(type, city, state, bhk, bath, a_from, a_to, p_from, p_to,
 	elem.bath.value = bath;
 	// elem.c_area.value = a_from + " Sq-Ft. - " + a_to + " Sq-Ft.";
 	// elem.budget.value = "Rs. " + p_from + " - Rs. " + p_to;
+// alert("a_from: "+a_from+"and a_to: "+a_to)
 	$("#area-slider-range-e").slider(
 			{
 				values : [ a_from, a_to ],
@@ -365,28 +408,25 @@ function editRequest(type, city, state, bhk, bath, a_from, a_to, p_from, p_to,
 									+ " Sq-Ft.");
 				}
 			});
-	$("#e_c_area")
+	$("#e_c_area")	
 			.val(
 					$("#area-slider-range-e").slider("values", 0)
 							+ " Sq-Ft. - "
 							+ $("#area-slider-range-e").slider("values", 1)
 							+ " Sq-Ft.");
 
-	$("#budget-slider-range-e").slider(
-			{
-				values : [ p_from, p_to ],
-				slide : function(event, ui) {
-					$("#e_budget").val(
-							"Rs. " + ui.values[0] + " - Rs. " + ui.values[1]);
-				}
-			});
+	$("#budget-slider-range-e").slider({
+		values : [ p_from * 100000, p_to * 100000 ],
+		slide : function(event, ui) {
+			$("#e_budget").val("₹ " + ui.values[0]/100000 + " Lac - ₹ " + ui.values[1]/100000+" Lac");
+		}
+	});
 	$("#e_budget").val(
-			"Rs. " + $("#budget-slider-range-e").slider("values", 0)
-					+ " - Rs. "
-					+ $("#budget-slider-range-e").slider("values", 1));
+			"₹ " + $("#budget-slider-range-e").slider("values", 0)/100000 + " Lac - ₹ "
+					+ $("#budget-slider-range-e").slider("values", 1)/100000+" Lac");
 
 	$("#requestEditModal #editRequestForm").attr("action",
-			"actions/props/edit-request.php?pr_id=" + pr_id);
+			"Edit-Request?pr_id=" + pr_id);
 	$("#requestEditModal").modal('show');
 }
 function deleteRequest(pr_id, type) {
@@ -395,22 +435,22 @@ function deleteRequest(pr_id, type) {
 	}
 	$("#deleteRequestModal .modal-footer > .btn-danger").attr(
 			"onclick",
-			"asyncProcess('actions/props/delete-request.php'," + pr_id
+			"asyncProcess('Delete-Req-Prop'," + pr_id
 					+ ", deleteRequestSuccess)");
 	$("#deleteRequestModal").modal('show');
 }
 function deleteRequestSuccess(data, status) {
 	var obj = JSON.parse(data);
-	if (obj.log == "admin") {
+	if (obj.type == "admin") {
 		$("#requires b#request-num").text(
 				(+$("#requires b#request-num").text()) - 1);
 		$("#deleteRequestModal").modal("hide");
-		$("tr#for-req-" + obj.prId).hide("slow", function() {
-			$("tr#for-req-" + obj.prId).remove();
+		$("tr#for-req-" + obj.pr_id).hide("slow", function() {
+			$("tr#for-req-" + obj.pr_id).remove();
 		});
 	} else {
-		$("#myRequirementModal tr#for-my-req-" + obj.prId).remove();
+		$("#myRequirementModal tr#for-my-req-" + obj.pr_id).remove();
 	}
-	showSnackbar("requestDeletedSnackbar");
+	snackbar(obj.message);
 }
 /** **** Login end ********** */

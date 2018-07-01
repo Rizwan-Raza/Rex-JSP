@@ -3,6 +3,7 @@ package com.rex.controller.admin;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.rex.bean.ErrorBean;
 import com.rex.bean.LoginBean;
-import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
 import com.rex.model.AdminModel;
@@ -18,6 +18,7 @@ import com.rex.model.AdminModel;
 /**
  * Servlet implementation class ClientLoginController
  */
+@WebServlet("/Admin-Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +39,7 @@ public class Login extends HttpServlet {
 		HttpSession sess = request.getSession(true);
 		LoginBean userData = new LoginBean(request.getParameter("usrname"), request.getParameter("psw"));
 		AdminModel admin = new AdminModel();
-		ResponseBean data = admin.auth(userData);
+		Object data = admin.auth(userData);
 		if (data instanceof UserBean) {
 			UserBean user = (UserBean) data;
 			sess.setAttribute("log", "admin");

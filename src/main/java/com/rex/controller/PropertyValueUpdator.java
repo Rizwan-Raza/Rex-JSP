@@ -1,8 +1,10 @@
 package com.rex.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -32,15 +34,61 @@ public class PropertyValueUpdator extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String filename = request.getParameter("file");
-		InputStream in = getClass().getClassLoader().getResourceAsStream(filename + ".properties");
-		Properties props = new Properties();
-		props.load(in);
-		in.close();
+		System.out.println(filename);
+		OutputStream out = null;
+		try {
 
-		FileOutputStream out = new FileOutputStream(getClass().getResource("/" + filename + ".properties").getPath());
-		props.setProperty(request.getParameter("key"), request.getParameter("value"));
-		props.store(out, null);
-		out.close();
+//			Properties props = new Properties();
+			Properties props = System.getProperties();
+			File f = new File(filename + ".properties");
+			if (f.exists()) {
+
+				props.load(new FileReader(f));
+				// Change your values here
+				props.setProperty(request.getParameter("key"), request.getParameter("value"));
+			} else {
+				f.createNewFile();
+			}
+
+			out = new FileOutputStream(f);
+			props.store(out, "This is an optional header comment string");
+
+			for (String key : props.stringPropertyNames()) {
+				String value = props.getProperty(key);
+				System.out.println(key + "=" + value);
+			}
+			System.out.println(f.getAbsolutePath());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			if (out != null) {
+
+				try {
+
+					out.close();
+				} catch (IOException ex) {
+
+					System.out
+							.println("IOException: Could not close myApp.properties output stream; " + ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		}
+
+		// String filename = request.getParameter("file");
+		// InputStream in = getClass().getClassLoader().getResourceAsStream(filename +
+		// ".properties");
+		// Properties props = new Properties();
+		// props.load(in);
+		// in.close();
+		//
+		// FileOutputStream out = new FileOutputStream(getClass().getResource("/" +
+		// filename + ".properties").getPath());
+		// props.setProperty(request.getParameter("key"),
+		// request.getParameter("value"));
+		// props.store(out, null);
+		// out.close();
 
 	}
 

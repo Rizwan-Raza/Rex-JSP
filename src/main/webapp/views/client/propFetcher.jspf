@@ -25,6 +25,15 @@
 								Now</a>.
 						</p>
 					</c:when>
+					<c:when test="${fetcherType eq 'LIKED' }">
+				Sorry, zero property liked by you.
+					</h5>
+						<p class="text-center">
+							Want to like property? then <a
+								href="javascript:navTo('sell-property')" class="alert-link">Post
+								Now</a>.
+						</p>
+					</c:when>
 				</c:choose>
 		</div>
 	</c:when>
@@ -42,9 +51,34 @@
 	<c:otherwise>
 		<div class="row mb-4">
 			<c:forEach var="prop" varStatus="propStatus" items="${props}">
+				<!-- <%-- <c:set var="object" value="${prop}" />
+				<c:if test="${not empty prop['class'].declaredFields}">
+					<h2>
+						Declared fields <em>&dollar;{object.name}</em>
+					</h2>
+					<ul>
+						<c:forEach var="field" items="${object['class'].declaredFields}">
+							<c:catch>
+								<li><span>${field.name}</span> = ${object[field.name]}</li>
+								<c:if
+									test="${not empty object[field.name]['class'].declaredFields}">
+									<ul>
+										<c:forEach var="innerfield"
+											items="${object[field.name]['class'].declaredFields}">
+											<c:catch>
+												<li><span>${innerfield.name}</span> =
+													${object[field.name][innerfield.name]}</li>
+											</c:catch>
+										</c:forEach>
+									</ul>
+								</c:if>
+							</c:catch>
+						</c:forEach>
+					</ul>
+				</c:if> --%> -->
 				<div class="col-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="card hoverable">
-						<div id="propCarousel-${prop.propID}"
+					<div class="card hoverable" id="prop-${fetcherType}-${prop.propID}">
+						<div id="propCarousel-${fetcherType}-${prop.propID}"
 							class="card-img-top carousel slide" data-ride="carousel">
 							<div class="prop-location text-light px-2">${prop.address.city},
 								${prop.address.state}</div>
@@ -115,8 +149,9 @@
 								<c:forEach begin="0" end="${prop.images.size() }"
 									varStatus="loop">
 									<c:if test="${loop.index < prop.images.size() }">
-										<li data-target="
-								#propCarousel-${prop.propID}"
+										<li
+											data-target="
+								#propCarousel-${fetcherType}-${prop.propID}"
 											data-slide-to="${loop.index}"
 											${loop.index eq 0 ? 'class=\"active\"' : ''}></li>
 									</c:if>
@@ -135,11 +170,11 @@
 								</c:forEach>
 							</div>
 							<a class="carousel-control-prev"
-								href="#propCarousel-${prop.propID}" role="button"
+								href="#propCarousel-${fetcherType}-${prop.propID}" role="button"
 								data-slide="prev"> <span class="carousel-control-prev-icon"
 								aria-hidden="true"></span> <span class="sr-only">Previous</span>
 							</a> <a class="carousel-control-next"
-								href="#propCarousel-${prop.propID}" role="button"
+								href="#propCarousel-${fetcherType}-${prop.propID}" role="button"
 								data-slide="next"> <span class="carousel-control-next-icon"
 								aria-hidden="true"></span> <span class="sr-only">Next</span>
 							</a>
@@ -151,7 +186,7 @@
 								</jsp:text>
 								<c:choose>
 									<c:when test="${prop.seller.uid ne user.uid }"> diggle"  onclick="showSeller('${prop.seller.fname }','${prop.seller.lname }', '${prop.seller.email }', '${prop.seller.gender }', '${prop.seller.contact }', '${prop.seller.src }', 'Seller')"</c:when>
-									<c:otherwise>" onclick="showImageModal('${user.fullname }', '${user.src.replace('\\', '/') }')"</c:otherwise>
+									<c:otherwise>" onclick="showImageModal('${prop.seller.fullname }', '${prop.seller.src.replace('\\', '/') }')"</c:otherwise>
 								</c:choose>
 								<jsp:text>
 									<![CDATA[ style="background-image: url(']]>${prop.seller.src }<![CDATA[');"></div>]]>
@@ -167,24 +202,26 @@
 							<h6 class="card-text">${prop.propType },
 								${prop.tranType } <small>Property</small>
 							</h6>
-							<div id="accordion${prop.propID}">
+							<div id="accordion${fetcherType}${prop.propID}">
 								<div class="card">
-									<div class="card-header p-0" id="heading${prop.propID}One">
+									<div class="card-header p-0"
+										id="heading${fetcherType}${prop.propID}One">
 										<h5 class="m-0">
 											<button
 												class="btn btn-secondary collapsed btn-block text-left"
 												data-toggle="collapse"
-												data-target="#collapse${prop.propID}One"
+												data-target="#collapse${fetcherType}${prop.propID}One"
 												aria-expanded="false"
-												aria-controls="collapse${prop.propID}One">
+												aria-controls="collapse${fetcherType}${prop.propID}One">
 												<i class="fa fa-fw fa-plus"></i> Features
 											</button>
 										</h5>
 									</div>
 
-									<div id="collapse${prop.propID}One" class="collapse"
-										aria-labelledby="heading${prop.propID}One"
-										data-parent="#accordion${prop.propID}">
+									<div id="collapse${fetcherType}${prop.propID}One"
+										class="collapse"
+										aria-labelledby="heading${fetcherType}${prop.propID}One"
+										data-parent="#accordion${fetcherType}${prop.propID}">
 										<div class="card-body m-0 p-0">
 											<table class="table table-sm table-striped m-0">
 												<tbody>
@@ -218,21 +255,23 @@
 									</div>
 								</div>
 								<div class="card">
-									<div class="card-header p-0" id="heading${prop.propID}Two">
+									<div class="card-header p-0"
+										id="heading${fetcherType}${prop.propID}Two">
 										<h5 class="m-0">
 											<button
 												class="btn btn-secondary collapsed btn-block text-left"
 												data-toggle="collapse"
-												data-target="#collapse${prop.propID}Two"
+												data-target="#collapse${fetcherType}${prop.propID}Two"
 												aria-expanded="false"
-												aria-controls="collapse${prop.propID}Two">
+												aria-controls="collapse${fetcherType}${prop.propID}Two">
 												<i class="fa fa-fw fa-plus"></i> Amenities
 											</button>
 										</h5>
 									</div>
-									<div id="collapse${prop.propID}Two" class="collapse"
-										aria-labelledby="heading${prop.propID}Two"
-										data-parent="#accordion${prop.propID}">
+									<div id="collapse${fetcherType}${prop.propID}Two"
+										class="collapse"
+										aria-labelledby="heading${fetcherType}${prop.propID}Two"
+										data-parent="#accordion${fetcherType}${prop.propID}">
 										<div class="card-body m-0 p-0">
 											<table class="table table-sm table-striped m-0">
 												<tbody>
@@ -273,21 +312,23 @@
 									</div>
 								</div>
 								<div class="card">
-									<div class="card-header p-0" id="heading${prop.propID}Three">
+									<div class="card-header p-0"
+										id="heading${fetcherType}${prop.propID}Three">
 										<h5 class="m-0">
 											<button
 												class="btn btn-secondary collapsed btn-block text-left"
 												data-toggle="collapse"
-												data-target="#collapse${prop.propID}Three"
+												data-target="#collapse${fetcherType}${prop.propID}Three"
 												aria-expanded="false"
-												aria-controls="collapse${prop.propID}Three">
+												aria-controls="collapse${fetcherType}${prop.propID}Three">
 												<i class="fa fa-fw fa-plus"></i> More Informations
 											</button>
 										</h5>
 									</div>
-									<div id="collapse${prop.propID}Three" class="collapse"
-										aria-labelledby="heading${prop.propID}Three"
-										data-parent="#accordion${prop.propID}">
+									<div id="collapse${fetcherType}${prop.propID}Three"
+										class="collapse"
+										aria-labelledby="heading${fetcherType}${prop.propID}Three"
+										data-parent="#accordion${fetcherType}${prop.propID}">
 										<div class="card-body m-0 p-0">
 											<table class="table table-sm table-striped m-0">
 												<tbody>
@@ -362,31 +403,45 @@
 										<i class="fa fa-fw fa-external-link-alt"></i> See more
 									</button>
 								</div>
-								<div class="col-6">
-									<button
-										class="btn btn-success btn-block ${prop.available eq '0' ? 'disabled' : ''}"
-										${prop.available eq '0' ? 'data-toggle=\"tooltip\" title=\"Not Available\"' : ''}>
-										<i class="fa fa-fw fa-rupee-sign"></i>
-										<c:choose>
-											<c:when test="${prop.priceDisplay eq '1' }">
-												<c:choose>
-													<c:when test="${prop.price/100000 gt 100}">
-										${prop.price/10000000}&nbsp;Crore</c:when>
-													<c:otherwise>${prop.price/100000}&nbsp;Lac</c:otherwise>
-												</c:choose>
-											</c:when>
-											<c:otherwise>
-												<del>99.99 Cr</del>
-											</c:otherwise>
-										</c:choose>
-									</button>
-								</div>
-								<c:if test="${fetcherType ne 'MY' }">
+								<c:if test="${fetcherType ne 'ALL' }">
 									<div class="col-6">
-										<button class="btn btn-outline-danger btn-block">
-											<i class="far fa-fw fa-heart"></i> Like
+										<button
+											class="btn btn-success btn-block ${prop.available eq '0' ? 'disabled' : ''}"
+											${prop.available eq '0' ? 'data-toggle=\"tooltip\" title=\"Not Available\"' : ''}>
+											<i class="fa fa-fw fa-rupee-sign"></i>
+											<c:choose>
+												<c:when test="${prop.priceDisplay eq '1' }">
+													<c:choose>
+														<c:when test="${prop.price/100000 gt 100}">
+										${prop.price/10000000}&nbsp;Crore</c:when>
+														<c:otherwise>${prop.price/100000}&nbsp;Lac</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<del>99.99 Cr</del>
+												</c:otherwise>
+											</c:choose>
 										</button>
 									</div>
+									<c:if test="${fetcherType ne 'MY' }">
+										<div class="col-6 prop-act">
+											<c:choose>
+												<c:when
+													test="${prop.likers ne null and cf:isLiker(prop.likers, user)}">
+													<button class="btn btn-danger btn-block"
+														onclick="asyncProcess('Unlike-Prop', ${prop.propID}, unlikeSuccessBlock)">
+														<i class="fa fa-fw fa-heart"></i> Liked
+													</button>
+												</c:when>
+												<c:otherwise>
+													<button class="btn btn-outline-danger btn-block"
+														onclick="asyncProcess('Like-Prop', ${prop.propID}, likeSuccessBlock)">
+														<i class="far fa-fw fa-heart"></i> Like
+													</button>
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</c:if>
 								</c:if>
 							</div>
 						</div>

@@ -78,7 +78,7 @@ a {
 	cursor: pointer;
 }
 
-#myCarousel {
+#myCarousel, [id^='lPropCarousel'] {
 	height: 500px;
 	overflow: hidden;
 	/*background-color: red;*/
@@ -110,7 +110,7 @@ div[id^="propCarousel-"] .prop-edit {
 	vertical-align: middle;
 }
 
-#myCarousel .carousel-inner>.carousel-item {
+#myCarousel .carousel-inner>.carousel-item, [id^="lPropCarousel-"] .carousel-inner>.carousel-item {
 	height: 500px;
 	background-attachment: fixed;
 }
@@ -375,82 +375,43 @@ div.dropdown-menu.user-info h4 {
 	animation: diggle 0.4s infinite;
 }
 
-@
--webkit-keyframes diggle { 0% {
-	transform: rotate(0deg);
-}
-
-25%
-{
-transform
-:rotate(-10deg)
-;
-
+@-webkit-keyframes diggle { 
+	0% {
+		transform: rotate(0deg);
+	}
 	
+	25% {
+		transform: rotate(-10deg);
+	}
+	50% {
+		transform :rotate(0deg);	
+	}
+	75% {
+		transform :rotate(10deg);
+	}
+	100% {
+		transform :rotate(0deg);
+	}
 }
-50%
-{
-transform
-:rotate(0deg)
-;
-
+@keyframes diggle { 
+	0% {
+		transform: rotate(0deg);
+	}
 	
-}
-75%
-{
-transform
-:rotate(10deg)
-;
-
-	
-}
-100%
-{
-transform
-:rotate(0deg)
-;
-
-	
-}
-}
-@
-keyframes diggle { 0% {
-	transform: rotate(0deg);
+	25% {
+		transform: rotate(-10deg);
+	}
+	50% {
+		transform :rotate(0deg);	
+	}
+	75% {
+		transform :rotate(10deg);
+	}
+	100% {
+		transform :rotate(0deg);
+	}
 }
 
-25%
-{
-transform
-:rotate(-10deg)
-;
-
-	
-}
-50%
-{
-transform
-:rotate(0deg)
-;
-
-	
-}
-75%
-{
-transform
-:rotate(10deg)
-;
-
-	
-}
-100%
-{
-transform
-:rotate(0deg)
-;
-
-	
-}
-}
 table td .fa-td {
 	font-size: 24px;
 }
@@ -683,10 +644,11 @@ table .fa.fa-rupee {
 .panel-heading .dropdown-toggle .fa {
 	
 }
-
-.hoverable:hover {
+.hoverable {
 	-webkit-transition: box-shadow .45s;
 	transition: box-shadow .45s;
+}
+.hoverable:hover {
 	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0
 		rgba(0, 0, 0, .19);
 }
@@ -756,6 +718,10 @@ hr.react {
 
 .f-o-f-dp.up .user-dp {
 	top: 0px;
+}
+
+#yourRequirementModal .user-dp {
+	top: 6px;
 }
 
 @media screen and (max-width: 992px) {
@@ -832,9 +798,8 @@ hr.react {
 	background-color: red;
 	margin: 0px auto;
 }
-
-#yourRequirementModal .user-dp {
-	top: 0px;
+#yourRequirementModal table {
+	overflow-x: visible;
 }
 
 #yourRequirementModal div.popover, #requires div.popover, #posts div.popover
@@ -872,6 +837,7 @@ hr.react {
 .modal-header .close {
 	font-size: 40px;
 	opacity: 0.6;
+	cursor: pointer;
 	/*color: #fff !important;*/
 }
 
@@ -885,6 +851,22 @@ hr.react {
 
 .modal-xl {
 	width: 100%;
+}
+.modal-full {
+	padding-right: 0px !important;
+}
+.modal-full .modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+.modal-full .modal-content {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
 }
 
 /*----------------------------------------------*/
@@ -912,101 +894,102 @@ However, delay the fade out process for 2.5 seconds */
 }
 
 /* Animations to fade the snackbar in and out */
-@
--webkit-keyframes fadein {from { bottom:0;
-	opacity: 0;
+@-webkit-keyframes fadein {
+	from {
+		bottom:0;
+		opacity: 0;
+	}
+	
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+@keyframes fadein {
+	from {
+		bottom:0;
+		opacity: 0;
+	}
+	
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
 }
 
-to {
-	bottom: 30px;
-	opacity: 1;
+@-webkit-keyframes fadeout {
+	from { 
+		bottom:30px;
+		opacity: 1;
+	}
+	
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+@keyframes fadeout {
+	from { 
+		bottom:30px;
+		opacity: 1;
+	}
+	
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
 }
 
+@-webkit-keyframes zoomin {
+	from { 
+		margin:-5pxauto;
+		width: 35px;
+		height: 35px;
+	}
+	
+	to {
+		margin: -63px -57px;
+		width: 150px;
+		height: 150px;
+	}
 }
-@
-keyframes fadein {from { bottom:0;
-	opacity: 0;
+@keyframes zoomin {
+	from { 
+		margin:-5pxauto;
+		width: 35px;
+		height: 35px;
+	}
+	
+	to {
+		margin: -63px -57px;
+		width: 150px;
+		height: 150px;
+	}
 }
-
-to {
-	bottom: 30px;
-	opacity: 1;
+@-webkit-keyframes zoomout {
+	from { 
+		margin:-63px-57px;
+		width: 150px;
+		height: 150px
+	}
+	
+	to {
+		margin: -5px auto;
+		width: 35px;
+		height: 150px
+	}
 }
-
-}
-@
--webkit-keyframes fadeout {from { bottom:30px;
-	opacity: 1;
-}
-
-to {
-	bottom: 0;
-	opacity: 0;
-}
-
-}
-@
-keyframes fadeout {from { bottom:30px;
-	opacity: 1;
-}
-
-to {
-	bottom: 0;
-	opacity: 0;
-}
-
-}
-@
--webkit-keyframes zoomin {from { margin:-5pxauto;
-	width: 35px;
-	height: 35px;
-}
-
-to {
-	margin: -63px -57px;
-	width: 150px;
-	height: 150px;
-}
-
-}
-@
-keyframes zoomin {from { margin:-5pxauto;
-	width: 35px;
-	height: 35px;
-}
-
-to {
-	margin: -63px -57px;
-	width: 150px;
-	height: 150px;
-}
-
-}
-@
--webkit-keyframes zoomout {from { margin:-63px-57px;
-	width: 150px;
-	height: 150px
-}
-
-to {
-	margin: -5px auto;
-	width: 35px;
-	height: 150px
-}
-
-}
-@
-keyframes zoomout {from { margin:-63px-57px;
-	width: 150px;
-	height: 150px
-}
-
-to {
-	margin: -5px auto;
-	width: 35px;
-	height: 150px
-}
-
+@keyframes zoomout {
+		from { margin:-63px-57px;
+		width: 150px;
+		height: 150px
+	}
+	
+	to {
+		margin: -5px auto;
+		width: 35px;
+		height: 150px
+	}
 }
 footer img {
 	width: 25px;
@@ -1077,51 +1060,22 @@ footer img {
 	animation-delay: -1.0s;
 }
 
-@
--webkit-keyframes sk-bounce { 0%, 100% {
-	-webkit-transform: scale(0.0);
-}
+@-webkit-keyframes sk-bounce { 
+	0%, 100% {
+		-webkit-transform: scale(0.0);
+	}
 
-50%
-{
--webkit-transform
- 
-:
- 
-scale
-(1
-.0
-);
-
-	
+	50% {
+		-webkit-transform: scale(1.0);
+	}
 }
-}
-@
-keyframes sk-bounce { 0%, 100% {
-	transform: scale(0.0);
-	-webkit-transform: scale(0.0);
-}
-50%
-{
-transform
- 
-:
- 
-scale
-(1
-.0
-);
-
-		
--webkit-transform
- 
-:
- 
-scale
-(1
-.0
-);
-
-	
-}
+@keyframes sk-bounce { 
+	0%, 100% {
+		transform: scale(0.0);
+		-webkit-transform: scale(0.0);
+	}
+	50% {
+		transform: scale(1.0);
+		-webkit-transform: scale(1.0);
+	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import com.rex.model.CommonModel;
 /**
  * Servlet implementation class Informations
  */
+@WebServlet("/Prop-Change-Informations")
 public class Informations extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +50,7 @@ public class Informations extends HttpServlet {
 								: request.getParameter("desc")),
 						((request.getParameter("tnc") == null || request.getParameter("tnc") == "") ? null
 								: request.getParameter("tnc")),
-						null, null, null));
+						null, null, null, null));
 
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");

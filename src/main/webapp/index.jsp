@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="/WEB-INF/functions" prefix="cf"%>
 <jsp:directive.page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
@@ -18,7 +19,7 @@
 	<jsp:directive.include file="views/modals/wait.inc.html" />
 	<jsp:directive.include file="views/modals/seller.jspf" />
 	<c:choose>
-		<c:when test="${log ne null}">
+		<c:when test="${log ne null and user ne null}">
 			<jsp:directive.include file="views/modals/profile-picture.jspf" />
 			<jsp:directive.include file="views/modals/change-password.inc.html" />
 			<jsp:directive.include file="views/modals/logout.inc.html" />

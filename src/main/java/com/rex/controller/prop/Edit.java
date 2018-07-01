@@ -3,6 +3,7 @@ package com.rex.controller.prop;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import com.rex.model.CommonModel;
 /**
  * Servlet implementation class Edit
  */
+@WebServlet("/Prop-Edit")
 public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +42,7 @@ public class Edit extends HttpServlet {
 				0, 0, 0, Integer.parseInt(request.getParameter("price")),
 				Integer.parseInt(request.getParameter("price_display")),
 				Integer.parseInt(request.getParameter("available")), null, null, 0, 0, 0, 0, 0, 0, null, null, null,
-				null, null));
+				null, null, null));
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
 		} else {

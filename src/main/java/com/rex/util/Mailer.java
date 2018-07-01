@@ -16,38 +16,48 @@ public class Mailer {
 	private static String SERVER;
 	private static String USERNAME;
 	private static String PASSWORD;
-	private static String HOST;
-	private static String AUTH;
 	private static String NAME;
-
+	private static Properties mailer;
 	static {
 		new Mailer();
 	}
 
 	Mailer() {
 
-		Properties mailer = new Properties();
+		mailer = new Properties();
 		try {
 			mailer.load(getClass().getClassLoader().getResourceAsStream("mailer.properties"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
 		SERVER = mailer.getProperty("SERVER");
 		USERNAME = mailer.getProperty("USERNAME");
 		PASSWORD = mailer.getProperty("PASSWORD");
-		HOST = mailer.getProperty("HOST");
-		AUTH = mailer.getProperty("AUTH");
 		NAME = mailer.getProperty("NAME");
+	}
+	class MyAuthenticator extends javax.mail.Authenticator {
+		String User;
+		String Password;
+
+		public MyAuthenticator(String user, String password) {
+			User = user;
+			Password = password;
+		}
+
+		@Override
+		public PasswordAuthentication getPasswordAuthentication() {
+			return new javax.mail.PasswordAuthentication(User, Password);
+		}
 	}
 
 	public static boolean send(String to, String sub, String msg) {
-		Properties properties = System.getProperties();
-		properties.setProperty("mail.smtp.host", HOST);
-		properties.put("mail.smtp.auth", AUTH);
-
-		Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+//		Properties props = new Properties();
+//		props.put("mail.smtp.host", "smtp.gmail.com");
+//		props.put("mail.smtp.port", "587");
+//		props.put("mail.smtp.auth", "true");
+//		props.put("mail.smtp.starttls.enable", "true");
+		Session session = Session.getInstance(mailer, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(USERNAME, PASSWORD);
 			}

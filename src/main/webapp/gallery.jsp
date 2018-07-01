@@ -18,6 +18,7 @@
 	<jsp:directive.include file="views/modals/success.inc.html" />
 	<jsp:directive.include file="views/modals/image.inc.html" />
 	<jsp:directive.include file="views/modals/wait.inc.html" />
+	<jsp:directive.include file="views/modals/seller.jspf" />
 	<c:choose>
 		<c:when test="${log ne null}">
 			<jsp:directive.include file="views/modals/profile-picture.jspf" />

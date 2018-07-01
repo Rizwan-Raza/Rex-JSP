@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="com.rex.model.ContactModel"%>
 <jsp:directive.page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <!DOCTYPE html>
@@ -32,6 +33,9 @@
 	color: #FFCC36;
 }
 
+i.yellow.fa {
+	color: #FFCC36;
+}
 /* Selected state of the stars */
 .rating-stars ul>li.star.selected>i.fa {
 	color: #FF912C;
@@ -98,11 +102,23 @@ ul.social li { /* UI - Social Icons List Elements */
 	<jsp:directive.include file="views/modals/success.inc.html" />
 	<jsp:directive.include file="views/modals/image.inc.html" />
 	<jsp:directive.include file="views/modals/wait.inc.html" />
+
+	<jsp:directive.include file="views/modals/delete-feed.inc.html" />
 	<c:choose>
-		<c:when test="${log ne null}">
+		<c:when test="${log ne null and user ne null}">
 			<jsp:directive.include file="views/modals/profile-picture.jspf" />
 			<jsp:directive.include file="views/modals/change-password.inc.html" />
 			<jsp:directive.include file="views/modals/logout.inc.html" />
+			<c:choose>
+				<c:when test="${log eq 'client'}">
+					<jsp:directive.include file="views/client/modals/edit-profile.jspf" />
+					<script type="text/javascript" src="resources/js/client.js"></script>
+				</c:when>
+				<c:otherwise>
+					<jsp:directive.include file="views/admin/modals/edit-profile.jspf" />
+					<script type="text/javascript" src="resources/js/admin.js"></script>
+				</c:otherwise>
+			</c:choose>
 			<script type="text/javascript" src="resources/js/active.js"></script>
 		</c:when>
 		<c:otherwise>
@@ -121,7 +137,7 @@ ul.social li { /* UI - Social Icons List Elements */
 			<script type="text/javascript" src="resources/js/inactive.js"></script>
 		</c:otherwise>
 	</c:choose>
-	<div class="container py-4">
+	<div class="container py-4" id="contactPage">
 		<h1 class="text-center">Contact Us</h1>
 		<br>
 		<div class="row">
@@ -149,41 +165,49 @@ ul.social li { /* UI - Social Icons List Elements */
 				</div>
 			</div>
 			<div class="col-sm-6 col-md-6 col-lg-8">
-				<form role="form">
+				<form role="form" action="Contact" method="post">
 					<p>Leave a quick review, suggestion, general feedback or bug
 						report to the developer.</p>
+					<input type="hidden" name="uid"
+						value="${(user ne null and user.uid ne null) ? user.uid : 0 }">
 					<div class="form-group">
 						<input type="text" class="form-control" id="name" name="name"
-							placeholder="Name" required>
+							placeholder="Name" required
+							value="${(user ne null and user.fullname ne null) ? user.fullname : '' }"
+							<c:if test='${user ne null }'> readonly</c:if>>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="email" name="email"
-							placeholder="Email" required>
+							placeholder="Email" required
+							value="${(user ne null and user.email ne null) ? user.email : '' }"
+							<c:if test='${user ne null }'> readonly</c:if>>
 					</div>
 					<div class="form-group">
 						<input type="tel" class="form-control" id="mobile" name="mobile"
-							placeholder="Mobile Number *" required>
+							placeholder="Mobile Number *" required
+							value="${(user ne null and user.contact ne null) ? user.contact : '' }"
+							<c:if test='${user ne null }'> readonly</c:if>>
 					</div>
 					<div class="form-group">
-						<select class="form-control custom-select" name="type">
+						<select class="form-control custom-select" name="feedType">
 							<option value="gen">General Feedback</option>
-							<option value="Residential">Bug Report</option>
-							<option value="Commercial">Suggestion</option>
-							<option value="Industrial">Review and Rating</option>
-							<option value="Industrial">Other</option>
+							<option value="bug">Bug Report</option>
+							<option value="sug">Suggestion</option>
+							<option value="rar">Review and Rating</option>
+							<option value="oth">Other</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<textarea class="form-control" id="message" placeholder="Message"
-							maxlength="140" rows="7"></textarea>
+							maxlength="140" rows="7" name="message"></textarea>
 						<span id="characterLeft" class="help-block ">You have
 							reached the limit</span>
 					</div>
 					<div class="row">
-						<div class="col-sm-2">
+						<div class="col-sm-3 col-md-2">
 							<label>Rating</label>
 						</div>
-						<div class='col-sm-6 rating-stars text-center'>
+						<div class='col-sm-9 col-md-6 rating-stars text-center'>
 							<ul id='stars'>
 								<li class='star' title='Poor' data-value='1'
 									data-toggle="tooltip"><i class='fa fa-star fa-fw'></i></li>
@@ -201,9 +225,10 @@ ul.social li { /* UI - Social Icons List Elements */
 								<div class='text-message'></div>
 								<div class='clearfix'></div>
 							</div>
+							<input type="hidden" name="rating" value="5">
 						</div>
-						<div class="col-sm-4">
-							<button type="button" id="submit" name="submit"
+						<div class="col-sm-12 col-md-4">
+							<button type="submit" id="submit" name="submit"
 								class="btn btn-primary float-right">Submit Form</button>
 						</div>
 					</div>
@@ -217,6 +242,15 @@ ul.social li { /* UI - Social Icons List Elements */
 			src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14016.387855079322!2d77.2891295!3d28.5668509!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8a9dc3e7205faa11!2sProlog+Academy!5e0!3m2!1sen!2sin!4v1461454102691"
 			width="100%" height="300" style="border: 0"></iframe>
 	</div>
+
+	<div class="container text-center py-4">
+		<h2 class="my-4">Testimonials</h2>
+		<%
+			request.setAttribute("feeds", new ContactModel().getFeeds());
+		%>
+		<jsp:directive.include file="views/feeds.jspf" />
+	</div>
+
 	<div class="bg-default">
 		<div class="container text-center py-4">
 			<h2 class="my-4">Follow Us</h2>
@@ -249,7 +283,7 @@ ul.social li { /* UI - Social Icons List Elements */
 				</a></li>
 				<li><a href="https://in.pinterest.com/RexTerminous/"
 					class="bg-pinterest" title="Pinterest" data-toggle="tooltip"> <i
-						class="fab fa-pinterest-p"></i>
+						class="fab fa-pinterest"></i>
 				</a></li>
 				<li><a href="https://github.com/Rizwan-Raza" class="bg-github"
 					title="GitHub" data-toggle="tooltip"> <i class="fab fa-github"></i>
@@ -387,6 +421,9 @@ ul.social li { /* UI - Social Icons List Elements */
 															+ ratingValue
 															+ " stars.";
 												}
+												$(
+														"#contactPage form .rating-stars input")
+														.val(ratingValue);
 												responseMessage(msg);
 
 											});

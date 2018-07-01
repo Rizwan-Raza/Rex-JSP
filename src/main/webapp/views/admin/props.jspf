@@ -130,8 +130,7 @@
 									data-toggle="tooltip" data-placement="top"
 									title="${prop.price/100000 } Lac Rs."><i
 										class="fa fa-fw fa-td fa-rupee-sign"></i></span><span
-									class="d-none d-xl-inline"><i
-										class="fa fa-fw fa-rupee-sign"></i> <c:choose>
+									class="d-none d-xl-inline">&#8377; <c:choose>
 											<c:when test="${prop.price/100000 gt 100}">
 										${prop.price/10000000}&nbsp;Crore</c:when>
 											<c:otherwise>${prop.price/100000}&nbsp;Lac</c:otherwise>

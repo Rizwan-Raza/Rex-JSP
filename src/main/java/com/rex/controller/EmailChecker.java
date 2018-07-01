@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import com.rex.util.DBConnector;
 /**
  * Servlet implementation class EmailChecker
  */
+@WebServlet("/EmailChecker")
 public class EmailChecker extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection conn;
@@ -26,7 +28,7 @@ public class EmailChecker extends HttpServlet {
 	 */
 	public EmailChecker() {
 		conn = new DBConnector().getConnection();
-		if(conn == null)
+		if (conn == null)
 			return;
 		try {
 			stmt = conn.prepareStatement("SELECT email FROM users WHERE email=?");
@@ -43,8 +45,9 @@ public class EmailChecker extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		if(conn == null || stmt == null) {
-			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Can't verify email right now. Connection refuses\"}");
+		if (conn == null || stmt == null) {
+			response.getWriter().println(
+					"{\"response\": \"KO\",\"message\": \"Can't verify email right now. Connection refuses\"}");
 			return;
 		}
 		try {
@@ -52,14 +55,13 @@ public class EmailChecker extends HttpServlet {
 
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				response.getWriter()
-						.println("{\"response\": \"OK\"}");
+				response.getWriter().println("{\"response\": \"OK\"}");
 			} else {
-				response.getWriter()
-						.println("{\"response\": \"KO\",\"message\": \"KO\"}");
+				response.getWriter().println("{\"response\": \"KO\",\"message\": \"KO\"}");
 			}
 		} catch (SQLException e) {
-			response.getWriter().println("{\"response\": \"KO\",\"message\": \"Can't verify email right now. SQL Problem\"}");
+			response.getWriter()
+					.println("{\"response\": \"KO\",\"message\": \"Can't verify email right now. SQL Problem\"}");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

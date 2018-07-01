@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import com.rex.model.CommonModel;
 /**
  * Servlet implementation class AddImage
  */
+@WebServlet("/Prop-Add-Image")
 @MultipartConfig(fileSizeThreshold = 6291456, // 6 MB
 		maxFileSize = 10485760L, // 10 MB
 		maxRequestSize = 20971520L // 20 MB

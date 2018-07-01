@@ -49,30 +49,30 @@
 	<nav class="nav nav-tabs nav-fill">
 		<a class="nav-item nav-link active" href="#clients" data-toggle="tab"
 			role="tab" aria-controls="clients" aria-selected="true"><span
-								class="d-md-none"><i class="fa fa-fw fa-users"></i></span><span
-								class="d-none d-md-inline">Clients</span></a> <a
+			class="d-md-none"><i class="fa fa-fw fa-users"></i></span><span
+			class="d-none d-md-inline">Clients</span></a> <a
 			class="nav-item nav-link" href="#posts" data-toggle="tab" role="tab"
 			aria-controls="posts" aria-selected="false"><span
-								class="d-md-none"><i class="fa fa-fw fa-home"></i></span><span
-								class="d-none d-md-inline">Posted Properties</span></a> <a
-			class="nav-item nav-link disabled" href="#requires" data-toggle="tab"
+			class="d-md-none"><i class="fa fa-fw fa-home"></i></span><span
+			class="d-none d-md-inline">Posted Properties</span></a> <a
+			class="nav-item nav-link" href="#requires" data-toggle="tab"
 			role="tab" aria-controls="requires" aria-selected="false"><span
-								class="d-md-none"><i class="fa fa-fw fa-tasks"></i></span><span
-								class="d-none d-md-inline">Requested Properties</span>
-								</a> <a class="nav-item nav-link disabled" href="#map"
-			data-toggle="tab" role="tab" aria-controls="map"
-			aria-selected="false"><span
-								class="d-md-none"><i class="fa fa-fw fa-map"></i></span><span
-								class="d-none d-md-inline">Google Map</span></a>
+			class="d-md-none"><i class="fa fa-fw fa-tasks"></i></span><span
+			class="d-none d-md-inline">Requested Properties</span> </a> <a
+			class="nav-item nav-link disabled" href="#map" data-toggle="tab"
+			role="tab" aria-controls="map" aria-selected="false"><span
+			class="d-md-none"><i class="fa fa-fw fa-map"></i></span><span
+			class="d-none d-md-inline">Google Map</span></a>
 	</nav>
 
 	<div class="tab-content">
 		<jsp:directive.include file="clients.jspf" />
 		<jsp:directive.include file="props.jspf" />
+		<jsp:directive.include file="requests.jspf" />
 		<!-- <?php 
 			include 'clients.php';  -- done --
 			include 'properties.php';  -- done --
-			include 'required-props.php'; 
+			include 'required-props.php'; -- done --
 		?> -->
 		<div id="map" class="tab-pane fade">
 			<h3>Google API Map containing Properties marks</h3>

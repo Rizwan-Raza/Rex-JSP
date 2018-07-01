@@ -1,13 +1,13 @@
 <%@page import="com.rex.bean.UserBean"%>
 <%@page import="com.rex.model.CommonModel"%>
-<div id="my-property" class="tab-pane fade">
+<div id="wishlist" class="tab-pane fade">
 	<br>
 	<h4>Properties Posted by You.</h4>
 	<br>
 	<%
 		request.setAttribute("props",
-				new CommonModel().getProps(((UserBean) session.getAttribute("user")).getUid(), "MY"));
+				new CommonModel().getProps(((UserBean) session.getAttribute("user")).getUid(), "LIKED"));
 	%>
-	<c:set var="fetcherType" value="MY" />
+	<c:set var="fetcherType" value="LIKED" />
 	<jsp:directive.include file="propFetcher.jspf" />
 </div>

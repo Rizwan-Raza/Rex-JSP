@@ -10,6 +10,7 @@ import java.util.List;
 import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
 import com.rex.bean.PropBean;
+import com.rex.bean.ReqProp;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
@@ -33,7 +34,12 @@ public class CommonModel {
 	private PreparedStatement gph = null;
 	private PreparedStatement gpa = null;
 	private PreparedStatement gpi = null;
+	private PreparedStatement gpl = null;
 	private PreparedStatement gps = null;
+	private PreparedStatement gpw = null;
+	private PreparedStatement grp = null;
+	private PreparedStatement rdel = null;
+	private PreparedStatement rped = null;
 
 	private ResultSet rs_temp = null;
 
@@ -62,10 +68,19 @@ public class CommonModel {
 					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id!=? ORDER BY properties.time DESC");
 			gpm = conn.prepareStatement(
 					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id=? ORDER BY properties.time DESC");
+			gpw = conn.prepareStatement(
+					"SELECT * FROM properties, users, addresses, wishlist WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND wishlist.pid=properties.pid AND wishlist.cid=? ORDER BY properties.time DESC");
 			gph = conn.prepareStatement(
 					"SELECT properties.pid, properties.title, properties.bhk, properties.price FROM properties LIMIT 4");
 			gpa = conn.prepareStatement("SELECT * FROM property_amenities WHERE pid=?");
 			gpi = conn.prepareStatement("SELECT * FROM property_images WHERE pid=?");
+			gpl = conn.prepareStatement(
+					"SELECT * FROM users, wishlist WHERE wishlist.pid=? AND wishlist.cid=users.user_id");
+			grp = conn.prepareStatement(
+					"SELECT * FROM post_requirement, users, addresses WHERE users.user_id=post_requirement.cid AND addresses.add_id=users.add_id");
+			rdel = conn.prepareStatement("DELETE FROM post_requirement WHERE post_requirement.pr_id=?");
+			rped = conn.prepareStatement(
+					"UPDATE post_requirement SET type=?, city=?, state=?, bhk=?, bath=?, area=?, budget=?, edit=CURRENT_TIMESTAMP WHERE post_requirement.pr_id=?");
 		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -199,7 +214,7 @@ public class CommonModel {
 			if (pdel.executeUpdate() != 0) {
 				return new SuccessBean("U-P-D-1", "Property Deleted Successfully", "prop-delete", "success");
 			} else {
-				return new ErrorBean("U-P-D-2", "Can't Delet Property, try again", this.getClass().toGenericString());
+				return new ErrorBean("U-P-D-2", "Can't Delete Property, try again", this.getClass().toGenericString());
 			}
 		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
@@ -216,6 +231,8 @@ public class CommonModel {
 				gpd = gpm;
 			} else if (type == "SINGLE") {
 				gpd = gps;
+			} else if (type == "LIKED") {
+				gpd = gpw;
 			} else {
 				gpd = gpg;
 			}
@@ -237,6 +254,15 @@ public class CommonModel {
 				while (rs_temp.next()) {
 					images.add(rs_temp.getString("src"));
 				}
+				gpl.setInt(1, pid);
+				rs_temp = gpl.executeQuery();
+				List<UserBean> likers = new ArrayList<UserBean>();
+				while (rs_temp.next()) {
+					likers.add(new UserBean(rs_temp.getInt("user_id"), rs_temp.getString("firstname"),
+							rs_temp.getString("lastname"), rs_temp.getString("email"), null,
+							rs_temp.getString("gender"), rs_temp.getString("contact"), 0, rs_temp.getString("src"),
+							rs_temp.getDate("wishlist.time"), null));
+				}
 				UserBean seller = new UserBean(rs.getInt("users.user_id"), rs.getString("users.firstname"),
 						rs.getString("users.lastname"), rs.getString("users.email"), null, rs.getString("users.gender"),
 						rs.getString("users.contact"), rs.getInt("users.auth"), rs.getString("users.src"),
@@ -253,7 +279,7 @@ public class CommonModel {
 						rs.getInt("properties.school"), rs.getInt("properties.rail"), rs.getInt("properties.units"),
 						rs.getInt("properties.floor"), rs.getInt("properties.t_floors"),
 						rs.getString("properties.b_desc"), rs.getString("properties.tnc"),
-						rs.getTimestamp("properties.time"), rs.getTimestamp("properties.edit"), address);
+						rs.getTimestamp("properties.time"), rs.getTimestamp("properties.edit"), address, likers);
 				al.add(prop);
 			}
 			return al;
@@ -277,7 +303,7 @@ public class CommonModel {
 				}
 				PropBean prop = new PropBean(null, pid, null, null, rs.getString("properties.title"),
 						rs.getInt("properties.bhk"), 0, 0, 0, 0, 0, rs.getInt("properties.price"), 0, 0, null, images,
-						0, 0, 0, 0, 0, 0, null, null, null, null, null);
+						0, 0, 0, 0, 0, 0, null, null, null, null, null, null);
 				al.add(prop);
 			}
 			return al;
@@ -286,4 +312,65 @@ public class CommonModel {
 		}
 		return null;
 	}
+
+	public ArrayList<ReqProp> getReqProps() {
+		try {
+			ResultSet rs = grp.executeQuery();
+			ArrayList<ReqProp> al = new ArrayList<ReqProp>();
+			while (rs.next()) {
+				ReqProp rp = new ReqProp(rs.getInt("pr_id"),
+						new UserBean(rs.getInt("user_id"), rs.getString("firstname"), rs.getString("lastname"),
+								rs.getString("email"), rs.getString("password"), rs.getString("gender"),
+								rs.getString("contact"), rs.getInt("auth"), rs.getString("src"),
+								rs.getTimestamp("time"),
+								new AddressBean(rs.getInt("add_id"), rs.getString("street_no"), rs.getString("town"),
+										rs.getString("city"), rs.getString("state"))),
+						rs.getString("type"), rs.getString("city"), rs.getString("state"), rs.getInt("bhk"),
+						rs.getInt("bath"), rs.getString("area"), rs.getString("budget"), rs.getTimestamp("time"),
+						rs.getTimestamp("edit"));
+				// System.out.println(rs.getTimestamp("time"));
+				al.add(rp);
+			}
+			return al;
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public ResponseBean deleteRequest(int prid) {
+		try {
+			rdel.setInt(1, prid);
+			if (rdel.executeUpdate() != 0) {
+				return new SuccessBean("C-R-D-1", "Requested Property Deleted", "reqp-delete", "success");
+			} else {
+				return new ErrorBean("C-R-D-2", "Can't Delete Request, try again", this.getClass().toGenericString());
+			}
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
+			return new ErrorBean("C-R-D-1", e.getMessage(), this.getClass().toGenericString());
+		}
+	}
+
+	public ResponseBean editRequest(ReqProp rpb) {
+		try {
+			rped.setString(1, rpb.getType());
+			rped.setString(2, rpb.getCity());
+			rped.setString(3, rpb.getState());
+			rped.setInt(4, rpb.getBhk());
+			rped.setInt(5, rpb.getBath());
+			rped.setString(6, rpb.getArea());
+			rped.setString(7, rpb.getBudget());
+			rped.setInt(8, rpb.getPr_id());
+			if (rped.executeUpdate() != 0) {
+				return new SuccessBean("C-R-E-1", "Requested Property Edited", "reqp-eidt", "success");
+			} else {
+				return new ErrorBean("C-R-E-2", "Can't Edit Request, try again", this.getClass().toGenericString());
+			}
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
+			return new ErrorBean("C-R-E-1", e.getMessage(), this.getClass().toGenericString());
+		}
+	}
+
 }

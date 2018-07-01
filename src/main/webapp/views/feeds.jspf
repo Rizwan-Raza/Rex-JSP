@@ -1,0 +1,62 @@
+<c:if test="${feeds.size() eq '0' or empty feeds}">
+	<div class="alert alert-danger">
+		Currently, No one is interested for saying about us! <b>&#x1F602;</b>
+		<i class="fas fa-laugh-squint"></i>
+	</div>
+</c:if>
+<div class="row">
+	<c:forEach var="feed" varStatus="feedStatus" items="${feeds}">
+		<div class="col-12 col-sm-6 col-md-4 col-lg-3 mx-auto"
+			id="feed${feed.fid }">
+			<div class="card">
+				<div class="card-header">
+					<c:choose>
+						<c:when test="${feed.feedType=='bug'}">Bug Report</c:when>
+						<c:when test="${feed.feedType=='gen'}">General Feedback</c:when>
+						<c:when test="${feed.feedType=='sug'}">Suggestion</c:when>
+						<c:when test="${feed.feedType=='rar'}">Rating and Review</c:when>
+						<c:otherwise>Others</c:otherwise>
+					</c:choose>
+					<c:if test="${log ne null and user ne null and user.auth == 2}">
+						<a href="javascript:deleteFeed(${feed.fid })"><span
+							class="close">&times;</i>
+						</span></a>
+					</c:if>
+				</div>
+				<div class="card-body">
+					<blockquote class="blockquote mb-0">
+						<p>${feed.message }</p>
+						<footer class="blockquote-footer">${feed.name }<br>
+							<small>${feed.email }, ${feed.mobile }</small>
+						</footer>
+					</blockquote>
+					<div class="rating-stars">
+						<c:forEach var="star" varStatus="starStatus1" begin="1"
+							end="${feed.rating }" step="1">
+							<i class='fa fa-star fa-fw yellow'></i>
+						</c:forEach>
+						<c:forEach var="star" varStatus="starStatus2"
+							begin="${feed.rating +1}" end="5" step="1">
+							<i class='fa fa-star fa-fw'></i>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+
+			<!--  <div class="card">
+				<h5 class="card-title mb-0">${feed.name }</h5>
+				<small class="card-subtitle mb-2 text-muted">${feed.email },
+					${feed.mobile }</small>
+				<h6 class="card-text">${feed.message },${feed.feedType }</h6>
+				Rating: ${feed.rating }
+				<c:forEach var="star" varStatus="starStatus" begin="1"
+					end="${feed.rating }" step="1">
+					<i class="fa fa-star fa-fw yellow">
+				</c:forEach>
+				<c:forEach var="star" varStatus="starStatus" begin="1"
+					end="${5-feed.rating }" step="1">
+					<i class="fa fa-star fa-fw">
+				</c:forEach>-->
+		</div>
+	</c:forEach>
+</div>

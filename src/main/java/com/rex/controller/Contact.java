@@ -7,24 +7,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.rex.bean.AddressBean;
+import com.rex.bean.ErrorBean;
+import com.rex.bean.FeedBean;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
-import com.rex.model.CommonModel;
+import com.rex.model.ContactModel;
 
 /**
- * Servlet implementation class AddressChange
+ * Servlet implementation class Contact
  */
-@WebServlet("/Change-Address")
-public class AddressChange extends HttpServlet {
+@WebServlet("/Contact")
+public class Contact extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddressChange() {
+	public Contact() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,18 +35,20 @@ public class AddressChange extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession sess = request.getSession(true);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 
-		ResponseBean bean = (new CommonModel()).changeAddress(
-				new AddressBean(Integer.parseInt(request.getParameter("add_id")), request.getParameter("street"),
-						request.getParameter("town"), request.getParameter("city"), request.getParameter("state")));
-		if (bean instanceof SuccessBean) {
-			sess.setAttribute("process", "success");
+		ResponseBean obj = (new ContactModel())
+				.add(new FeedBean(0, Integer.parseInt(request.getParameter("uid")), request.getParameter("name"),
+						request.getParameter("email"), request.getParameter("mobile"), request.getParameter("feedType"),
+						request.getParameter("message"), Integer.parseInt(request.getParameter("rating"))));
+		if (obj instanceof SuccessBean) {
+			response.getWriter()
+					.println("{\"response\": \"OK\",\"message\": \"" + ((SuccessBean) obj).getMessage() + "\"}");
 		} else {
-			sess.setAttribute("process", "failed");
+			response.getWriter()
+					.println("{\"response\": \"KO\",\"message\": \"" + ((ErrorBean) obj).getMessage() + "\"}");
 		}
-		sess.setAttribute("bean", bean);
-		response.sendRedirect("./");
 	}
 
 	/**

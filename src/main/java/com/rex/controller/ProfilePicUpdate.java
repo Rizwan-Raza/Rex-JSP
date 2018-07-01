@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import com.rex.model.ProfilePicUpdateModel;
 /**
  * Servlet implementation class ProfilePicUpdateController
  */
+@WebServlet("/ProfilePicUpdate")
 @MultipartConfig(fileSizeThreshold = 6291456, // 6 MB
 		maxFileSize = 10485760L, // 10 MB
 		maxRequestSize = 20971520L // 20 MB
@@ -58,6 +60,10 @@ public class ProfilePicUpdate extends HttpServlet {
 
 		// Write the file
 		String oFilePath = getServletContext().getRealPath(uFilePath);
+		File dirCheck = new File(oFilePath);
+		if (!dirCheck.exists()) {
+			dirCheck.mkdir();
+		}
 		int filenamePart = fileName.lastIndexOf("\\");
 		String uploadedFile;
 		if (filenamePart >= 0) {

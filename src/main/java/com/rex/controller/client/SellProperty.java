@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import com.rex.model.ClientModel;
 /**
  * Servlet implementation class SellProperty
  */
+@WebServlet("/SellProperty")
 @MultipartConfig(fileSizeThreshold = 6291456, // 6 MB
 		maxFileSize = 10485760L, // 10 MB
 		maxRequestSize = 20971520L // 20 MB
@@ -69,7 +71,7 @@ public class SellProperty extends HttpServlet {
 				uploadedFile = fileName.substring(filenamePart + 1);
 			}
 			uploadedFile = uploadedFile.replace(".", (new Random()).nextInt(100) + ".");
-			
+
 			filePart.write(oFilePath + uploadedFile);
 			images.add(filePath + uploadedFile);
 		}
@@ -95,7 +97,8 @@ public class SellProperty extends HttpServlet {
 				(request.getParameter("tnc") == null || request.getParameter("tnc") == "") ? null
 						: request.getParameter("tnc"),
 				null, null, new AddressBean(0, request.getParameter("street"), request.getParameter("town"),
-						request.getParameter("city"), request.getParameter("state"))));
+						request.getParameter("city"), request.getParameter("state")),
+				null));
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
 		} else {

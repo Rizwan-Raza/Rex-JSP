@@ -14,18 +14,18 @@
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="about.jsp">About
 					Us</a></li>
-			<c:if test="${log eq null }">
+			<c:if test="${!(log ne null and user ne null)}">
 				<li class="nav-item"><a class="nav-link" href="gallery.jsp">Gallery</a></li>
 			</c:if>
 			<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact
 					Us </a></li>
 		</ul>
 		<c:choose>
-			<c:when test="${log eq null}">
+			<c:when test="${!(log ne null and user ne null)}">
 				<ul class="navbar-nav ml-auto my-lg-0">
-					<li class="nav-item"><a class="nav-link" data-toggle="modal"
-						data-target="#signupModal"><i class="fa fa-fw fa-user"></i>
-							Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link mr-2"
+						data-toggle="modal" data-target="#signupModal"><i
+							class="fa fa-fw fa-user"></i> Sign Up</a></li>
 					<li class="dropdown">
 						<button class="btn btn-success dropdown-toggle" type="button"
 							id="dropdownMenuButton" data-toggle="dropdown"

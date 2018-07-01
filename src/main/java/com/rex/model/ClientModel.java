@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
@@ -28,6 +29,8 @@ public class ClientModel {
 	private PreparedStatement prl = null;
 	private PreparedStatement pru = null;
 	private PreparedStatement prr = null;
+	private PreparedStatement grp = null;
+	private PreparedStatement gor = null;
 
 	private ResultSet rs = null;
 
@@ -47,15 +50,18 @@ public class ClientModel {
 			img = conn.prepareStatement("INSERT INTO property_images(pid, src) VALUES(?, ?)");
 			gvw = conn.prepareStatement("SELECT firstname FROM users WHERE email=?");
 			prl = conn.prepareStatement("INSERT INTO wishlist(pid, cid) VALUES(?, ?)");
-			pru = conn.prepareStatement("DELETE FROM wishlist WHERE wid=?");
+			pru = conn.prepareStatement("DELETE FROM wishlist WHERE pid=? AND cid=?");
 			prr = conn.prepareStatement(
 					"INSERT INTO post_requirement (cid, type, city, state, bhk, bath, area, budget) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+			grp = conn.prepareStatement("SELECT * FROM post_requirement WHERE cid=?");
+			gor = conn.prepareStatement(
+					"SELECT * FROM post_requirement, users, addresses WHERE users.user_id=post_requirement.cid AND addresses.add_id=users.add_id AND post_requirement.cid!=?");
 		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public ResponseBean auth(LoginBean user) {
+	public Object auth(LoginBean user) {
 		try {
 			stmt.setString(1, user.getUsername());
 			stmt.setString(2, user.getPassword());
@@ -176,10 +182,10 @@ public class ClientModel {
 		}
 	}
 
-	public ResponseBean like(String pid, String uid) {
+	public ResponseBean like(int pid, int uid) {
 		try {
-			prl.setString(1, pid);
-			prl.setString(2, uid);
+			prl.setInt(1, pid);
+			prl.setInt(2, uid);
 			prl.executeUpdate();
 			return new SuccessBean("C-P-L-1", "Property Added to Wishlist", "prop-like", "success");
 		} catch (NullPointerException | SQLException e) {
@@ -188,9 +194,10 @@ public class ClientModel {
 		}
 	}
 
-	public ResponseBean like(String wid) {
+	public ResponseBean unlike(int pid, int uid) {
 		try {
-			pru.setString(1, wid);
+			pru.setInt(1, pid);
+			pru.setInt(2, uid);
 			pru.executeUpdate();
 
 			return new SuccessBean("C-P-U-1", "Property Removed from Wishlist", "prop-unlike", "success");
@@ -202,7 +209,7 @@ public class ClientModel {
 
 	public ResponseBean postRequirement(ReqProp prop) {
 		try {
-			prr.setInt(1, prop.getCid());
+			prr.setInt(1, prop.getClient().getUid());
 			prr.setString(2, prop.getType());
 			prr.setString(3, prop.getCity());
 			prr.setString(4, prop.getState());
@@ -212,10 +219,55 @@ public class ClientModel {
 			prr.setString(8, prop.getBudget());
 			prr.executeUpdate();
 
-			return new SuccessBean("C-P-U-1", "Property Removed from Wishlist", "prop-unlike", "success");
+			return new SuccessBean("C-P-U-1", "Property Request Added", "prop-req", "success");
 		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
-			return new ErrorBean("C-P-U-1", e.getMessage(), this.getClass().toGenericString());
+			return new ErrorBean("C-P-R-1", e.getMessage(), this.getClass().toGenericString());
 		}
+	}
+
+	public ArrayList<ReqProp> getReqProps(int uid) {
+		try {
+			grp.setInt(1, uid);
+			rs = grp.executeQuery();
+			ArrayList<ReqProp> al = new ArrayList<ReqProp>();
+			while (rs.next()) {
+				ReqProp rp = new ReqProp(rs.getInt("pr_id"), null, rs.getString("type"), rs.getString("city"),
+						rs.getString("state"), rs.getInt("bhk"), rs.getInt("bath"), rs.getString("area"),
+						rs.getString("budget"), rs.getTimestamp("time"), rs.getTimestamp("edit"));
+				// System.out.println(rs.getTimestamp("time"));
+				al.add(rp);
+			}
+			return al;
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public ArrayList<ReqProp> getOReqProps(int uid) {
+		try {
+			gor.setInt(1, uid);
+			rs = gor.executeQuery();
+			ArrayList<ReqProp> al = new ArrayList<ReqProp>();
+			while (rs.next()) {
+				ReqProp rp = new ReqProp(rs.getInt("pr_id"),
+						new UserBean(rs.getInt("user_id"), rs.getString("firstname"), rs.getString("lastname"),
+								rs.getString("email"), rs.getString("password"), rs.getString("gender"),
+								rs.getString("contact"), rs.getInt("auth"), rs.getString("src"),
+								rs.getTimestamp("time"),
+								new AddressBean(rs.getInt("add_id"), rs.getString("street_no"), rs.getString("town"),
+										rs.getString("city"), rs.getString("state"))),
+						rs.getString("type"), rs.getString("city"), rs.getString("state"), rs.getInt("bhk"),
+						rs.getInt("bath"), rs.getString("area"), rs.getString("budget"), rs.getTimestamp("time"),
+						rs.getTimestamp("edit"));
+				// System.out.println(rs.getTimestamp("time"));
+				al.add(rp);
+			}
+			return al;
+		} catch (NullPointerException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

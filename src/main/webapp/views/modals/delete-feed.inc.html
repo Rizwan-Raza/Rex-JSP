@@ -1,12 +1,11 @@
 <!-- Modal -->
-<div class="modal fade" tabindex="-1" id="deleteRequestModal"
-	role="dialog">
+<div class="modal fade" tabindex="-1" id="deleteFeedModal" role="dialog">
 	<div class="modal-dialog modal-sm">
 
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="deleteRequestModalLabel">
+				<h4 class="modal-title" id="logoutModalLabel">
 					<i class="fa fa-fw fa-exclamation-triangle"></i> Sure ?
 				</h4>
 				<button type="button" class="close" data-dismiss="modal"
@@ -15,17 +14,15 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p class="modal-info">
-					Are you sure you want to delete <b><span>Requested
-							Property</span></b> from our system <b>R.E.X</b> ?
-				</p>
+				<p class="modal-info">Are you sure you want to Delete this feed
+					?</p>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-success mr-auto" data-dismiss="modal">
+				<button class="btn btn-danger mr-auto" data-dismiss="modal">
 					<i class="fa fa-fw fa-times"></i> Cancel
 				</button>
-				<button class="btn btn-danger" data-dismiss="modal"
-					onclick="asyncProcess('Delete-Req-Prop',0,'deleteRequestSuccess')">
+				<button class="btn btn-success" data-dismiss="modal"
+					onclick="asyncProcess('Delete-Feed', 0, deleteFeedSuccess)">
 					<i class="fa fa-fw fa-check"></i> Confirm
 				</button>
 			</div>

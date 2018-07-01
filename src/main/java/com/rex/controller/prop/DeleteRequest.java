@@ -1,4 +1,4 @@
-package com.rex.controller.admin.client;
+package com.rex.controller.prop;
 
 import java.io.IOException;
 
@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.rex.bean.ErrorBean;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
-import com.rex.model.AdminModel;
+import com.rex.bean.UserBean;
+import com.rex.model.CommonModel;
 
 /**
- * Servlet implementation class DeleteController
+ * Servlet implementation class DeleteRequest
  */
-@WebServlet("/Admin-Client-Delete")
-public class Delete extends HttpServlet {
+@WebServlet("/Delete-Req-Prop")
+public class DeleteRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Delete() {
+	public DeleteRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,14 +36,18 @@ public class Delete extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		ResponseBean obj = (new AdminModel()).delete(Integer.parseInt(request.getParameter("id")));
+		String id = request.getParameter("id");
+		ResponseBean obj = (new CommonModel()).deleteRequest(Integer.parseInt(id));
 		if (obj instanceof SuccessBean) {
 			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + ((SuccessBean) obj).getMessage()
-					+ "\", \"user_id\": \"" + request.getParameter("id") + "\"}");
+					+ "\", \"pid\": \"" + request.getParameter("id") + "\", \"pr_id\": \"" + id + "\", \"type\":\""
+					+ (((UserBean) request.getSession().getAttribute("user")).getAuth() == 2 ? "admin" : "client")
+					+ "\"}");
 		} else {
 			response.getWriter()
 					.println("{\"response\": \"KO\",\"message\": \"" + ((ErrorBean) obj).getMessage() + "\"}");
 		}
+
 	}
 
 }

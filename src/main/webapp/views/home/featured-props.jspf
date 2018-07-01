@@ -28,50 +28,53 @@
 		</div>
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="prop" varStatus="propStatus" items="${props}">
-			<div class="col-md-3 col-sm-6 col-12">
+		<div class="row">
+			<c:forEach var="prop" varStatus="propStatus" items="${props}">
+				<div class="col-md-3 col-sm-6 col-12 mx-auto">
 
-				<div id="propCarousel-${prop.propID}"
-					class="card-img-top carousel slide img-gallery"
-					data-ride="carousel">
-					<ol class="carousel-indicators">
-						<c:forEach begin="0" end="${prop.images.size() }" varStatus="loop">
-							<c:if test="${loop.index < prop.images.size() }">
-								<li data-target="
+					<div id="propCarousel-${prop.propID}"
+						class="card-img-top carousel slide img-gallery"
+						data-ride="carousel">
+						<ol class="carousel-indicators">
+							<c:forEach begin="0" end="${prop.images.size() }"
+								varStatus="loop">
+								<c:if test="${loop.index < prop.images.size() }">
+									<li data-target="
 								#propCarousel-${prop.propID}"
-									data-slide-to="${loop.index}"
-									${loop.index eq 0 ? 'class=\"active\"' : ''}></li>
-							</c:if>
-						</c:forEach>
-					</ol>
-					<div class="carousel-inner">
-						<c:forEach var="image" varStatus="imageStatus"
-							items="${prop.images}">
-							<jsp:text>
-								<![CDATA[<div class="carousel-item]]>
-							</jsp:text>
-							<c:if test="${imageStatus.first }"> active</c:if>"
+										data-slide-to="${loop.index}"
+										${loop.index eq 0 ? 'class=\"active\"' : ''}></li>
+								</c:if>
+							</c:forEach>
+						</ol>
+						<div class="carousel-inner">
+							<c:forEach var="image" varStatus="imageStatus"
+								items="${prop.images}">
+								<jsp:text>
+									<![CDATA[<div class="carousel-item]]>
+								</jsp:text>
+								<c:if test="${imageStatus.first }"> active</c:if>"
 									<jsp:text>
-								<![CDATA[ style="background-image: url(']]>${image}<![CDATA[');"></div>]]>
-							</jsp:text>
-						</c:forEach>
+									<![CDATA[ style="background-image: url(']]>${image}<![CDATA[');"></div>]]>
+								</jsp:text>
+							</c:forEach>
+						</div>
+
+						<div class="ui-in-text">
+							<h4>${prop.title}</h4>
+							<h5>${prop.bhk}&nbsp;BHK&nbsp;FLAT</h5>
+							<h6>at ${prop.price/100000 } Lacs/flat</h6>
+							<center>
+								<button class="btn btn-primary"
+									onclick="window.location.href='PropertyDetails/${prop.propID}'">
+									<i class="fa fa-fw fa-eye"></i> View Property
+								</button>
+							</center>
+						</div>
 					</div>
 
-					<div class="ui-in-text">
-						<h4>${prop.title}</h4>
-						<h5>${prop.bhk}&nbsp;BHK&nbsp;FLAT</h5>
-						<h6>at ${prop.price/100000 } Lacs/flat</h6>
-						<center>
-							<button class="btn btn-primary"
-								onclick="window.location.href='PropertyDetails/${prop.propID}'">
-								<i class="fa fa-fw fa-eye"></i> View Property
-							</button>
-						</center>
-					</div>
+					<br>
 				</div>
-
-				<br>
-			</div>
-		</c:forEach>
+			</c:forEach>
+		</div>
 	</c:otherwise>
 </c:choose>

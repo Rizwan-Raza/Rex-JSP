@@ -42,7 +42,7 @@
 			data-toggle="tab" role="tab" aria-controls="my-property"
 			aria-selected="false"><span class="d-md-none"><i
 				class="fa fa-fw fa-user-circle"></i></span><span class="d-none d-md-inline">My
-				Properties</span></a> <a class="nav-item nav-link disabled" href="#wishlist"
+				Properties</span></a> <a class="nav-item nav-link" href="#wishlist"
 			data-toggle="tab" role="tab" aria-controls="wishlist"
 			aria-selected="false"><span class="d-md-none"><i
 				class="fa fa-fw fa-heart"></i></span><span class="d-none d-md-inline">WishList</span></a>
@@ -52,6 +52,7 @@
 		<jsp:directive.include file="buy.jspf" />
 		<jsp:directive.include file="sell.inc.html" />
 		<jsp:directive.include file="my.jspf" />
+		<jsp:directive.include file="wishlist.jspf" />
 		<!-- <?php 
 			$conn = connectDB();
 			include 'components/client/buyProperty.php'; -- done --

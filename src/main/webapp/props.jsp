@@ -42,7 +42,7 @@
 
 		updator($(elem).parent().parent().find("input.key").val(), $(elem)
 				.parent().parent().find("input.value").val(), $(elem).parent()
-				.parent().parent().attr("id"));
+				.parent().parent().parent().attr("id"));
 	}
 </script>
 </head>
@@ -146,6 +146,7 @@
 				</form>
 			</div>
 		</div>
+
 		<%
 			}
 		%>

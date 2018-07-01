@@ -38,13 +38,13 @@ public class AdminModel {
 					"UPDATE users SET users.firstname=?, users.lastname=?, users.gender=?, users.email=?, users.contact=? WHERE users.user_id=?");
 			ccp = conn.prepareStatement("UPDATE users SET users.password=? WHERE users.user_id=?");
 			ck = conn.prepareStatement(
-					"DELETE users, addresses FROM users LEFT JOIN addresses ON addresses.add_id= users.add_id WHERE users.user_id=?");
+					"DELETE users, addresses FROM users LEFT JOIN addresses ON addresses.add_id=users.add_id WHERE users.user_id=?");
 		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public ResponseBean auth(LoginBean user) {
+	public Object auth(LoginBean user) {
 		try {
 			auth.setString(1, user.getUsername());
 			auth.setString(2, user.getPassword());
@@ -139,7 +139,7 @@ public class AdminModel {
 	public ResponseBean delete(int id) {
 		try {
 			ck.setInt(1, id);
-			if (ck.executeUpdate() == 1) {
+			if (ck.executeUpdate() != 0) {
 				return new SuccessBean("A-C-K-1", "Client Kicked out Successfully!", "client-delete", "success");
 			} else {
 				return new ErrorBean("A-C-K-2", "User Existance not Found", this.getClass().toGenericString());

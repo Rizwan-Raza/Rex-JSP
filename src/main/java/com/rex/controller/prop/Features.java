@@ -3,6 +3,7 @@ package com.rex.controller.prop;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import com.rex.model.CommonModel;
 /**
  * Servlet implementation class Features
  */
+@WebServlet("/Prop-Change-Features")
 public class Features extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +43,7 @@ public class Features extends HttpServlet {
 				Integer.parseInt(request.getParameter("p_area")), Integer.parseInt(request.getParameter("land")), 0, 0,
 				0, null, null, Integer.parseInt(request.getParameter("h_dis")),
 				Integer.parseInt(request.getParameter("s_dis")), Integer.parseInt(request.getParameter("r_dis")), 0, 0,
-				0, null, null, null, null, null));
+				0, null, null, null, null, null, null));
 		if (bean instanceof SuccessBean) {
 			sess.setAttribute("process", "success");
 		} else {

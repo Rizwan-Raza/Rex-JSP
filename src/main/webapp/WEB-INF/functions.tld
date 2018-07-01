@@ -13,4 +13,12 @@
 		<function-class>com.rex.util.JSTLFunctions</function-class>
 		<function-signature>String daysUntilToday(java.util.Date)</function-signature>
 	</function>
+
+	<function>
+		<name>isLiker</name>
+		<function-class>com.rex.util.JSTLFunctions</function-class>
+		<function-signature>boolean isLiker(java.util.ArrayList,
+			com.rex.bean.UserBean)
+		</function-signature>
+	</function>
 </taglib>

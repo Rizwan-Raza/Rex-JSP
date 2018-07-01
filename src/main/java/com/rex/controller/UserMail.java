@@ -3,6 +3,7 @@ package com.rex.controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import com.rex.util.Mailer;
 /**
  * Servlet implementation class UserMail
  */
+@WebServlet("/User-Mail")
 public class UserMail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +40,10 @@ public class UserMail extends HttpServlet {
 		String from = request.getParameter("from");
 		String msg = request.getParameter("msg");
 		HttpSession sess = request.getSession(true);
-		String admin = ((UserBean) sess.getAttribute("user")).getFname();
+		String admin = null;
+		if (sess.getAttribute("user") != null) {
+			admin = ((UserBean) sess.getAttribute("user")).getFname();
+		}
 		if (admin == null || admin.length() == 0) {
 			admin = "Admin";
 		}

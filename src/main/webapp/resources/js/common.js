@@ -68,6 +68,23 @@ $(function() {
 	// });
 	// $("#waitModal").modal("show");
 	// var int = setInterval(animateSlide, 1000);
+	var frm = $('#contactPage form');
+	frm.submit(function(ev) {
+		$.ajax({
+			type : frm.attr('method'),
+			url : frm.attr('action'),
+			data : frm.serialize(),
+			success : function(data) {
+				snackbar(data.message)
+			},
+			error : function(xhr, status) {
+				alert("Error");
+			}
+		});
+		frm[0].reset();
+		ev.preventDefault();
+	});
+
 });
 /*
  * function animateSlide() { var temp = $(".about
@@ -129,7 +146,20 @@ function asyncProcess(url, id, successBlock) {
 	});
 }
 function navTo(id) {
+	if (window.location.href.indexOf("index.jsp") == -1
+			&& !window.location.href.endsWith("/")) {
+		sessionStorage.setItem("navTo", id);
+		window.location.href = "./";
+	}
 	$('.nav-tabs a[href="#' + id + '"]').tab('show');
+}
+function openModal(id) {
+	if (window.location.href.indexOf("index.jsp") == -1
+			&& !window.location.href.endsWith("/")) {
+		sessionStorage.setItem("openModal", id);
+		window.location.href = "./";
+	}
+	$(id).modal("show");
 }
 function showImageModal(caption, src) {
 	$("#imageModalBS #image-holder").attr("src", src);
@@ -180,5 +210,21 @@ function showSeller(fname, lname, email, gender, contact, dp, type) {
 	$("#showSellerModal .modal-body #contact").text(contact);
 	$("#showSellerModal input#to").val(email);
 	$("#showSellerModal").modal('show');
+}
+
+function deleteFeed(fid) {
+	$("#deleteFeedModal .modal-footer .btn-success").attr("onclick",
+			"asyncProcess('Delete-Feed', " + fid + ", deleteFeedSuccess)");
+	$("#deleteFeedModal").modal("show");
+}
+function deleteFeedSuccess(data, status) {
+	// console.log(data);
+	data = JSON.parse(data);
+	console.log(data.message);
+	$("#deleteFeedModal").modal("hide");
+	$("#contactPage #feed" + data.fid).hide("slow", function() {
+		$("#contactPage #feed" + data.fid).remove();
+	});
+	snackbar(data.message);
 }
 /** ******** Common end *************** */

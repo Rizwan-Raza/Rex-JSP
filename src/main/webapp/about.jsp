@@ -23,10 +23,20 @@ dd a span {
 	<jsp:directive.include file="views/modals/image.inc.html" />
 	<jsp:directive.include file="views/modals/wait.inc.html" />
 	<c:choose>
-		<c:when test="${log ne null}">
+		<c:when test="${log ne null and user ne null}">
 			<jsp:directive.include file="views/modals/profile-picture.jspf" />
 			<jsp:directive.include file="views/modals/change-password.inc.html" />
 			<jsp:directive.include file="views/modals/logout.inc.html" />
+			<c:choose>
+				<c:when test="${log eq 'client'}">
+					<jsp:directive.include file="views/client/modals/edit-profile.jspf" />
+					<script type="text/javascript" src="resources/js/client.js"></script>
+				</c:when>
+				<c:otherwise>
+					<jsp:directive.include file="views/admin/modals/edit-profile.jspf" />
+					<script type="text/javascript" src="resources/js/admin.js"></script>
+				</c:otherwise>
+			</c:choose>
 			<script type="text/javascript" src="resources/js/active.js"></script>
 		</c:when>
 		<c:otherwise>
@@ -45,6 +55,7 @@ dd a span {
 			<script type="text/javascript" src="resources/js/inactive.js"></script>
 		</c:otherwise>
 	</c:choose>
+
 	<div class="container py-4">
 		<h1 class="text-center">About Us</h1>
 		<br>
@@ -83,7 +94,7 @@ dd a span {
 							href="https://www.linkedin.com/in/rex-terminous/"
 							class="btn bg-linkedin px-2 hoverable"><i
 							class="fab fa-fw fa-linkedin-in"></i></a> <a
-							href="google.com/+RizwanRaza365"
+							href="https://plus.google.com/+RizwanRaza365"
 							class="btn bg-google-plus px-2 hoverable"><i
 							class="fab fa-fw fa-google-plus-g"></i></a>
 					</div>

@@ -40,12 +40,35 @@ $(function() {
 		step : 100000,
 		values : [ 5000000, 10000000 ],
 		slide : function(event, ui) {
-			$("#amount").val("Rs. " + ui.values[0] + " - Rs. " + ui.values[1]);
+			$("#amount").val("₹ " + ui.values[0] + " - ₹ " + ui.values[1]);
 		}
 	});
 	$("#amount").val(
-			"Rs. " + $("#amount-slider-range").slider("values", 0) + " - Rs. "
+			"₹ " + $("#amount-slider-range").slider("values", 0) + " - ₹ "
 					+ $("#amount-slider-range").slider("values", 1));
+	$("#pwd-holder .control-label i").click(function() {
+		if ($("#pwd-holder .control-label i").hasClass("fa-eye-slash")) {
+			$("#pwd-holder input").attr("type", "text");
+			$("#pwd-holder .control-label i").removeClass("fa-eye-slash");
+			$("#pwd-holder .control-label i").addClass("fa-eye");
+		} else {
+			$("#pwd-holder input").attr("type", "password");
+			$("#pwd-holder .control-label i").removeClass("fa-eye");
+			$("#pwd-holder .control-label i").addClass("fa-eye-slash");
+		}
+	});
+
+	$("#repwd-holder .control-label i").click(function() {
+		if ($("#repwd-holder .control-label i").hasClass("fa-eye-slash")) {
+			$("#repwd-holder input").attr("type", "text");
+			$("#repwd-holder .control-label i").removeClass("fa-eye-slash");
+			$("#repwd-holder .control-label i").addClass("fa-eye");
+		} else {
+			$("#repwd-holder input").attr("type", "password");
+			$("#repwd-holder .control-label i").removeClass("fa-eye");
+			$("#repwd-holder .control-label i").addClass("fa-eye-slash");
+		}
+	});
 });
 function viewPropSuccess(data, status) {
 	// alert(data);
@@ -60,7 +83,7 @@ function passwordChecker() {
 		oldData = l;
 	}
 
-	if (l.length > 0) {
+	if (l.length > 4) {
 		if ($("#pwd").val() == l) {
 			$("#repwd").removeClass('is-invalid');
 			$("#repwd").addClass('is-valid');
@@ -100,14 +123,20 @@ function emailAvailable() {
 			success : function(data, status) {
 				var obj = JSON.parse(data);
 				if (obj.response == "KO") {
-					$("#email").removeClass('is-invalid');
-					$("#email").addClass('is-valid');
-					$("#email ~ .valid-feedback").show();
-					$("#email ~ .invalid-feedback").hide();
+					if (obj.message != "KO") {
+						$(id + " ~ .invalid-feedback").text(obj.message);
+						$("#email").addClass('is-invalid');
+						$("#email").removeClass('is-valid');
+						$("#email ~ .invalid-feedback").show();
+						$("#email ~ .valid-feedback").hide();
+					} else {
+						$("#email").removeClass('is-invalid');
+						$("#email").addClass('is-valid');
+						$("#email ~ .valid-feedback").show();
+						$("#email ~ .invalid-feedback").hide();
+					}
 					emailVerified = true;
 				} else {
-					if (obj.message != "KO")
-						$(id + " ~ .invalid-feedback").text(obj.message);
 					$("#email").addClass('is-invalid');
 					$("#email").removeClass('is-valid');
 					$("#email ~ .valid-feedback").hide();
@@ -243,31 +272,17 @@ function signup(elem) {
 		},
 		success : function(data, status) {
 			var obj = JSON.parse(data);
-			if (obj.response == "OK") {
-				$("#signupModal").modal("hide");
-				$("#signupSuccessModal .modal-info b:nth-child(1)").text(
-						obj.name);
-				$("#signupSuccessModal .modal-info b:nth-child(3)").text(
-						obj.email);
-				$("#signupSuccessModal").modal("show");
-				$("#errorHolder").css("display", "none");
-				$("#pwdHolder").removeClass("input-group");
-				$("#repwdHolder").removeClass("input-group");
-				$("#pwdHolder #pwd").nextAll().remove();
-				$("#repwdHolder #repwd").nextAll().remove();
-				elem.reset();
-				$(elem).removeClass("was-validated");
-				return true;
-			} else if (obj.response == "KK") {
-				$("#signupModal").modal("hide");
-				$("#signupSuccessModal .modal-info b:nth-child(1)").text(
-						obj.name);
-				$("#signupSuccessModal .modal-info b:nth-child(3)").text(
-						obj.email);
+			if (obj.response == "KK") {
 				$("#signupSuccessModal .modal-info span:nth-child(1)").text(
 						"Can't Send Mail to ");
 				$("#signupSuccessModal .modal-info span:nth-child(2)")
 						.text(",");
+			}
+			if (obj.response == "OK" || obj.response == "KK") {
+				$("#signupModal").modal("hide");
+				$("#signupSuccessModal .modal-info b:nth-child(1)").text(
+						obj.name);
+				$("#signupSuccessModal .modal-info b.email").text(obj.email);
 				$("#signupSuccessModal").modal("show");
 				$("#errorHolder").css("display", "none");
 				$("#pwdHolder").removeClass("input-group");
