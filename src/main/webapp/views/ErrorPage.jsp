@@ -7,8 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="png" href="/resources/img/favicon/Logo.png" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
 <style>
 body {
 	background: #081421;
@@ -44,6 +44,7 @@ body {
 	transition: all 200ms ease-in-out;
 	box-sizing: border-box;
 	padding-top: 8px;
+	text-align: center;
 }
 
 .btn:hover {

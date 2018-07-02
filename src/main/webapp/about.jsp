@@ -177,69 +177,69 @@ dd a span {
 				</thead>
 				<tbody>
 					<tr>
-						<td>Java</td>
-						<td>51</td>
-						<td>30.72</td>
-						<td>.java</td>
-					</tr>
-					<tr>
 						<td>HTML</td>
-						<td>41</td>
-						<td>24.69</td>
+						<td>45</td>
+						<td>29.22</td>
 						<td>.html, .htm</td>
 					</tr>
 					<tr>
+						<td>Java</td>
+						<td>41</td>
+						<td>26.62</td>
+						<td>.java</td>
+					</tr>
+					<tr>
 						<td>Java Server Pages</td>
-						<td>28</td>
-						<td>16.86</td>
+						<td>25</td>
+						<td>16.23</td>
 						<td>.jsp</td>
 					</tr>
 					<tr>
 						<td>Java Server Pages Fragments</td>
-						<td>22</td>
-						<td>13.25</td>
+						<td>19</td>
+						<td>12.34</td>
 						<td>jspf</td>
 					</tr>
 					<tr>
 						<td>JavaScript</td>
 						<td>11</td>
-						<td>6.62</td>
+						<td>7.14</td>
 						<td>.js</td>
 					</tr>
 					<tr>
 						<td>CSS</td>
 						<td>5</td>
-						<td>3.01</td>
+						<td>3.27</td>
 						<td>.css</td>
 					</tr>
 					<tr>
 						<td>INI</td>
 						<td>2</td>
-						<td>1.20</td>
+						<td>1.30</td>
 						<td>.properties</td>
 					</tr>
 					<tr>
 						<td>XML</td>
 						<td>2</td>
-						<td>1.20</td>
+						<td>1.30</td>
 						<td>.xml</td>
 					</tr>
 					<tr>
 						<td>Markdown</td>
 						<td>2</td>
-						<td>1.20</td>
-						<td>README.md</td>
+						<td>1.30</td>
+						<td>.md</td>
 					</tr>
 					<tr>
 						<td>Tag Library Descriptor</td>
 						<td>1</td>
-						<td>0.60</td>
-						<td>functions.tld</td>
+						<td>0.65</td>
+						<td>.tld</td>
 					</tr>
 					<tr>
 						<td>Maven POM</td>
 						<td>1</td>
-						<td>0.60</td>
+						<td>0.65</td>
 						<td>pom.xml</td>
 					</tr>
 				</tbody>
@@ -277,7 +277,7 @@ dd a span {
 			<dd class="col-sm-9">
 				<p>
 					HTML5 with Canvas and Semantics Tags<br>CSS3 with Animations
-					and Media Query<br>Bootstrap 4<br>Font Awesome 5
+					and Media Query<br>Bootstrap 4.1<br>Font Awesome 5
 				</p>
 			</dd>
 
@@ -309,7 +309,7 @@ dd a span {
 						https://github.com/</a><br> <a href="https://codepen.io/" target="_new"><span>CodePen</span>
 						https://codepen.io/</a><br> <a href="https://bootsnipp.com/" target="_new"><span>Bootsnipp</span>
 						https://bootsnipp.com/</a><br> <a
-						href="https://docs.oracle.com/en/" target="_new"><span>Oracle Help
+						href="https://docs.oracle.com/en/"><span>Oracle Help
 							Center</span> https://docs.oracle.com/en/</a><br> <a
 						href="https://getbootstrap.com/docs/4.0/getting-started/introduction/" target="_new"><span>Bootstrap
 							Docs</span> https://getbootstrap.com/docs/4.0/</a><br> <a
@@ -347,17 +347,17 @@ dd a span {
 					toolTipContent : "{name}: <strong>{y}%</strong>",
 					indexLabel : "{name} - {y}%",
 					dataPoints : [ {
-						y : 60.0,
+						y : 50.8,
 						name : "Java",
 						exploded : true
 					}, {
-						y : 21.7,
+						y : 28.4,
 						name : "HTML"
 					}, {
-						y : 13.1,
+						y : 15.0,
 						name : "JavaScript"
 					}, {
-						y : 5.2,
+						y : 5.8,
 						name : "CSS"
 					} ]
 				} ]

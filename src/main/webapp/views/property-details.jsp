@@ -191,8 +191,7 @@
 								<dt class="col-sm-3">Land Area</dt>
 								<dd class="col-sm-9">${prop.land }</dd>
 								<dt class="col-sm-3">Price</dt>
-								<dd class="col-sm-9">
-									<i class="fa fa-fw fa-rupee-sign"></i>${prop.price }</dd>
+								<dd class="col-sm-9">&#8377; ${prop.price }</dd>
 								<dt class="col-sm-3">Price Tag Visible</dt>
 								<dd class="col-sm-9">${prop.priceDisplay eq '0' ? 'No' : 'Yes'}</dd>
 								<dt class="col-sm-3">Ready to Move</dt>

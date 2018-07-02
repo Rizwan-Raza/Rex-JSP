@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.rex.bean.ErrorBean;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
-import com.rex.model.ContactModel;
+import com.rex.model.InactiveModel;
 
 /**
  * Servlet implementation class DeleteFeed
@@ -37,7 +37,7 @@ public class DeleteFeed extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("id");
-		ResponseBean obj = (new ContactModel()).deleteFeed(Integer.parseInt(id));
+		ResponseBean obj = (new InactiveModel()).deleteFeed(Integer.parseInt(id));
 		if (obj instanceof SuccessBean) {
 			response.getWriter().println("{\"response\": \"OK\",\"message\": \"" + ((SuccessBean) obj).getMessage()
 					+ "\", \"fid\":\"" + id + "\"}");

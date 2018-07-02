@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rex.bean.AddressBean;
 import com.rex.bean.UserBean;
-import com.rex.model.SignUpModel;
+import com.rex.model.InactiveModel;
 import com.rex.util.Mailer;
 
 /**
  * Servlet implementation class SignUpController
  */
- @WebServlet("/SignUp")
+@WebServlet("/SignUp")
 public class SignUp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,7 +45,7 @@ public class SignUp extends HttpServlet {
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String name = fname + " " + lname;
-		String id = (new SignUpModel()).add(new UserBean(0, fname, lname, email, psw, request.getParameter("gender"),
+		String id = (new InactiveModel()).add(new UserBean(0, fname, lname, email, psw, request.getParameter("gender"),
 				request.getParameter("cont"), 0, null, null, new AddressBean(0, request.getParameter("street"),
 						request.getParameter("town"), request.getParameter("city"), request.getParameter("state"))));
 		if (id.matches("\\d+")) {

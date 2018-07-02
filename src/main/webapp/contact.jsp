@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="com.rex.model.ContactModel"%>
+<%@page import="com.rex.model.InactiveModel"%>
 <jsp:directive.page language="java"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 <!DOCTYPE html>
@@ -150,16 +150,16 @@ ul.social li { /* UI - Social Icons List Elements */
 						<h5 class="card-title">Rizwan Raza</h5>
 						<p class="card-text">Designer and Developer</p>
 						<a href="https://www.facebook.com/RexTerminous"
-							class="btn bg-facebook px-2 hoverable"><i
+							class="btn bg-facebook px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-facebook-f"></i></a> <a
 							href="https://twitter.com/RexTerminous"
-							class="btn bg-twitter px-2 hoverable"><i
+							class="btn bg-twitter px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-twitter"></i></a> <a
 							href="https://www.linkedin.com/in/rex-terminous/"
-							class="btn bg-linkedin px-2 hoverable"><i
+							class="btn bg-linkedin px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-linkedin-in"></i></a> <a
 							href="https://plus.google.com/+RizwanRaza365"
-							class="btn bg-google-plus px-2 hoverable"><i
+							class="btn bg-google-plus px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-google-plus-g"></i></a>
 					</div>
 				</div>
@@ -246,7 +246,7 @@ ul.social li { /* UI - Social Icons List Elements */
 	<div class="container text-center py-4">
 		<h2 class="my-4">Testimonials</h2>
 		<%
-			request.setAttribute("feeds", new ContactModel().getFeeds());
+			request.setAttribute("feeds", new InactiveModel().getFeeds());
 		%>
 		<jsp:directive.include file="views/feeds.jspf" />
 	</div>
@@ -258,58 +258,62 @@ ul.social li { /* UI - Social Icons List Elements */
 				available everywhere, where you want. Just Simply follow us.</p>
 			<ul class="social mx-auto">
 				<li><a href="https://www.facebook.com/RexTerminous"
-					class="bg-facebook" title="Facebook" data-toggle="tooltip"> <i
-						class="fab fa-facebook-f"></i>
+					class="bg-facebook" title="Facebook" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-facebook-f"></i>
 				</a></li>
 				<li><a href="https://twitter.com/RexTerminous"
-					class="bg-twitter" title="Twitter" data-toggle="tooltip"> <i
-						class="fab fa-twitter"></i>
+					class="bg-twitter" title="Twitter" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-twitter"></i>
 				</a></li>
 				<li><a href="https://plus.google.com/+RizwanRaza365"
-					class="bg-google-plus" title="Google +" data-toggle="tooltip">
-						<i class="fab fa-google-plus-g"></i>
+					class="bg-google-plus" title="Google +" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-google-plus-g"></i>
 				</a></li>
 				<li><a href="https://www.linkedin.com/in/rex-terminous/"
-					class="bg-linkedin" title="Linkedin" data-toggle="tooltip"> <i
-						class="fab fa-linkedin-in"></i>
+					class="bg-linkedin" title="Linkedin" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-linkedin-in"></i>
 				</a></li>
 				<li><a href="https://www.tumblr.com/blog/rex-terminous"
-					class="bg-tumblr" title="Tumblr" data-toggle="tooltip"> <i
-						class="fab fa-tumblr"></i>
+					class="bg-tumblr" title="Tumblr" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-tumblr"></i>
 				</a></li>
 				<li><a href="https://www.instagram.com/rex.terminous"
-					class="bg-instagram" title="Instagram" data-toggle="tooltip"> <i
-						class="fab fa-instagram"></i>
+					class="bg-instagram" title="Instagram" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-instagram"></i>
 				</a></li>
 				<li><a href="https://in.pinterest.com/RexTerminous/"
-					class="bg-pinterest" title="Pinterest" data-toggle="tooltip"> <i
-						class="fab fa-pinterest"></i>
+					class="bg-pinterest" title="Pinterest" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-pinterest"></i>
 				</a></li>
 				<li><a href="https://github.com/Rizwan-Raza" class="bg-github"
-					title="GitHub" data-toggle="tooltip"> <i class="fab fa-github"></i>
+					title="GitHub" data-toggle="tooltip" target="_new"> <i
+						class="fab fa-github"></i>
 				</a></li>
 				<li><a
 					href="https://stackoverflow.com/users/5148111/rizwan-raza"
 					class="bg-stack-overflow" title="StackOverflow"
-					data-toggle="tooltip"> <i class="fab fa-stack-overflow"></i>
+					data-toggle="tooltip" target="_new"> <i
+						class="fab fa-stack-overflow"></i>
 				</a></li>
 				<li><a href="https://www.freecodecamp.org/rizwan-raza"
 					class="bg-free-code-camp" title="freeCodeCamp"
-					data-toggle="tooltip"> <i class="fab fa-free-code-camp"></i>
+					data-toggle="tooltip" target="_new"> <i
+						class="fab fa-free-code-camp"></i>
 				</a></li>
 				<li><a href="https://rexterminous.deviantart.com/"
-					class="bg-devientart" title="DeviantArt" data-toggle="tooltip">
-						<i class="fab fa-deviantart"></i>
+					class="bg-devientart" title="DeviantArt" data-toggle="tooltip"
+					target="_new"> <i class="fab fa-deviantart"></i>
 				</a></li>
 				<li><a href="http://rraza.blogspot.in/" class="bg-blogger"
-					title="Blogger" data-toggle="tooltip"> <i
+					title="Blogger" data-toggle="tooltip" target="_new"> <i
 						class="fab fa-blogger-b"></i>
 				</a></li>
 				<li><a href="mailto:rizwan.raza987@gmail.com" class="bg-dark"
-					title="Mail" data-toggle="tooltip"> <i class="fa fa-envelope"></i>
+					title="Mail" data-toggle="tooltip" target="_new"> <i
+						class="fa fa-envelope"></i>
 				</a></li>
 				<li><a href="tel:9718666289" class="bg-success" title="Call"
-					data-toggle="tooltip"> <i class="fa fa-phone"></i>
+					data-toggle="tooltip" target="_new"> <i class="fa fa-phone"></i>
 				</a></li>
 			</ul>
 		</div>

@@ -1,7 +1,7 @@
 <c:if test="${feeds.size() eq '0' or empty feeds}">
-	<div class="alert alert-danger">
-		Currently, No one is interested for saying about us! <b>&#x1F602;</b>
-		<i class="fas fa-laugh-squint"></i>
+	<div class="alert alert-info">
+		Currently, No one is interested for saying about us! <i
+			class="fas fa-5x fa-grin-tears text-center d-block"></i>
 	</div>
 </c:if>
 <div class="row">

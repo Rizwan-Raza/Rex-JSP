@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import com.rex.bean.AddressBean;
 import com.rex.bean.ErrorBean;
 import com.rex.bean.LoginBean;
+import com.rex.bean.PropBean;
+import com.rex.bean.ReqProp;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
 import com.rex.bean.UserBean;
@@ -138,6 +140,14 @@ public class AdminModel {
 
 	public ResponseBean delete(int id) {
 		try {
+			CommonModel model = new CommonModel();
+			for (PropBean pb : model.getProps(id, "MY")) {
+				model.delete(pb.getPropID());
+			}
+			ClientModel model2 = new ClientModel();
+			for (ReqProp rp : model2.getReqProps(id)) {
+				model.deleteRequest(rp.getPr_id());
+			}
 			ck.setInt(1, id);
 			if (ck.executeUpdate() != 0) {
 				return new SuccessBean("A-C-K-1", "Client Kicked out Successfully!", "client-delete", "success");

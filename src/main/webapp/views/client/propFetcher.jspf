@@ -1,5 +1,5 @@
 <c:choose>
-	<c:when test="${props.size() eq '0' }">
+	<c:when test="${props.size() eq '0' or empty props}">
 		<div class=" alert alert-danger">
 			<i class="fa fa-5x fa-shopping-cart text-center d-block"></i>
 			<h4 class="alert-heading text-center">
@@ -34,18 +34,13 @@
 								Now</a>.
 						</p>
 					</c:when>
+
+					<c:when test="${fetcherType eq 'SEARCH' }">
+				Sorry, zero property liked by you.
+					</h5>
+						<p class="text-center">Sorry, No Result found.</p>
+					</c:when>
 				</c:choose>
-		</div>
-	</c:when>
-	<c:when test="${empty props }">
-		<div class=" alert alert-danger">
-			<i class="fa fa-5x fa-exclamation-triangle text-center d-block"></i>
-			<h4 class="alert-heading text-center">Sorry, Something went
-				wrong</h4>
-			<p class="text-center">
-				Try to reload? <a href="javascript:window.location.reload()"
-					class="alert-link">Reload Now</a>.
-			</p>
 		</div>
 	</c:when>
 	<c:otherwise>
@@ -434,8 +429,11 @@
 													</button>
 												</c:when>
 												<c:otherwise>
-													<button class="btn btn-outline-danger btn-block"
-														onclick="asyncProcess('Like-Prop', ${prop.propID}, likeSuccessBlock)">
+													<button
+														class="btn btn-outline-danger btn-block ${fetcherType eq 'SEARCH' ? 'disabled' : ''}"
+														onclick="asyncProcess('Like-Prop', ${prop.propID},
+														likeSuccessBlock)"
+														${fetcherType eq 'SEARCH' ? 'data-toggle="tooltip" data-placement="auto" title="Please Login"' : ''}>
 														<i class="far fa-fw fa-heart"></i> Like
 													</button>
 												</c:otherwise>

@@ -12,7 +12,7 @@ import com.rex.bean.ErrorBean;
 import com.rex.bean.FeedBean;
 import com.rex.bean.ResponseBean;
 import com.rex.bean.SuccessBean;
-import com.rex.model.ContactModel;
+import com.rex.model.InactiveModel;
 
 /**
  * Servlet implementation class Contact
@@ -38,7 +38,7 @@ public class Contact extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		ResponseBean obj = (new ContactModel())
+		ResponseBean obj = (new InactiveModel())
 				.add(new FeedBean(0, Integer.parseInt(request.getParameter("uid")), request.getParameter("name"),
 						request.getParameter("email"), request.getParameter("mobile"), request.getParameter("feedType"),
 						request.getParameter("message"), Integer.parseInt(request.getParameter("rating"))));

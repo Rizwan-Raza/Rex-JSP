@@ -31,7 +31,6 @@ public class CommonModel {
 	private PreparedStatement gpg = null;
 	private PreparedStatement gpb = null;
 	private PreparedStatement gpm = null;
-	private PreparedStatement gph = null;
 	private PreparedStatement gpa = null;
 	private PreparedStatement gpi = null;
 	private PreparedStatement gpl = null;
@@ -70,8 +69,6 @@ public class CommonModel {
 					"SELECT * FROM properties, users, addresses WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND users.user_id=? ORDER BY properties.time DESC");
 			gpw = conn.prepareStatement(
 					"SELECT * FROM properties, users, addresses, wishlist WHERE properties.add_id=addresses.add_id AND properties.sid=users.user_id AND wishlist.pid=properties.pid AND wishlist.cid=? ORDER BY properties.time DESC");
-			gph = conn.prepareStatement(
-					"SELECT properties.pid, properties.title, properties.bhk, properties.price FROM properties LIMIT 4");
 			gpa = conn.prepareStatement("SELECT * FROM property_amenities WHERE pid=?");
 			gpi = conn.prepareStatement("SELECT * FROM property_images WHERE pid=?");
 			gpl = conn.prepareStatement(
@@ -280,30 +277,6 @@ public class CommonModel {
 						rs.getInt("properties.floor"), rs.getInt("properties.t_floors"),
 						rs.getString("properties.b_desc"), rs.getString("properties.tnc"),
 						rs.getTimestamp("properties.time"), rs.getTimestamp("properties.edit"), address, likers);
-				al.add(prop);
-			}
-			return al;
-		} catch (NullPointerException | SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public ArrayList<PropBean> getProps() {
-		try {
-			ResultSet rs = gph.executeQuery();
-			ArrayList<PropBean> al = new ArrayList<PropBean>();
-			while (rs.next()) {
-				int pid = rs.getInt("properties.pid");
-				gpi.setInt(1, pid);
-				rs_temp = gpi.executeQuery();
-				List<String> images = new ArrayList<String>();
-				while (rs_temp.next()) {
-					images.add(rs_temp.getString("src"));
-				}
-				PropBean prop = new PropBean(null, pid, null, null, rs.getString("properties.title"),
-						rs.getInt("properties.bhk"), 0, 0, 0, 0, 0, rs.getInt("properties.price"), 0, 0, null, images,
-						0, 0, 0, 0, 0, 0, null, null, null, null, null, null);
 				al.add(prop);
 			}
 			return al;

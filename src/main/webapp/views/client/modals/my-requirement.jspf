@@ -103,11 +103,11 @@
 											<td>${pr.bath}</td>
 											<td><span class="d-lg-none" data-toggle="tooltip"
 												data-placement="top" title="${pr.area.split('-')[0]} Sq-Ft."><i
-													class="far fa-fw fa-td fa-square"></i></span><span
+													class="fas fa-fw fa-td fa-vector-square"></i></span><span
 												class="d-none d-lg-inline">${pr.area.split('-')[0]}ft<sup>2</sup></span></td>
 											<td><span class="d-lg-none" data-toggle="tooltip"
 												data-placement="top" title="${pr.area.split('-')[1]} Sq-Ft."><i
-													class="far fa-fw fa-td fa-square"></i></span><span
+													class="fas fa-fw fa-td fa-vector-square"></i></span><span
 												class="d-none d-lg-inline">${pr.area.split('-')[1]}ft<sup>2</span></td>
 											<td><span class="d-lg-none" data-toggle="tooltip"
 												data-placement="top"

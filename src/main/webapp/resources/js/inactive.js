@@ -40,12 +40,12 @@ $(function() {
 		step : 100000,
 		values : [ 5000000, 10000000 ],
 		slide : function(event, ui) {
-			$("#amount").val("₹ " + ui.values[0] + " - ₹ " + ui.values[1]);
+			$("#amount").val("₹ " + ui.values[0]/100000 + " Lac - ₹ " + ui.values[1]/100000+" Lac");
 		}
 	});
 	$("#amount").val(
-			"₹ " + $("#amount-slider-range").slider("values", 0) + " - ₹ "
-					+ $("#amount-slider-range").slider("values", 1));
+			"₹ " + $("#amount-slider-range").slider("values", 0)/100000 + " Lac - ₹ "
+					+ $("#amount-slider-range").slider("values", 1)/100000 +" Lac");
 	$("#pwd-holder .control-label i").click(function() {
 		if ($("#pwd-holder .control-label i").hasClass("fa-eye-slash")) {
 			$("#pwd-holder input").attr("type", "text");

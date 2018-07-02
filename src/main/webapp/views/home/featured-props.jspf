@@ -1,6 +1,6 @@
-
+<%@page import="com.rex.model.InactiveModel"%>
 <%
-	request.setAttribute("props", new CommonModel().getProps());
+	request.setAttribute("props", new InactiveModel().getProps());
 %>
 <c:choose>
 	<c:when test="${props eq null}">
