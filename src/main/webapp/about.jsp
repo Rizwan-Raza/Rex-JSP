@@ -86,16 +86,16 @@ dd a span {
 						<h5 class="card-title">Rizwan Raza</h5>
 						<p class="card-text">Designer and Developer</p>
 						<a href="https://www.facebook.com/RexTerminous"
-							class="btn bg-facebook px-2 hoverable"><i
+							class="btn bg-facebook px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-facebook-f"></i></a> <a
 							href="https://twitter.com/RexTerminous"
-							class="btn bg-twitter px-2 hoverable"><i
+							class="btn bg-twitter px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-twitter"></i></a> <a
 							href="https://www.linkedin.com/in/rex-terminous/"
-							class="btn bg-linkedin px-2 hoverable"><i
+							class="btn bg-linkedin px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-linkedin-in"></i></a> <a
 							href="https://plus.google.com/+RizwanRaza365"
-							class="btn bg-google-plus px-2 hoverable"><i
+							class="btn bg-google-plus px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-google-plus-g"></i></a>
 					</div>
 				</div>
@@ -109,16 +109,16 @@ dd a span {
 						<h5 class="card-title">Mohd Tausif Raza</h5>
 						<p class="card-text">Guide</p>
 						<a href="https://www.facebook.com/tausifraza91"
-							class="btn bg-facebook px-2 hoverable"><i
+							class="btn bg-facebook px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-facebook-f"></i></a> <a
 							href="https://twitter.com/tausifraza76"
-							class="btn bg-twitter px-2 hoverable"><i
+							class="btn bg-twitter px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-twitter"></i></a> <a
 							href="https://www.linkedin.com/in/mohd-tausif-raza-a7812256/"
-							class="btn bg-linkedin px-2 hoverable"><i
+							class="btn bg-linkedin px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-linkedin-in"></i></a> <a
 							href="https://plus.google.com/u/0/111293866098336955004"
-							class="btn bg-google-plus px-2 hoverable"><i
+							class="btn bg-google-plus px-2 hoverable" target="_new"><i
 							class="fab fa-fw fa-google-plus-g"></i></a>
 					</div>
 				</div>
@@ -177,69 +177,69 @@ dd a span {
 				</thead>
 				<tbody>
 					<tr>
-						<td>HTML</td>
-						<td>45</td>
-						<td>29.22</td>
-						<td>.html, .htm</td>
-					</tr>
-					<tr>
 						<td>Java</td>
-						<td>41</td>
-						<td>26.62</td>
+						<td>51</td>
+						<td>30.72</td>
 						<td>.java</td>
 					</tr>
 					<tr>
+						<td>HTML</td>
+						<td>41</td>
+						<td>24.69</td>
+						<td>.html, .htm</td>
+					</tr>
+					<tr>
 						<td>Java Server Pages</td>
-						<td>25</td>
-						<td>16.23</td>
+						<td>28</td>
+						<td>16.86</td>
 						<td>.jsp</td>
 					</tr>
 					<tr>
 						<td>Java Server Pages Fragments</td>
-						<td>19</td>
-						<td>12.34</td>
+						<td>22</td>
+						<td>13.25</td>
 						<td>jspf</td>
 					</tr>
 					<tr>
 						<td>JavaScript</td>
 						<td>11</td>
-						<td>7.14</td>
+						<td>6.62</td>
 						<td>.js</td>
 					</tr>
 					<tr>
 						<td>CSS</td>
 						<td>5</td>
-						<td>3.27</td>
+						<td>3.01</td>
 						<td>.css</td>
 					</tr>
 					<tr>
 						<td>INI</td>
 						<td>2</td>
-						<td>1.30</td>
+						<td>1.20</td>
 						<td>.properties</td>
 					</tr>
 					<tr>
 						<td>XML</td>
 						<td>2</td>
-						<td>1.30</td>
+						<td>1.20</td>
 						<td>.xml</td>
 					</tr>
 					<tr>
 						<td>Markdown</td>
 						<td>2</td>
-						<td>1.30</td>
+						<td>1.20</td>
 						<td>.md</td>
 					</tr>
 					<tr>
 						<td>Tag Library Descriptor</td>
 						<td>1</td>
-						<td>0.65</td>
+						<td>0.60</td>
 						<td>.tld</td>
 					</tr>
 					<tr>
 						<td>Maven POM</td>
 						<td>1</td>
-						<td>0.65</td>
+						<td>0.60</td>
 						<td>pom.xml</td>
 					</tr>
 				</tbody>
@@ -288,7 +288,7 @@ dd a span {
 					Starter 3 Pro<br>MySQL Database 5.7<br> <a href="mysql/">JSPMyAdmin</a>
 					(Self Made from GitHub's OpenSource Code)<br> <a
 						href="props.jsp">Properties Files</a> for Credentials and
-					Initializers<br>MailGun
+					Initializers<br>Google Gmail IMAP Server
 				</p>
 			</dd>
 			<dt class="col-sm-3 text-truncate">Dev. and Build Tools</dt>
@@ -302,29 +302,29 @@ dd a span {
 			<dt class="col-sm-3 text-truncate">References and Helps</dt>
 			<dd class="col-sm-9">
 				<p>
-					<a href="https://stackoverflow.com/"><span>StackOverflow</span>
+					<a href="https://stackoverflow.com/" target="_new"><span>StackOverflow</span>
 						https://stackoverflow.com/</a><br> <a
-						href="https://www.w3schools.com/"><span>W3Schools</span>
-						https://www.w3schools.com/</a><br> <a href="https://github.com/"><span>Github</span>
-						https://github.com/</a><br> <a href="https://codepen.io/"><span>CodePen</span>
-						https://codepen.io/</a><br> <a href="https://bootsnipp.com/"><span>Bootsnipp</span>
+						href="https://www.w3schools.com/" target="_new"><span>W3Schools</span>
+						https://www.w3schools.com/</a><br> <a href="https://github.com/" target="_new"><span>Github</span>
+						https://github.com/</a><br> <a href="https://codepen.io/" target="_new"><span>CodePen</span>
+						https://codepen.io/</a><br> <a href="https://bootsnipp.com/" target="_new"><span>Bootsnipp</span>
 						https://bootsnipp.com/</a><br> <a
-						href="https://docs.oracle.com/en/"><span>Oracle Help
+						href="https://docs.oracle.com/en/" target="_new"><span>Oracle Help
 							Center</span> https://docs.oracle.com/en/</a><br> <a
-						href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"><span>Bootstrap
+						href="https://getbootstrap.com/docs/4.0/getting-started/introduction/" target="_new"><span>Bootstrap
 							Docs</span> https://getbootstrap.com/docs/4.0/</a><br> <a
-						href="https://www.magicbricks.com/"><span>MagicBricks</span>
+						href="https://www.magicbricks.com/" target="_new"><span>MagicBricks</span>
 						https://www.magicbricks.com/</a> <br> <a
-						href="https://www.commonfloor.com/"><span>commonfloor</span>
+						href="https://www.commonfloor.com/" target="_new"><span>commonfloor</span>
 						https://www.commonfloor.com/ </a> <br> <a
-						href="http://rex.esy.es/"><span>R.E.X</span>
-						http://rex.esy.es/</a> <br> <a href="http://rex.esy.es/pl/"><span>ProLog
+						href="http://rex.esy.es/" target="_new"><span>R.E.X</span>
+						http://rex.esy.es/</a> <br> <a href="http://rex.esy.es/pl/" target="_new"><span>ProLog
 							Academy</span> http://rex.esy.es/pl/</a>
 				</p>
 			</dd>
 			<dt class="col-sm-3 text-truncate">GitHub Source Code</dt>
 			<dd class="col-sm-9">
-				<a href="https://github.com/Rizwan-Raza/Rex-JSP">https://github.com/Rizwan-Raza/Rex-JSP</a>
+				<a href="https://github.com/Rizwan-Raza/Rex-JSP" target="_new">https://github.com/Rizwan-Raza/Rex-JSP</a>
 			</dd>
 		</dl>
 	</div>
@@ -347,17 +347,17 @@ dd a span {
 					toolTipContent : "{name}: <strong>{y}%</strong>",
 					indexLabel : "{name} - {y}%",
 					dataPoints : [ {
-						y : 50.8,
+						y : 59.9,
 						name : "Java",
 						exploded : true
 					}, {
-						y : 28.4,
+						y : 21.8,
 						name : "HTML"
 					}, {
-						y : 15.0,
+						y : 13.1,
 						name : "JavaScript"
 					}, {
-						y : 5.8,
+						y : 5.2,
 						name : "CSS"
 					} ]
 				} ]
