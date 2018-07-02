@@ -177,70 +177,70 @@ dd a span {
 				</thead>
 				<tbody>
 					<tr>
-						<td>HTML</td>
-						<td>45</td>
-						<td>29.22</td>
-						<td>.html, .htm</td>
-					</tr>
-					<tr>
 						<td>Java</td>
-						<td>41</td>
-						<td>26.62</td>
+						<td>51</td>
+						<td>32.08</td>
 						<td>.java</td>
 					</tr>
 					<tr>
+						<td>HTML</td>
+						<td>41</td>
+						<td>25.79</td>
+						<td>.html, .htm</td>
+					</tr>
+					<tr>
 						<td>Java Server Pages</td>
-						<td>25</td>
-						<td>16.23</td>
+						<td>29</td>
+						<td>18.24</td>
 						<td>.jsp</td>
 					</tr>
 					<tr>
 						<td>Java Server Pages Fragments</td>
-						<td>19</td>
-						<td>12.34</td>
+						<td>22</td>
+						<td>13.84</td>
 						<td>jspf</td>
 					</tr>
 					<tr>
 						<td>JavaScript</td>
-						<td>11</td>
-						<td>7.14</td>
+						<td>8</td>
+						<td>5.03</td>
 						<td>.js</td>
 					</tr>
 					<tr>
 						<td>CSS</td>
-						<td>5</td>
-						<td>3.27</td>
+						<td>3</td>
+						<td>1.89</td>
 						<td>.css</td>
 					</tr>
 					<tr>
 						<td>INI</td>
 						<td>2</td>
-						<td>1.30</td>
+						<td>1.26</td>
 						<td>.properties</td>
 					</tr>
 					<tr>
 						<td>XML</td>
-						<td>2</td>
+						<td>1</td>
 						<td>1.30</td>
 						<td>.xml</td>
 					</tr>
 					<tr>
 						<td>Markdown</td>
-						<td>2</td>
-						<td>1.30</td>
-						<td>.md</td>
-					</tr>
-					<tr>
-						<td>Tag Library Descriptor</td>
 						<td>1</td>
-						<td>0.65</td>
-						<td>.tld</td>
+						<td>0.63</td>
+						<td>.md</td>
 					</tr>
 					<tr>
 						<td>Maven POM</td>
 						<td>1</td>
-						<td>0.65</td>
+						<td>0.63</td>
 						<td>pom.xml</td>
+					</tr>
+					<tr>
+						<td>Tag Library Descriptor</td>
+						<td>1</td>
+						<td>0.63</td>
+						<td>.tld</td>
 					</tr>
 				</tbody>
 				<tfoot>
@@ -350,17 +350,17 @@ dd a span {
 					toolTipContent : "{name}: <strong>{y}%</strong>",
 					indexLabel : "{name} - {y}%",
 					dataPoints : [ {
-						y : 61.3,
+						y : 60.8,
 						name : "Java",
 						exploded : true
 					}, {
-						y : 21.0,
+						y : 21.3,
 						name : "HTML"
 					}, {
-						y : 12.7,
+						y : 12.8,
 						name : "JavaScript"
 					}, {
-						y : 5.0,
+						y : 5.1,
 						name : "CSS"
 					} ]
 				} ]
