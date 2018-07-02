@@ -347,11 +347,11 @@ dd a span {
 					toolTipContent : "{name}: <strong>{y}%</strong>",
 					indexLabel : "{name} - {y}%",
 					dataPoints : [ {
-						y : 59.9,
+						y : 60.0,
 						name : "Java",
 						exploded : true
 					}, {
-						y : 21.8,
+						y : 21.7,
 						name : "HTML"
 					}, {
 						y : 13.1,
