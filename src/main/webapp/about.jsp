@@ -228,13 +228,13 @@ dd a span {
 						<td>Markdown</td>
 						<td>2</td>
 						<td>1.20</td>
-						<td>.md</td>
+						<td>README.md</td>
 					</tr>
 					<tr>
 						<td>Tag Library Descriptor</td>
 						<td>1</td>
 						<td>0.60</td>
-						<td>.tld</td>
+						<td>functions.tld</td>
 					</tr>
 					<tr>
 						<td>Maven POM</td>
