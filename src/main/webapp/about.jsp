@@ -305,21 +305,24 @@ dd a span {
 					<a href="https://stackoverflow.com/" target="_new"><span>StackOverflow</span>
 						https://stackoverflow.com/</a><br> <a
 						href="https://www.w3schools.com/" target="_new"><span>W3Schools</span>
-						https://www.w3schools.com/</a><br> <a href="https://github.com/" target="_new"><span>Github</span>
-						https://github.com/</a><br> <a href="https://codepen.io/" target="_new"><span>CodePen</span>
-						https://codepen.io/</a><br> <a href="https://bootsnipp.com/" target="_new"><span>Bootsnipp</span>
-						https://bootsnipp.com/</a><br> <a
-						href="https://docs.oracle.com/en/"><span>Oracle Help
+						https://www.w3schools.com/</a><br> <a href="https://github.com/"
+						target="_new"><span>Github</span> https://github.com/</a><br>
+					<a href="https://codepen.io/" target="_new"><span>CodePen</span>
+						https://codepen.io/</a><br> <a href="https://bootsnipp.com/"
+						target="_new"><span>Bootsnipp</span> https://bootsnipp.com/</a><br>
+					<a href="https://docs.oracle.com/en/"><span>Oracle Help
 							Center</span> https://docs.oracle.com/en/</a><br> <a
-						href="https://getbootstrap.com/docs/4.0/getting-started/introduction/" target="_new"><span>Bootstrap
-							Docs</span> https://getbootstrap.com/docs/4.0/</a><br> <a
+						href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"
+						target="_new"><span>Bootstrap Docs</span>
+						https://getbootstrap.com/docs/4.0/</a><br> <a
 						href="https://www.magicbricks.com/" target="_new"><span>MagicBricks</span>
 						https://www.magicbricks.com/</a> <br> <a
 						href="https://www.commonfloor.com/" target="_new"><span>commonfloor</span>
 						https://www.commonfloor.com/ </a> <br> <a
 						href="http://rex.esy.es/" target="_new"><span>R.E.X</span>
-						http://rex.esy.es/</a> <br> <a href="http://rex.esy.es/pl/" target="_new"><span>ProLog
-							Academy</span> http://rex.esy.es/pl/</a>
+						http://rex.esy.es/</a> <br> <a href="http://rex.esy.es/pl/"
+						target="_new"><span>ProLog Academy</span>
+						http://rex.esy.es/pl/</a>
 				</p>
 			</dd>
 			<dt class="col-sm-3 text-truncate">GitHub Source Code</dt>
@@ -347,17 +350,17 @@ dd a span {
 					toolTipContent : "{name}: <strong>{y}%</strong>",
 					indexLabel : "{name} - {y}%",
 					dataPoints : [ {
-						y : 50.8,
+						y : 61.3,
 						name : "Java",
 						exploded : true
 					}, {
-						y : 28.4,
+						y : 21.0,
 						name : "HTML"
 					}, {
-						y : 15.0,
+						y : 12.7,
 						name : "JavaScript"
 					}, {
-						y : 5.8,
+						y : 5.0,
 						name : "CSS"
 					} ]
 				} ]
