@@ -21,10 +21,8 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap.min.css">
-<!-- <link href="mysql/default.css" rel="stylesheet" type="text/css" /> -->
-
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <script>
 	function validate(objForm) {
 
