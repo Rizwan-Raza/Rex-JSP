@@ -26,8 +26,11 @@ Say what the step will be
 
 ```
 Extract the downloaded zip in a particular folder.
+
 Open Eclipse IDE and choose Import from FileSystem or Zip
+
 After getting things ready check the jdk version apache server version conflicts.
+
 Now add and subtract things you want
 ```
 
