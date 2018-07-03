@@ -1,13 +1,13 @@
-/*@font-face {
+@font-face {
 	font-family: 'LeckerliOne';
-	src: url('../webfonts/LeckerliOne-Regular.otf');
+	src: url('../fonts/LeckerliOne-Regular.otf');
 }
-*/
+/*
 @font-face {
 	font-family: 'LeckerliOne';
 	src: url('../fonts/BEARPAW_.ttf');
 }
-
+*/
 button, a {
 	cursor: pointer;
 }
