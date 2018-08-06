@@ -1,12 +1,12 @@
 # Rex-JSP
 
-Real Estate eXplorer - Made using JSP
+## Real Estate eXplorer - Made using JSP
 
-## Getting Started
+### Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-## Prerequisites
+### Prerequisites
 
 What things you need to install the software and how to install them
 
@@ -18,7 +18,7 @@ MySQL Database ^5.7
 Maven Build Tool
 ```
 
-## Installing
+### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -42,13 +42,13 @@ Then finally, Run the server and listen to particular port in which it is served
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Deployment
+### Deployment
 
 For deployment you need register yourself with any of the java server provider like Heroku, OpenShift, Amazon AWS, Google Cloud Platform etc.
 
 In my case, I am using OpenShift Starter Server 3
 
-## Built With
+### Built With
 
 * [Bootstrap4.1](https://getbootstrap.com/docs/4.0/getting-started/introduction/) - The web framework used for UI
 * [Maven](https://maven.apache.org/) - Dependency Management
@@ -57,11 +57,11 @@ In my case, I am using OpenShift Starter Server 3
 * [jQuery 3.3](https://jquery.com/) - Used to minimize the effort for JavaScript.
 * [jQuery UI](https://jqueryui.com/) - Used for generating js enabled web components.
 
-## Authors
+### Authors
 
 * **Rizwan Raza** - *Initial work* - [Rex-JSP](https://github.com/Rex-JSP)
 
-## Acknowledgments
+### Acknowledgments
 
 * [StackOverflow](https://stackoverflow.com/) For solving some issue occur while development
 * [W3Schools](https://www.w3schools.com/) For getting the right syntax for some issues.
