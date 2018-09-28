@@ -1,6 +1,6 @@
 # Rex-JSP
 
-## Real Estate eXplorer - Made using JSP
+## Real Estate eXplorer - Built using JSP
 
 ### Getting Started
 
